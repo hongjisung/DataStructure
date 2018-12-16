@@ -34,7 +34,7 @@ List:
   reverse()
 
 */
-import Iterator from './iterator.js';
+const Iterator = require('./iterator');
 
 class Node {
   constructor(data='', prev='', next='') {
@@ -43,24 +43,24 @@ class Node {
     this._next = next;
   }
 
-  get getData(){
+  getData(){
     return this._data;
   }
-  set setData(data){
+  setData(data){
     this._data = data;
   }
   
-  get getPrev(){
+  getPrev(){
     return this._prev;
   }
-  set setPrev(prev){
+  setPrev(prev){
     this._prev = prev;
   }
 
-  get getNext(){
+  getNext(){
     return this._next;
   }
-  set setNext(next){
+  setNext(next){
     this._next = next;
   }
 }
@@ -74,8 +74,8 @@ class List extends Iterator {
   }
 
   // Capacity
-  get size(){
-    return this.size;
+  size(){
+    return this._size;
   }
   empty(){
     if(this._size===0){
@@ -89,10 +89,10 @@ class List extends Iterator {
   end(){}
 
   // Element Access
-  get front(){
+  front(){
     return this._front;
   }
-  get back(){
+  back(){
     return this._back;
   }
 
@@ -129,20 +129,71 @@ class List extends Iterator {
       this._front.setPrev(node);
       this._front = node;
     }
+
+    this._size += 1;
   }
-  pop_back(){}
-  pop_front(){}
+  pop_back(){
+    if(this._size===0){
+      return false;
+    }
+    
+    let node = this._back.getPrev();
+    if(node === ''){
+      this.clear()
+      return true;
+    }
+    else{
+      node.setNext('');
+      this._back = node;
+    }
+
+    this._size -= 1;
+    return true;
+  }
+  pop_front(){
+    if(this._size===0){
+      return false;
+    }
+
+    let node = this._front.getNext();
+    if(node === ''){
+      this.clear()
+      return true;
+    }
+    else{
+      node.setPrev('');
+      this._front = node;
+    }
+
+    this._size -= 1;
+    return true;
+  }
 
 
   // javascript iterator
   [Symbol.iterator](){
+    let node = '';
+    let start = this._front;
     const iterator = {
       next() {
-      
+        if(node === ''){
+          node = start;
+          if(node === ''){
+            return { value: undefined, done:true};
+          }
+          return { value : node.getData() , done : false};
+        }
+
+        node = node.getNext();
+        if(node === ''){
+          return { value: undefined, done:true};
+        }
+        return { value: node.getData(), done : false};
       }
     };
     return iterator;
   }
 }
 
-export default List;
+
+module.exports = {Node, List};
