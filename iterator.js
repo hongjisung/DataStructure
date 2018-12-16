@@ -4,4 +4,4 @@ class Iterator {
   hasnext(){};
 }
 
-export default Iterator;
+module.exports = Iterator;
