@@ -15,15 +15,19 @@ Node:
   next
 
 List:
+  // capacity
   size()
   empty()
 
+  // element access
   front()
   back()
 
+  // iterators
   begin()
   end()
 
+  // modifiers
   clear()
   insert()
   erase()
@@ -32,6 +36,7 @@ List:
   popBack()
   popFront()
 
+  // operations
   compare()
   splice()
   merge()
