@@ -252,18 +252,18 @@ class List {
         if (itr !== null) {
           itr = itr.getNext();
         }
-        if (itr == null) {
+        if (itr === null) {
           same = false;
         }
       });
-      if (itr !== this.end()) {
+      if (this.size() !== 0 && itr !== this.end()) {
         same = false;
       }
 
       if (same === false) {
         return false;
       }
-      
+
       return true;
     }
     return false;
