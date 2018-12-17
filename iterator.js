@@ -1,7 +1,9 @@
 class Iterator {
-  constructor(){};
-  next(){};
-  hasnext(){};
+  constructor() { };
+
+  next(){}
+
+  hasnext(){}
 }
 
 module.exports = Iterator;

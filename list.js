@@ -34,39 +34,44 @@ List:
   reverse()
 
 */
+
+/* eslint no-underscore-dangle: [2, { "allowAfterThis": true }] */
 const Iterator = require('./iterator');
 
 class Node {
-  constructor(data='', prev='', next='') {
+  constructor(data = '', prev = '', next = '') {
     this._data = data;
     this._prev = prev;
     this._next = next;
   }
 
-  getData(){
+  getData() {
     return this._data;
   }
-  setData(data){
+
+  setData(data) {
     this._data = data;
   }
-  
-  getPrev(){
+
+  getPrev() {
     return this._prev;
   }
-  setPrev(prev){
+
+  setPrev(prev) {
     this._prev = prev;
   }
 
-  getNext(){
+  getNext() {
     return this._next;
   }
-  setNext(next){
+
+  setNext(next) {
     this._next = next;
   }
 }
 
 class List extends Iterator {
-  constructor(){
+  constructor() {
     super();
     this._size = 0;
     this._front = '';
@@ -74,126 +79,127 @@ class List extends Iterator {
   }
 
   // Capacity
-  size(){
+  size() {
     return this._size;
   }
-  empty(){
-    if(this._size===0){
+
+  empty() {
+    if (this._size === 0) {
       return true;
     }
     return false;
   }
 
   // c++ iterators
-  begin(){}
-  end(){}
+  begin() {}
+
+  end() {}
 
   // Element Access
-  front(){
+  front() {
     return this._front;
   }
-  back(){
+
+  back() {
     return this._back;
   }
 
   // Modifiers
-  clear(){
+  clear() {
     this._size = 0;
     this._front = '';
     this._back = '';
   }
-  insert(){}
-  erase(){}
-  push_back(data){
-    let node = new Node(data, this._back, '');
-    
-    if(this._size===0){
+
+  insert() {}
+
+  erase() {}
+
+  pushBack(data) {
+    const node = new Node(data, this._back, '');
+
+    if (this._size === 0) {
       this._front = node;
       this._back = node;
-    }
-    else{
+    } else {
       this._back.setNext(node);
       this._back = node;
     }
 
     this._size += 1;
   }
-  push_front(data){
-    let node = new Node(data, '', this._front);
 
-    if(this._size===0){
+  pushFront(data) {
+    const node = new Node(data, '', this._front);
+
+    if (this._size === 0) {
       this._front = node;
       this._back = node;
-    }
-    else{
+    } else {
       this._front.setPrev(node);
       this._front = node;
     }
 
     this._size += 1;
   }
-  pop_back(){
-    if(this._size===0){
+
+  popBack() {
+    if (this._size === 0) {
       return false;
     }
-    
-    let node = this._back.getPrev();
-    if(node === ''){
-      this.clear()
+
+    const node = this._back.getPrev();
+    if (node === '') {
+      this.clear();
       return true;
     }
-    else{
-      node.setNext('');
-      this._back = node;
-    }
-
+    node.setNext('');
+    this._back = node;
     this._size -= 1;
     return true;
   }
-  pop_front(){
-    if(this._size===0){
+
+  popFront() {
+    if (this._size === 0) {
       return false;
     }
 
-    let node = this._front.getNext();
-    if(node === ''){
-      this.clear()
+    const node = this._front.getNext();
+    if (node === '') {
+      this.clear();
       return true;
     }
-    else{
-      node.setPrev('');
-      this._front = node;
-    }
-
+    node.setPrev('');
+    this._front = node;
     this._size -= 1;
     return true;
   }
 
 
   // javascript iterator
-  [Symbol.iterator](){
+  [Symbol.iterator]() {
     let node = '';
-    let start = this._front;
+    const start = this._front;
     const iterator = {
       next() {
-        if(node === ''){
+        if (node === '') {
           node = start;
-          if(node === ''){
-            return { value: undefined, done:true};
+          if (node === '') {
+            return { value: undefined, done: true };
           }
-          return { value : node.getData() , done : false};
+          return { value: node.getData(), done: false };
         }
 
         node = node.getNext();
-        if(node === ''){
-          return { value: undefined, done:true};
+        if (node === '') {
+          return { value: undefined, done: true };
         }
-        return { value: node.getData(), done : false};
-      }
+        return { value: node.getData(), done: false };
+      },
     };
     return iterator;
   }
 }
 
 
-module.exports = {Node, List};
+module.exports = List;
