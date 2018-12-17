@@ -12,6 +12,17 @@ describe('List', () => {
 
   beforeEach('clear list', () => { list = new List(); });
 
+  it('constructor check', () => {
+    list = new List();
+    assert.strictEqual(list.size(), 0);
+    assert.strictEqual(list.compare([]), true);
+
+    list = new List([1, 2, 3]);
+    assert.strictEqual(list.size(), 3);
+    assert.strictEqual(list.compare([1, 2, 3]), true);
+    assert.strictEqual(list.compare([1, 3, 2]), false);
+  });
+
   it('size() check', () => {
     assert.equal(list.size(), 0);
     list.pushBack(3);
