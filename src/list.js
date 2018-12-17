@@ -1,6 +1,9 @@
 /*
 javascript constructure 1개
 
+issue
+1. list의 마지막은 Nil로 하는 것
+
 class:
   Node
   List
@@ -18,6 +21,9 @@ List:
   front()
   back()
 
+  begin()
+  end()
+
   clear()
   insert()
   erase()
@@ -26,17 +32,16 @@ List:
   pop_back()
   pop_front()
 
-  merge()
+  compare()
   splice()
+  merge()
   reverse()
 
 */
 
 /* eslint no-underscore-dangle: [2, { "allowAfterThis": true }] */
-const Iterator = require('./iterator');
-
 class Node {
-  constructor(data = '', prev = '', next = '') {
+  constructor(data = null, prev = null, next = null) {
     this._data = data;
     this._prev = prev;
     this._next = next;
@@ -67,12 +72,15 @@ class Node {
   }
 }
 
-class List extends Iterator {
-  constructor() {
-    super();
+class List {
+  constructor(data = null) {
+    this._nil = new Node(null, null, null);
     this._size = 0;
-    this._front = '';
-    this._back = '';
+    this._front = null;
+    this._back = this._nil;
+    if (data !== null && typeof data[Symbol.iterator] === 'function') {
+      [...data].forEach(val => this.pushBack(val));
+    }
   }
 
   // Capacity
@@ -89,33 +97,56 @@ class List extends Iterator {
 
   // Element Access
   front() {
-    return this._front;
+    if (this._size === 0) {
+      return false;
+    }
+    return this._front.getData();
   }
 
   back() {
+    if (this._size === 0) {
+      return false;
+    }
+    return this._back.getPrev().getData();
+  }
+
+  // iterable node
+  begin() {
+    return this._front;
+  }
+
+  end() {
     return this._back;
   }
 
   // Modifiers
   clear() {
+    this._nil = new Node(null, null, null);
     this._size = 0;
-    this._front = '';
-    this._back = '';
+    this._front = null;
+    this._back = this._nil;
   }
 
   insert(node, data) {
     if (!(node instanceof Node)) {
       return false;
     }
+
     const newnode = new Node(data);
     newnode.setPrev(node.getPrev());
     newnode.setNext(node);
+
     if (this._front === node) {
       this._front = newnode;
     }
+
+    const prevnode = node.getPrev();
+    if (prevnode !== null) {
+      prevnode.setNext(newnode);
+    }
     node.setPrev(newnode);
     this._size += 1;
-    return true;
+    return node;
   }
 
   erase(node) {
@@ -123,43 +154,43 @@ class List extends Iterator {
       return false;
     }
     if (this._front === node) {
+      const nextnode = node.getNext();
       this.popFront();
-      return true;
+      return nextnode;
     }
     if (this._back === node) {
-      this.popBack();
-      return true;
+      return false;
     }
 
     const frontnode = node.getPrev();
-    const nextnode = node.getBack();
+    const nextnode = node.getNext();
     frontnode.setNext(nextnode);
     nextnode.setPrev(frontnode);
 
     this._size -= 1;
-    return true;
+    return nextnode;
   }
 
   pushBack(data) {
-    const node = new Node(data, this._back, '');
+    const lastnode = this._back.getPrev();
+    const node = new Node(data, lastnode, this._nil);
 
     if (this._size === 0) {
       this._front = node;
-      this._back = node;
     } else {
-      this._back.setNext(node);
-      this._back = node;
+      lastnode.setNext(node);
     }
 
+    this._nil.setPrev(node);
     this._size += 1;
   }
 
   pushFront(data) {
-    const node = new Node(data, '', this._front);
+    const node = new Node(data, null, this._front);
 
     if (this._size === 0) {
       this._front = node;
-      this._back = node;
+      this._nil.setPrev(node);
     } else {
       this._front.setPrev(node);
       this._front = node;
@@ -173,13 +204,13 @@ class List extends Iterator {
       return false;
     }
 
-    const node = this._back.getPrev();
-    if (node === '') {
+    const node = this._back.getPrev().getPrev();
+    if (node === null) {
       this.clear();
       return true;
     }
-    node.setNext('');
-    this._back = node;
+    node.setNext(this._back);
+    this._back.setPrev(node);
     this._size -= 1;
     return true;
   }
@@ -190,36 +221,122 @@ class List extends Iterator {
     }
 
     const node = this._front.getNext();
-    if (node === '') {
+    if (node === this._nil) {
       this.clear();
       return true;
     }
-    node.setPrev('');
+    node.setPrev(null);
     this._front = node;
     this._size -= 1;
     return true;
   }
 
+  // Operations
+  compare(data) {
+    if (data === null) {
+      return false;
+    }
+
+    if (typeof data[Symbol.iterator] === 'function') {
+      let itr = this.begin();
+      let same = true;
+      [...data].forEach((val) => {
+        if (itr !== null && itr.getData() !== val) {
+          same = false;
+        }
+        if (itr !== null) {
+          itr = itr.getNext();
+        }
+        if (itr == null) {
+          same = false;
+        }
+      });
+      if (itr !== this.end()) {
+        same = false;
+      }
+
+      if (same === false) {
+        return false;
+      }
+      
+      return true;
+    }
+    return false;
+  }
+
+  splice(node, data) {
+    if (data !== null && typeof data[Symbol.iterator] === 'function') {
+      [...data].forEach((val) => {
+        if (val !== null) {
+          this.insert(node, val);
+        }
+      });
+      return true;
+    }
+    return false;
+  }
+
+  merge(data, compare = (d1, d2) => d1 < d2) {
+    if (data === null) {
+      return false;
+    }
+
+    if (typeof data[Symbol.iterator] === 'function') {
+      const newlist = new List();
+      let itr = this.begin();
+      [...data].forEach((val) => {
+        while (compare(itr.getData(), val)) {
+          newlist.pushBack(itr.getData());
+          itr = itr.getNext();
+          if (itr.getData() === null) {
+            break;
+          }
+        }
+        newlist.pushBack(val);
+      });
+      this._back = newlist.end();
+      this._size = newlist.size();
+      this._front = newlist.begin();
+      this._back = newlist.end();
+      return true;
+    }
+    return false;
+  }
+
+  reverse() {
+    const newlist = new List();
+    let len = this.size();
+    while (len !== 0) {
+      newlist.pushBack(this.back());
+      this.popBack();
+      len -= 1;
+    }
+    this._nil = newlist.end();
+    this._size = newlist.size();
+    this._front = newlist.begin();
+    this._back = newlist.end();
+  }
 
   // javascript iterator
   [Symbol.iterator]() {
-    let node = '';
-    const start = this._front;
+    let node = null;
+    const start = this.begin();
+    const end = this.end();
     const iterator = {
       next() {
-        if (node === '') {
+        if (node === null) {
           node = start;
-          if (node === '') {
+          if (node === end) {
             return { value: undefined, done: true };
           }
-          return { value: node, done: false };
+          return { value: node.getData(), done: false };
         }
 
         node = node.getNext();
-        if (node === '') {
+        if (node === end) {
           return { value: undefined, done: true };
         }
-        return { value: node, done: false };
+        return { value: node.getData(), done: false };
       },
     };
     return iterator;
