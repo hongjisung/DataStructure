@@ -1,0 +1,30 @@
+{
+  "name": "js_datastructure",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "doc": "jsdoc -c jsdoc.json",
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hongjisung/DataStructure.git"
+  },
+  "author": "hongjisung",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hongjisung/DataStructure/issues"
+  },
+  "homepage": "https://github.com/hongjisung/DataStructure#readme",
+  "devDependencies": {
+    "docdash": "^1.0.1",
+    "eslint": "^5.10.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-react": "^7.11.1",
+    "jsdoc": "^3.5.5",
+    "mocha": "^5.2.0"
+  }
+}
