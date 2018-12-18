@@ -8,5 +8,8 @@ array based
 method was based [here](https://en.cppreference.com/w/cpp/container/stack)
 3. queue  
 
+# Eslint
+airbnb
+
 # Test
 Mocha
