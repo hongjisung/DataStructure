@@ -7,7 +7,7 @@ method was based [here](https://en.cppreference.com/w/cpp/container/list)
 2. stack  
 array based  
 method was based [here](https://en.cppreference.com/w/cpp/container/stack)
-  
+
 3. queue  
 circular array based
 sizeup : mutiply 2
@@ -29,6 +29,8 @@ unique element
 key != data Binary search tree   
 unique element  
 
+# Jsdoc  
+docdash
 
 # Eslint
 airbnb
