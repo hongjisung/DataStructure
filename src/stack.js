@@ -20,9 +20,28 @@ method:
 */
 
 /* eslint no-underscore-dangle: [2, { "allowAfterThis": true }] */
+/**
+ * @class Stack
+ * @classdesc Class representing a Stack.
+ * @version v1.0
+ */
 class Stack {
+  /**
+   * Create a stack.
+   * @param {Object} data - The data is iterable object.
+   */
   constructor(data = null) {
+    /**
+     * container of element
+     * @member {Object}
+     * @type {Array}
+     * @private
+     */
     this._elements = [];
+    /**
+     * @member {number}
+     * @private
+     */
     this._size = 0;
 
     if (data !== null && typeof data[Symbol.iterator] === 'function') {
@@ -31,6 +50,10 @@ class Stack {
   }
 
   // element access
+  /**
+   * Get the top data.
+   * @returns {boolean|number} false if the stack has no element, else the number of elements.
+   */
   top() {
     if (this._size === 0) {
       return false;
@@ -39,6 +62,10 @@ class Stack {
   }
 
   // capacity
+  /**
+   * Check the stack is empty.
+   * @returns {boolean} true if the stack is empty.
+   */
   empty() {
     if (this._size === 0) {
       return true;
@@ -46,16 +73,28 @@ class Stack {
     return false;
   }
 
+  /**
+   * Get the number of elements in stack.
+   * @returns {number} the number of elements.
+   */
   size() {
     return this._size;
   }
 
   // modifiers
+  /**
+   * Push a data in stack.
+   * @param {*} data - The data pushed to stack.
+   */
   push(data) {
     this._elements.push(data);
     this._size += 1;
   }
 
+  /**
+   * pop the top elements
+   * @return {boolean} false if the stack is empty.
+   */
   pop() {
     if (this._size === 0) {
       return false;
@@ -66,6 +105,11 @@ class Stack {
   }
 
   // operations
+  /**
+   * compare with other stack
+   * @param {Object} otherStack - Stack object to compare.
+   * @return {boolean} true if they are same.
+   */
   compare(otherStack) {
     if (!(otherStack instanceof Stack)) {
       return false;
@@ -84,5 +128,3 @@ class Stack {
 }
 
 module.exports = Stack;
-
-
