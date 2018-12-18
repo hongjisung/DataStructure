@@ -73,7 +73,7 @@ describe('Stack', () => {
     s2.push(4);
     assert.strictEqual(stack.compare(s2), false);
     s2.push(5);
-    assert.strictEqual(stack.compare(s2), false);
+    assert.strictEqual(stack.compare(s2), true);
     s2.push(6);
     assert.strictEqual(stack.compare(s2), false);
     s2.pop();
