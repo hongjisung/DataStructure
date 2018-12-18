@@ -7,7 +7,9 @@ method was based [here](https://en.cppreference.com/w/cpp/container/list)
 array based  
 method was based [here](https://en.cppreference.com/w/cpp/container/stack)
 3. queue  
-
+circular array based
+sizeup : mutiply 2
+method was based [here](https://en.cppreference.com/w/cpp/container/queue)
 # Eslint
 airbnb
 
