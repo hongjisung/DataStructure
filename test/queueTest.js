@@ -109,7 +109,6 @@ describe('Queue', () => {
     assert.strictEqual(queue.compare(q5), true);
   });
 
-
   it('iterate check', () => {
     queue = new Queue([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
     let i = 1;
@@ -119,4 +118,24 @@ describe('Queue', () => {
       i += 1;
     }
   });
+
+
+  it('iterate2 check', () => {
+    queue = new Queue([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+    queue.pop();
+    queue.pop();
+    queue.pop();
+    queue.push(11);
+    queue.push(12);
+    queue.push(13);
+    queue.push(14);
+    let i = 4;
+    while (!queue.empty()) {
+      assert.strictEqual(queue.front(), i);
+      queue.pop();
+      i += 1;
+    }
+  });
+
+
 });
