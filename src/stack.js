@@ -38,6 +38,7 @@ class Stack {
      */
     this._elements = [];
     /**
+     * the number of elements
      * @type {number}
      * @private
      */
@@ -51,7 +52,7 @@ class Stack {
   // element access
   /**
    * Get the top data.
-   * @returns {boolean|number} false if the stack has no element, else the number of elements.
+   * @returns {boolean|*} false if the stack has no element else top element.
    */
   top() {
     if (this._size === 0) {
