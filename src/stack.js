@@ -21,7 +21,6 @@ method:
 
 /* eslint no-underscore-dangle: [2, { "allowAfterThis": true }] */
 /**
- * @class Stack
  * @classdesc Class representing a Stack.
  * @version v1.0
  */

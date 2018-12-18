@@ -29,15 +29,48 @@ method:
 */
 
 /* eslint no-underscore-dangle: [2, { "allowAfterThis": true}] */
+/**
+ * @class PriorityQueue
+ * @classdesc class representing priority queue.
+ * @version v1.0
+ */
 class PriorityQueue {
+  /**
+   * Create a prioirty queue.
+   * @param {function} compare - inequality function, compare two element and return true or false.
+   */
   constructor(compare = (n1, n2) => n1 < n2) {
+    /**
+     * inequality of elements
+     * @member {function}
+     * @private
+     */
     this._compare = compare;
+    /**
+     * array of elements
+     * @type {Array}
+     * @private
+     */
     this._elements = new Array(3);
+    /**
+     * the number of elements
+     * @type {number}
+     * @private
+     */
     this._size = 0;
+    /**
+     * the size of array
+     * @type {number}
+     * @private
+     */
     this._maxSize = 3;
   }
 
   // private function
+  /**
+   * when array become full, doubled up array
+   * @private
+   */
   _sizeup() {
     const newContainer = new Array(this._maxSize * 2);
     for (let i = 0; i < this._size; i += 1) {
@@ -48,10 +81,18 @@ class PriorityQueue {
   }
 
   // element access
+  /**
+   * Get the compare function of priority queue.
+   * @return {function} compare function
+   */
   compareFunction() {
     return this._compare;
   }
 
+  /**
+   * Get the top element of priority queue.
+   * @return {boolean|*} false if the priority queue is empty else top element.
+   */
   top() {
     if (this._size === 0) {
       return false;
@@ -60,6 +101,10 @@ class PriorityQueue {
   }
 
   // capacity
+  /**
+   * Make sure the priority queue is empty.
+   * @return {boolean} let know the priority queue is empty.
+   */
   empty() {
     if (this._size === 0) {
       return true;
@@ -67,11 +112,19 @@ class PriorityQueue {
     return false;
   }
 
+  /**
+   * Get the number of elements
+   * @return {number} the number of elements
+   */
   size() {
     return this._size;
   }
 
   // modifiers
+  /**
+   * Push new data into priority queue.
+   * @param {*} data - the element of priority queue.
+   */
   push(data) {
     if (this._size === this._maxSize) {
       this._sizeup();
@@ -93,10 +146,12 @@ class PriorityQueue {
       this._elements[idx - 1] = temp;
       idx = upidx;
     }
-
-    return true;
   }
 
+  /**
+   * pop the top element of priority queue.
+   * @returns {boolean} check well eliminated.
+   */
   pop() {
     if (this._size === 0) {
       return false;
