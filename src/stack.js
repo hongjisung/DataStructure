@@ -33,13 +33,12 @@ class Stack {
   constructor(data = null) {
     /**
      * container of element
-     * @member {Object}
      * @type {Array}
      * @private
      */
     this._elements = [];
     /**
-     * @member {number}
+     * @type {number}
      * @private
      */
     this._size = 0;
