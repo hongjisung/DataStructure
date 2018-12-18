@@ -6,6 +6,9 @@ class
   Queue
 
 method
+  // private method
+  _sizeup
+
   // element access
   front
   back
