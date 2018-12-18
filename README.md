@@ -4,6 +4,8 @@ javascript data structure
 doubly linked list  
 method was based [here](https://en.cppreference.com/w/cpp/container/list)
 2. stack  
+array based  
+method was based [here](https://en.cppreference.com/w/cpp/container/stack)
 3. queue  
 
 # Test
