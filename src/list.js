@@ -45,43 +45,129 @@ List:
 */
 
 /* eslint no-underscore-dangle: [2, { "allowAfterThis": true }] */
+/**
+ * @classdesc Express list element.<br>
+ * Point front and back Node object.
+ */
 class Node {
+  /**
+   * Create node of list.
+   * @constructor
+   * @protected
+   * @param {*} data - the data of node. 
+   * @param {*} prev - point the front node of this node.
+   * @param {*} next - point the next node of thie node.
+   */
   constructor(data = null, prev = null, next = null) {
+    /**
+     * data variable
+     * @private
+     * @type {*}
+     */
     this._data = data;
+    /**
+     * front node
+     * @private
+     * @type {Node}
+     */
     this._prev = prev;
+    /**
+     * next node
+     * @private
+     * @type {Node}
+     */
     this._next = next;
   }
 
+  /**
+   * Get the data of Node.
+   * @protected
+   * @return {*} The data of Node.
+   */
   getData() {
     return this._data;
   }
 
+  /**
+   * Set the data of Node.
+   * @protected
+   * @param {*} data - The data of Node. 
+   */
   setData(data) {
     this._data = data;
   }
 
+  /**
+   * Get the front node.
+   * @return {Node} The front node.
+   */
   getPrev() {
     return this._prev;
   }
 
+  /**
+   * Set the front node.
+   * @protected
+   * @param {Node} prev - The front node.
+   */
   setPrev(prev) {
     this._prev = prev;
   }
 
+  /**
+   * Get the next node.
+   * @return {Node} The Next node.
+   */
   getNext() {
     return this._next;
   }
 
+  /**
+   * Set the next node.
+   * @protected
+   * @param {Node} next - The next node.
+   */
   setNext(next) {
     this._next = next;
   }
 }
 
+/**
+ * @classdesc Class representing List.<br>
+ * Doubly linked list.
+ * @version v1.0.
+ */
 class List {
+  /**
+   * Get null or iterable Object and make List sequentially.
+   * @param {*} data - The data of Node.
+   */
   constructor(data = null) {
+    /**
+     * Express the end of List.<br>
+     * It is a virtual node.
+     * @private
+     * @type {Node}
+     */
     this._nil = new Node(null, null, null);
+    /**
+     * the number of Node
+     * @private
+     * @type {number} 
+     */
     this._size = 0;
+    /**
+     * The first node of list.
+     * @private
+     * @type {Node}
+     */
     this._front = null;
+    /**
+     * The end of list.
+     * Always nil.
+     * @private
+     * @type {Node}
+     */
     this._back = this._nil;
     if (data !== null && typeof data[Symbol.iterator] === 'function') {
       [...data].forEach(val => this.pushBack(val));
@@ -89,10 +175,18 @@ class List {
   }
 
   // Capacity
+  /**
+   * Get the number of elements.
+   * @return {number} the number of elements. 
+   */
   size() {
     return this._size;
   }
 
+  /**
+   * Make sure the list is empty.
+   * @return {boolean} if list is empty, true.
+   */
   empty() {
     if (this._size === 0) {
       return true;
@@ -101,6 +195,10 @@ class List {
   }
 
   // Element Access
+  /**
+   * Get the first element of list.
+   * @return {boolean|*} false if list is empty, else return the first element.
+   */
   front() {
     if (this._size === 0) {
       return false;
@@ -108,6 +206,10 @@ class List {
     return this._front.getData();
   }
 
+  /**
+   * Get the last element of list.
+   * @return {boolean|*} false if list is empty, else return the last element.
+   */
   back() {
     if (this._size === 0) {
       return false;
@@ -116,15 +218,29 @@ class List {
   }
 
   // iterable node
+  /**
+   * Get the first Node of list.<br>
+   * Can use getNext method for next node.
+   * @return {Node} The first Node of list.
+   */
   begin() {
     return this._front;
   }
 
+  /**
+   * Get the end of list, nil.<br>
+   * For check of end.<br>
+   * Or use getPrev method for before node:last node of list.
+   * @return {Node} nil
+   */
   end() {
     return this._back;
   }
 
   // Modifiers
+  /**
+   * Make list empty.
+   */
   clear() {
     this._nil = new Node(null, null, null);
     this._size = 0;
@@ -132,6 +248,12 @@ class List {
     this._back = this._nil;
   }
 
+  /**
+   * Insert new data in front of given node and return present node like c++ stl.
+   * @param {Node} node - In front of this node, the data is inserted.
+   * @param {*} data - The data to insert list.
+   * @returns {boolean|Node} - If node is not Node object, return false, else return this node.
+   */
   insert(node, data) {
     if (!(node instanceof Node)) {
       return false;
@@ -154,6 +276,11 @@ class List {
     return node;
   }
 
+  /**
+   * Erase this node and return the next node.
+   * @param {*} node - The node which is removed from list.
+   * @returns {boolean|Node} - If node is not Node object, return false, else return the next node.
+   */
   erase(node) {
     if (!(node instanceof Node)) {
       return false;
@@ -176,6 +303,10 @@ class List {
     return nextnode;
   }
 
+  /**
+   * The data is added to end of list.
+   * @param {*} data - the data of list.
+   */
   pushBack(data) {
     const lastnode = this._back.getPrev();
     const node = new Node(data, lastnode, this._nil);
@@ -190,6 +321,10 @@ class List {
     this._size += 1;
   }
 
+  /**
+   * The data is added to front of list.
+   * @param {*} data - the data of list.
+   */
   pushFront(data) {
     const node = new Node(data, null, this._front);
 
@@ -204,6 +339,10 @@ class List {
     this._size += 1;
   }
 
+  /**
+   * The data is removed from end of list.
+   * @returns {boolean} false it the list is empty.
+   */
   popBack() {
     if (this._size === 0) {
       return false;
@@ -220,6 +359,10 @@ class List {
     return true;
   }
 
+  /**
+   * The data is removed from front of list.
+   * @returns {boolean} false it the list is empty.
+   */
   popFront() {
     if (this._size === 0) {
       return false;
@@ -237,6 +380,11 @@ class List {
   }
 
   // Operations
+  /**
+   * Compare iterable object with this list.
+   * @param {Object} data - iterable object.
+   * @returns {boolean} - true if the data and index is same in list and iterable object.
+   */
   compare(data) {
     if (data === null) {
       return false;
@@ -269,6 +417,12 @@ class List {
     return false;
   }
 
+  /**
+   * Insert elements of iterable object in list where the front of given node.
+   * @param {Node} node - Elements of data are inserted in front of this node.
+   * @param {Object} data - iterable object
+   * @returns {boolean} If elements are well inserted, return true.
+   */
   splice(node, data) {
     if (data !== null && typeof data[Symbol.iterator] === 'function') {
       [...data].forEach((val) => {
@@ -281,6 +435,13 @@ class List {
     return false;
   }
 
+  /**
+   * Merge this list and data(iterable object) by sequential order.<br>
+   * Given two container(list, data) should be sorted already.
+   * @param {Object} data - sorted iterable object.
+   * @param {function} compare - inequality function.
+   * @return {boolean} check well merged.
+   */
   merge(data, compare = (d1, d2) => d1 < d2) {
     if (data === null) {
       return false;
@@ -308,6 +469,9 @@ class List {
     return false;
   }
 
+  /**
+   * Reverse the list.
+   */
   reverse() {
     const newlist = new List();
     let len = this.size();
@@ -323,6 +487,11 @@ class List {
   }
 
   // javascript iterator
+  /**
+   * Iterator of this list.
+   * return the value of Nodes.
+   * @returns {Object} {value, done}
+   */
   [Symbol.iterator]() {
     let node = null;
     const start = this.begin();
