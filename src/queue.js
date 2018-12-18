@@ -24,12 +24,50 @@ method
 */
 
 /* eslint no-underscore-dangle: [2, { "allowAfterThis": true }] */
+/**
+ * @classdesc Class representing queue.<br>
+ * Circular queue.<br>
+ * Use array as container.
+ * @version v1.0
+ */
 class Queue {
+  /**
+   * Get none or iterable object and make queue.
+   * @constructor
+   * @param {Object} data - Iterable object
+   */
   constructor(data = null) {
+    /**
+     * container of elements.
+     * @type {Array}
+     * @private
+     */
     this._elements = new Array(2);
+    /**
+     * the number of elements.
+     * @type {number}
+     * @private
+     */
     this._size = 0;
+    /**
+     * the size of Array.
+     * @type {number}
+     * @private
+     */
     this._maxSize = 2;
+    /**
+     * the index of first element.
+     * null if queue is empty.
+     * @type {null|number}
+     * @private
+     */
     this._begin = null;
+    /**
+     * the index of last element.
+     * null if queue is empty.
+     * @type {null|number}
+     * @private
+     */
     this._end = null;
 
     if (data !== null && typeof data[Symbol.iterator] === 'function') {
@@ -38,6 +76,10 @@ class Queue {
   }
 
   // private method
+  /**
+   * When the container is full, doubled up the container.
+   * @private
+   */
   _sizeup() {
     const newcontainer = new Array(this._maxSize * 2);
     let newidx = 0;
@@ -53,6 +95,10 @@ class Queue {
   }
 
   // element access
+  /**
+   * Get the first element of queue.
+   * @return {*} - the first element of queue.
+   */
   front() {
     if (this._size === 0) {
       return false;
@@ -60,6 +106,10 @@ class Queue {
     return this._elements[this._begin];
   }
 
+  /**
+   * Get the last element of queue.
+   * @return {*} - the last element of queue.
+   */
   back() {
     if (this._size === 0) {
       return false;
@@ -68,6 +118,10 @@ class Queue {
   }
 
   // capacity
+  /**
+   * Make sure the queue is empty.
+   * @return {boolean} true if queue is empty.
+   */
   empty() {
     if (this._size === 0) {
       return true;
@@ -75,11 +129,18 @@ class Queue {
     return false;
   }
 
+  /**
+   * Get the number of element in queue.
+   * @return {number} the number of elements.
+   */
   size() {
     return this._size;
   }
 
   // modifiers
+  /**
+   * Initalize the queue
+   */
   clear() {
     this._elements = new Array(2);
     this._size = 0;
@@ -88,24 +149,30 @@ class Queue {
     this._end = null;
   }
 
+  /**
+   * Insert new data to queue.
+   * @param {*} data - the element of queue.
+   */
   push(data) {
     if (this._size === 0) {
       this._elements[0] = data;
       this._begin = 0;
       this._end = 0;
       this._size += 1;
-      return true;
+    } else {
+      if (this._size === this._maxSize) {
+        this._sizeup();
+      }
+      this._end = (this._end + 1) % this._maxSize;
+      this._elements[this._end] = data;
+      this._size += 1;
     }
-
-    if (this._size === this._maxSize) {
-      this._sizeup();
-    }
-    this._end = (this._end + 1) % this._maxSize;
-    this._elements[this._end] = data;
-    this._size += 1;
-    return true;
   }
 
+  /**
+   * remove a data of queue.
+   * @return {boolean} If queue is empty, return false.
+   */
   pop() {
     if (this._size === 0) {
       return false;
@@ -121,6 +188,11 @@ class Queue {
   }
 
   // operations
+  /**
+   * Compare with other queue
+   * @param {Queue} otherQueue - Queue object.
+   * @return {boolean} Make sure two queues are same.
+   */
   compare(otherQueue) {
     if (!(otherQueue instanceof Queue)) {
       return false;

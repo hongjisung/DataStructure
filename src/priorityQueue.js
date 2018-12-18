@@ -30,7 +30,8 @@ method:
 
 /* eslint no-underscore-dangle: [2, { "allowAfterThis": true}] */
 /**
- * @classdesc class representing priority queue.
+ * @classdesc Class representing priority queue.<br>
+ * Use Array as container.
  * @version v1.0
  */
 class PriorityQueue {
