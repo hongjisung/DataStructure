@@ -158,4 +158,21 @@ describe('Priority Queue', () => {
       idx += 1;
     }
   });
+
+  it('large data test2', () => {
+    const increasing = [];
+    const decreasing = [];
+    for (let i = 1; i <= 100000; i += 1) {
+      increasing.push(i);
+      decreasing.push(100001 - i);
+    }
+
+    increasing.forEach(val => priorityQueue.push(val));
+    let idx = 0;
+    while (!priorityQueue.empty()) {
+      assert.strictEqual(priorityQueue.top(), decreasing[idx]);
+      priorityQueue.pop();
+      idx += 1;
+    }
+  });
 });
