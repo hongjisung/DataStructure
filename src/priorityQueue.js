@@ -28,7 +28,6 @@ method:
   pop
 */
 
-/* eslint no-underscore-dangle: [2, { "allowAfterThis": true}] */
 /**
  * @classdesc Class representing priority queue.<br>
  * Use Array as container.

@@ -23,7 +23,6 @@ method
   compare
 */
 
-/* eslint no-underscore-dangle: [2, { "allowAfterThis": true }] */
 /**
  * @classdesc Class representing queue.<br>
  * Circular queue.<br>

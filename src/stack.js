@@ -19,7 +19,6 @@ method:
   compare
 */
 
-/* eslint no-underscore-dangle: [2, { "allowAfterThis": true }] */
 /**
  * @classdesc Class representing a Stack.
  * @version v1.0

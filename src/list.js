@@ -44,7 +44,6 @@ List:
 
 */
 
-/* eslint no-underscore-dangle: [2, { "allowAfterThis": true }] */
 /**
  * @classdesc Express list element.<br>
  * Point front and back Node object.
