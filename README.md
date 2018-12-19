@@ -20,18 +20,18 @@ speed : 1 to 1000000 integer by decreasing order (643ms) by ./test/priorityQueue
 method was based [here](https://en.cppreference.com/w/cpp/container/priority_queue)  
 
 5. deque  
-Add some method on queue data structure.
-Deque extends Queue.
-Container is based on circular array.
+Add some method on queue data structure.  
+Deque extends Queue.  
+Container is based on circular array.  
 pop and push method are assumed as private.
 
-6. set  
-key = data Binary search tree  
-unique element  
+6. setTree  
+binary search tree with unique value.   
+key and data not seperated.  
 
-7. map  
-key != data Binary search tree   
-unique element  
+7. mapTree  
+binary search tree with unique value.  
+key and data are seperated.  
 
 # Jsdoc  
 docdash
