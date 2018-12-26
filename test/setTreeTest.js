@@ -7,7 +7,7 @@ describe('Set Tree', () => {
 
   beforeEach('Initiate set tree', () => { setTree = new SetTree(); });
 
-  it.apply('', () => { 
+  it('', () => {
     assert.strictEqual(setTree.size(), 0);
   });
 });

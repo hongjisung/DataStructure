@@ -1,16 +1,4 @@
 /*
-Red Black Tree
-
-class Node:
-  Method:
-    getData
-    setData
-    getParent
-    setParent
-    getLeftChild
-    setLeftChild
-    getRightChild
-    setRightChild
 
 class SetTree:
   Constructor:
@@ -23,21 +11,27 @@ class SetTree:
     begin
     end
     [Symbol.iterator]
+
     // Capacity
     empty
     size
+
     // Modifiers
     clear
     insert
+    erase
     merge
+
     // Lookup
     count
     find
     contains
-    equal_range
-    lower_bound
-    upper_bound
+    equalRange
+    lowerBound
+    upperBound
+
     // Observers
-    key_comp
+    keyComp
 
 */
+
