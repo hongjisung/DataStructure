@@ -62,6 +62,7 @@ describe('List', () => {
   });
 
   it('begin() check', () => {
+    assert.strictEqual(list.begin(), null);
     list.pushBack(3);
     assert.strictEqual(list.begin().getData(), 3);
     list.pushFront(4);

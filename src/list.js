@@ -80,7 +80,6 @@ class Node {
 
   /**
    * Get the data of Node.
-   * @protected
    * @return {*} The data of Node.
    */
   getData() {
@@ -152,7 +151,7 @@ class List {
     /**
      * the number of Node
      * @private
-     * @type {number} 
+     * @type {number}
      */
     this._size = 0;
     /**
@@ -219,7 +218,8 @@ class List {
   // iterable node
   /**
    * Get the first Node of list.<br>
-   * Can use getNext method for next node.
+   * Can use getNext method for next node.<br>
+   * if list is empty, return null.
    * @return {Node} The first Node of list.
    */
   begin() {
