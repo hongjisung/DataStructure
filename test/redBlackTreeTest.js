@@ -17,13 +17,18 @@ describe('Red Black Tree', () => {
     cmpTree.insert(2, 15);
     cmpTree.insert(4, 1);
     redBlackTree = new RedBlackTree(cmpTree);
-    assert.strictEqual(redBlackTree.compareKey([1, 2, 3, 4, 5]), false);
-    assert.strictEqual(redBlackTree.compareKey([5, 4, 3, 2, 1]), true);
-    assert.strictEqual(redBlackTree.compareValue([6, 15, 10, 1, 3]), false);
-    assert.strictEqual(redBlackTree.compareValue([3, 1, 10, 15, 6]), true);
+    let itr = cmpTree.begin();
+    assert.strictEqual(itr.getKey(), 5);
+    itr = itr.getNext();
+    assert.strictEqual(itr.getKey(), 4);
+    itr = itr.getNext();
+    assert.strictEqual(itr.getKey(), 3);
+    itr = itr.getNext();
+    assert.strictEqual(itr.getKey(), 2);
+    itr = itr.getNext();
+    assert.strictEqual(itr.getKey(), 1);
 
     redBlackTree.clear();
-    assert.strictEqual(redBlackTree.compareKey([]), true);
 
     cmpTree = new RedBlackTree((n1, n2) => n1 > n2);
     cmpTree.insert(1, 6);
@@ -32,10 +37,16 @@ describe('Red Black Tree', () => {
     cmpTree.insert(2, 15);
     cmpTree.insert(4, 1);
     redBlackTree = new RedBlackTree(cmpTree);
-    assert.strictEqual(redBlackTree.compareKey([1, 2, 3, 4, 5]), true);
-    assert.strictEqual(redBlackTree.compareKey([5, 4, 3, 2, 1]), false);
-    assert.strictEqual(redBlackTree.compareValue([6, 15, 10, 1, 3]), true);
-    assert.strictEqual(redBlackTree.compareValue([3, 1, 10, 15, 6]), false);
+    itr = cmpTree.begin();
+    assert.strictEqual(itr.getKey(), 1);
+    itr = itr.getNext();
+    assert.strictEqual(itr.getKey(), 2);
+    itr = itr.getNext();
+    assert.strictEqual(itr.getKey(), 3);
+    itr = itr.getNext();
+    assert.strictEqual(itr.getKey(), 4);
+    itr = itr.getNext();
+    assert.strictEqual(itr.getKey(), 5);
   });
 
   it('begin() check', () => {
@@ -78,15 +89,15 @@ describe('Red Black Tree', () => {
 
     const iterator = redBlackTree[Symbol.iterator]();
     let data = iterator.next();
-    assert.strictEqual(data.value, [5, 8]);
+    assert.deepEqual(data.value, [5, 8]);
     data = iterator.next();
-    assert.strictEqual(data.value, [4, 3]);
+    assert.deepEqual(data.value, [4, 3]);
     data = iterator.next();
-    assert.strictEqual(data.value, [3, 7]);
+    assert.deepEqual(data.value, [3, 7]);
     data = iterator.next();
-    assert.strictEqual(data.value, [2, 0]);
+    assert.deepEqual(data.value, [2, 0]);
     data = iterator.next();
-    assert.strictEqual(data.value, [1, 10]);
+    assert.deepEqual(data.value, [1, 10]);
   });
 
   it('empty() check', () => {
@@ -113,7 +124,8 @@ describe('Red Black Tree', () => {
     redBlackTree.insert(1, 5);
     redBlackTree.insert(3, 1);
     redBlackTree.clear();
-    assert.strictEqual(redBlackTree, new RedBlackTree());
+    assert.strictEqual(redBlackTree.begin(), null);
+    assert.strictEqual(redBlackTree.size(), 0);
   });
 
   it('insert() check', () => {
@@ -144,7 +156,8 @@ describe('Red Black Tree', () => {
     assert.strictEqual(node, redBlackTree.end());
 
     redBlackTree.erase(3);
-    assert.strictEqual(redBlackTree, new RedBlackTree());
+    assert.strictEqual(redBlackTree.begin(), null);
+    assert.strictEqual(redBlackTree.size(), 0);
     assert.strictEqual(redBlackTree.erase(3), false);
   });
 
@@ -234,8 +247,17 @@ describe('Red Black Tree', () => {
   });
 
   it('keyComp() check', () => {
-    assert.strictEqual(redBlackTree.keyComp(), (n1, n2) => n1 < n2);
+    let cmpf1 = redBlackTree.keyComp();
+    let cmpf2 = (n1, n2) => n1 < n2;
+    assert.equal(cmpf1(1, 3), cmpf2(1, 3));
+    assert.equal(cmpf1(8, 4), cmpf2(8, 4));
+    assert.equal(cmpf1(0, 0), cmpf2(0, 0));
+
     redBlackTree = new RedBlackTree((n1, n2) => n1 > n2);
-    assert.strictEqual(redBlackTree.keyComp(), (n1, n2) => n1 > n2);
+    cmpf1 = redBlackTree.keyComp();
+    cmpf2 = (n1, n2) => n1 > n2;
+    assert.equal(cmpf1(1, 3), cmpf2(1, 3));
+    assert.equal(cmpf1(8, 4), cmpf2(8, 4));
+    assert.equal(cmpf1(0, 0), cmpf2(0, 0));
   });
 });
