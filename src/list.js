@@ -499,7 +499,7 @@ class List {
       next() {
         if (node === null) {
           node = start;
-          if (node === end) {
+          if (node === null) {
             return { value: undefined, done: true };
           }
           return { value: node.getData(), done: false };
