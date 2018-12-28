@@ -67,7 +67,7 @@ describe('Red Black Tree', () => {
     assert.strictEqual(end.getKey(), null);
     assert.strictEqual(end.getValue(), null);
     assert.strictEqual(end.getPrev(), redBlackTree.begin());
-    assert.strictEqual(end.getNext(), null);
+    assert.strictEqual(end.getNext(), false);
 
     redBlackTree.insert(3, 1);
     redBlackTree.insert(2, 5);
@@ -77,7 +77,7 @@ describe('Red Black Tree', () => {
     assert.strictEqual(end.getKey(), null);
     assert.strictEqual(end.getValue(), null);
     assert.strictEqual(end.getPrev().getKey(), 2);
-    assert.strictEqual(end.getNext(), null);
+    assert.strictEqual(end.getNext(), false);
   });
 
   it('[Symbol.iterator] check', () => {
@@ -191,7 +191,8 @@ describe('Red Black Tree', () => {
     redBlackTree.insert(1, 10);
     assert.strictEqual(redBlackTree.contains(3), true);
     assert.strictEqual(redBlackTree.contains(1), true);
-    assert.strictEqual(redBlackTree.contains(2), false);
+    assert.strictEqual(redBlackTree.contains(7), true);
+    assert.strictEqual(redBlackTree.contains(4), false);
   });
 
   it('equalRange() check', () => {
@@ -259,5 +260,161 @@ describe('Red Black Tree', () => {
     assert.equal(cmpf1(1, 3), cmpf2(1, 3));
     assert.equal(cmpf1(8, 4), cmpf2(8, 4));
     assert.equal(cmpf1(0, 0), cmpf2(0, 0));
+  });
+
+
+  // red black tree condition test
+  it('Condition 1 check', () => {
+    const limit = 1000;
+    for (let i = 0; i < limit; i += 1) {
+      redBlackTree.insert(i, i);
+    }
+    for (let i = redBlackTree.begin(); i !== redBlackTree.end(); i = i.getNext()) {
+      if (i.getColor() !== 'red' && i.getColor() !== 'black') {
+        assert.strictEqual(1, 0);
+      }
+    }
+  });
+
+  it('Condition 2 check', () => {
+    const limit = 1000;
+    for (let i = 0; i < limit; i += 1) {
+      redBlackTree.insert(i, i);
+    }
+    assert.strictEqual(redBlackTree._root.getColor(), 'black');
+  });
+
+  it('Condition 3 check', () => {
+    const limit = 1000;
+    for (let i = 0; i < limit; i += 1) {
+      redBlackTree.insert(i, i);
+    }
+    for (let i = redBlackTree.begin(); i !== redBlackTree.end(); i = i.getNext()) {
+      if (i.getLeftChild().getLeftChild() === null) {
+        assert.strictEqual(i.getLeftChild().getColor(), 'black');
+      }
+      if (i.getRightChild().getLeftChild() === null) {
+        assert.strictEqual(i.getRightChild().getColor(), 'black');
+      }
+    }
+  });
+
+  it('Condition 4 check', () => {
+    const limit = 1000;
+    for (let i = 0; i < limit; i += 1) {
+      redBlackTree.insert(i, i);
+    }
+    for (let i = redBlackTree.begin(); i !== redBlackTree.end(); i = i.getNext()) {
+      if (i.getColor() === 'red') {
+        assert.strictEqual(i.getLeftChild().getColor(), 'black');
+        assert.strictEqual(i.getRightChild().getColor(), 'black');
+      }
+    }
+  });
+
+  it('Condition 5 check', () => {
+    const limit = 1000;
+    let blackcnt = null;
+    for (let i = 0; i < limit; i += 1) {
+      redBlackTree.insert(i, i);
+    }
+    for (let i = redBlackTree.begin(); i !== redBlackTree.end(); i = i.getNext()) {
+      if (i.getLeftChild().getLeftChild() === null) {
+        let parentblackcnt = 0;
+        let parent = i;
+        while (parent !== null) {
+          if (parent.getColor() === 'black') {
+            parentblackcnt += 1;
+          }
+          parent = parent.getParent();
+        }
+
+        if (blackcnt === null) {
+          blackcnt = parentblackcnt;
+        } else {
+          assert.strictEqual(blackcnt, parentblackcnt);
+        }
+      }
+      if (i.getRightChild().getLeftChild() === null) {
+        let parentblackcnt = 0;
+        let parent = i;
+        while (parent !== null) {
+          if (parent.getColor() === 'black') {
+            parentblackcnt += 1;
+          }
+          parent = parent.getParent();
+        }
+
+        if (blackcnt === null) {
+          blackcnt = parentblackcnt;
+        } else {
+          assert.strictEqual(blackcnt, parentblackcnt);
+        }
+      }
+    }
+  });
+
+  // check efficiency
+  it('500000 data test', () => {
+    const limit = 500000;
+    for (let i = 0; i < limit; i += 1) {
+      redBlackTree.insert(i, i);
+    }
+    for (let i = 0; i < limit; i += 1) {
+      assert.strictEqual(redBlackTree.contains(i, i), true);
+    }
+    for (let i = 0; i < limit; i += 1) {
+      assert.notStrictEqual(redBlackTree.erase(i), false);
+    }
+
+    for (let i = limit; i >= 0; i -= 1) {
+      redBlackTree.insert(i, i);
+    }
+    for (let i = limit; i >= 0; i -= 1) {
+      assert.strictEqual(redBlackTree.contains(i, i), true);
+    }
+    for (let i = limit; i >= 0; i -= 1) {
+      assert.notStrictEqual(redBlackTree.erase(i), false);
+    }
+  });
+
+  it('Insert time check 25000', () => {
+    const limit = 25000;
+    for (let i = 0; i < limit; i += 1) {
+      const data = Math.floor(Math.random() * limit);
+      redBlackTree.insert(data, data);
+    }
+  });
+
+  it('Insert time check 50000', () => {
+    const limit = 50000;
+    for (let i = 0; i < limit; i += 1) {
+      const data = Math.floor(Math.random() * limit);
+      redBlackTree.insert(data, data);
+    }
+  });
+
+  it('Insert time check 100000', () => {
+    const limit = 100000;
+    for (let i = 0; i < limit; i += 1) {
+      const data = Math.floor(Math.random() * limit);
+      redBlackTree.insert(data, data);
+    }
+  });
+
+  it('Insert time check 200000', () => {
+    const limit = 200000;
+    for (let i = 0; i < limit; i += 1) {
+      const data = Math.floor(Math.random() * limit);
+      redBlackTree.insert(data, data);
+    }
+  });
+
+  it('Insert time check 1000000', () => {
+    const limit = 1000000;
+    for (let i = 0; i < limit; i += 1) {
+      const data = Math.floor(Math.random() * limit);
+      redBlackTree.insert(data, data);
+    }
   });
 });
