@@ -52,6 +52,7 @@ class SetTree {
     if (typeof data === 'function') {
       this._tree = new RedBlackTree(data);
     } else if (data instanceof SetTree) {
+      this._tree = new RedBlackTree(data.keyComp());
       [...data].forEach(val => this._tree.insert(val, val));
     }
   }

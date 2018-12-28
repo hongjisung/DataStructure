@@ -54,6 +54,7 @@ class MapTree {
     if (typeof data === 'function') {
       this._tree = new RedBlackTree(data);
     } else if (data instanceof MapTree) {
+      this._tree = new RedBlackTree(data.keyComp());
       [...data].forEach(val => this._tree.insert(val[0], val[1]));
     }
   }
