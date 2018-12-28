@@ -68,6 +68,7 @@ class Tree:
 /**
  * @classdesc Node of Tree.<br>
  * Use getNext and getPrev method.
+ * @protected
  */
 class TreeNode {
   /**
@@ -811,7 +812,8 @@ class RedBlackTree {
   }
 
   /**
-   * iterator of tree.
+   * iterator of tree.<br>
+   * return value is [key, value] array.
    */
   [Symbol.iterator]() {
     let node = null;
@@ -893,7 +895,7 @@ class RedBlackTree {
 
   // how to reset root
   /**
-   * If erase() get key value as param, we erase all nodes with that key.
+   * If erase() get key value as param, we erase all nodes with that key.<br>
    * But if erase() get TreeNode as param, we erase only that node.
    * @param {*|TreeNode} data - Data can be key or Node of tree.
    * @returns {false|TreeNode} - next node of erased data. if cannot find the key, return falase.
@@ -967,8 +969,8 @@ class RedBlackTree {
   }
 
   /**
-   * return the start node and end node of given key.
-   * end node is next node of last match node.
+   * return the start node and end node of given key.<br>
+   * end node is next node of last match node.<br>
    * if no key in tree, return [endnode,endnode]
    * @param {*} key - Should not TreeNode.
    * @returns {Array} - [TreeNode,TreeNode]
