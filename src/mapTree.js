@@ -15,6 +15,8 @@ class MapTree:
     clear
     insert
     erase
+    assign
+    insertOrAssign
 
     // Lookup
     count
@@ -129,6 +131,7 @@ class MapTree {
    * insert new node in tree with key.<br>
    * If key already exists, return false.
    * @param {*} key - Should not TreeNode.
+   * @param {*} value
    */
   insert(key, value) {
     if (this._tree.contains(key)) {
@@ -146,6 +149,34 @@ class MapTree {
    */
   erase(data) {
     return this._tree.erase(data);
+  }
+
+  /**
+   * Assign new value to given key.<br>
+   * If key is not in tree, return false.
+   * @param {*} key - Should not TreeNode.
+   * @param {*} value
+   * @returns {boolean}
+   */
+  assign(key, value) {
+    const node = this._tree.find(key);
+    if (node === this.end()) {
+      return false;
+    }
+    node.setValue(value);
+    return true;
+  }
+
+  /**
+   * Insert new key and value.<br>
+   * If key already exists in tree, assign the value to that key.
+   * @param {*} key - Should not TreeNode.
+   * @param {*} value
+   */
+  insertOrAssign(key, value) {
+    if (!this.insert(key, value)) {
+      this.assign(key, value);
+    }
   }
 
   /**

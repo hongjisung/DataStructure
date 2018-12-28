@@ -89,6 +89,22 @@ describe('Map Tree', () => {
     assert.strictEqual(mapTree.erase(3), false);
   });
 
+  it('assign() check', () => {
+    assert.strictEqual(mapTree.assign(3, 'abc'), false);
+    mapTree.insert(3, 4);
+    assert.strictEqual(mapTree.assign(3, 'abc'), true);
+    assert.strictEqual(mapTree.find(3).getValue(), 'abc');
+    mapTree.erase(3);
+    assert.strictEqual(mapTree.assign(3, -1), false);
+  });
+
+  it('insertOrAssign() check', () => {
+    mapTree.insertOrAssign(3, 'ab');
+    assert.strictEqual(mapTree.find(3).getValue(), 'ab');
+    mapTree.insertOrAssign(3, 7);
+    assert.strictEqual(mapTree.find(3).getValue(), 7);
+  });
+
   it('count() check', () => {
     assert.strictEqual(mapTree.count(3), 0);
     mapTree.insert(3, 2);
