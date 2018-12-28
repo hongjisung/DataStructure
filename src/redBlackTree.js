@@ -228,7 +228,21 @@ class TreeNode {
 
 
 // private variables
-const endnode = new TreeNode();
+class EndNode extends TreeNode {
+  constructor() {
+    super();
+    this._prev = null;
+  }
+
+  getPrev() {
+    return this._prev;
+  }
+
+  setPrev(node) {
+    this._prev = node;
+  }
+}
+const endnode = new EndNode();
 
 const parent = (node) => {
   if (!(node instanceof TreeNode)) {
@@ -331,7 +345,7 @@ const insertCase2 = () => true;
 const insertCase3 = (node) => {
   parent(node).setColor('black');
   uncle(node).setColor('black');
-  grandparent(node).setColor('black');
+  grandparent(node).setColor('red');
   insertRepairTree(grandparent(node));
 };
 
@@ -419,8 +433,9 @@ const deleteOneChild = (root, node) => {
   if (node.getColor() === 'black') {
     if (child.getColor() === 'red') {
       child.setColor('black');
+    } else {
+      deleteCase1(child);
     }
-    deleteCase1(child);
   }
 
   // reset root
@@ -524,6 +539,9 @@ const deleteCase6 = (node) => {
 
 // find methods
 const findLeftMaximum = (node) => {
+  if (node === null) {
+    return null;
+  }
   let leftmax = node.getLeftChild();
   if (leftmax.getLeftChild() === null) {
     return node;
@@ -536,6 +554,9 @@ const findLeftMaximum = (node) => {
 };
 
 const findRightMinimum = (node) => {
+  if (node === null) {
+    return null;
+  }
   let rightmin = node.getRightChild();
   if (rightmin.getLeftChild() === null) {
     return node;
@@ -548,6 +569,9 @@ const findRightMinimum = (node) => {
 };
 
 const findMinNode = (node) => {
+  if (node === null) {
+    return null;
+  }
   let minnode = node;
   // check leaf
   while (minnode.getLeftChild().getLeftChild() !== null) {
@@ -557,6 +581,9 @@ const findMinNode = (node) => {
 };
 
 const findMaxNode = (node) => {
+  if (node === null) {
+    return null;
+  }
   let maxnode = node;
   // check leaf
   while (maxnode.getRightChild().getLeftChild() !== null) {
@@ -615,6 +642,7 @@ class RedBlackTree {
    * @return {TreeNode} - endnode of tree iterator.
    */
   end() {
+    endnode.setPrev(this.rbegin());
     return this._end;
   }
 
@@ -719,11 +747,26 @@ class RedBlackTree {
     return nextnode;
   }
 
-  count() { }
+  count(key) {
+    let cnt = 0;
+    const range = this.equalRange(key);
+    for (let itr = range[0]; itr !== range[1]; itr = itr.getNext()) {
+      cnt += 1;
+    }
+    return cnt;
+  }
 
-  find() { }
+  find(key) {
+    return this._findKey(key);
+  }
 
-  contains() { }
+  contains(key) {
+    const findnode = this._findKey(key);
+    if (findnode === endnode) {
+      return false;
+    }
+    return true;
+  }
 
   equalRange(key) {
     const leftmost = this._findLeftMostNode(key);
@@ -734,9 +777,68 @@ class RedBlackTree {
     return [leftmost, rightmost.getNext()];
   }
 
-  lowerBound(key) {}
+  /**
+   * Find the first not less node.<br>
+   * It don't need to be same with given key.
+   * @param {*} key - the target key to find.
+   */
+  lowerBound(key) {
+    if (this._root === null) {
+      return endnode;
+    }
+    let node = this._root;
+    while (node.getLeftChild() !== null && node.getKey() !== key) {
+      if (this._keyComp(node.getKey(), key)) {
+        node = node.getLeftChild();
+      } else {
+        node = node.getRightChild();
+      }
+    }
 
-  upperBound(key) {}
+    if (node.getLeftChild() === null) {
+      node = parent(node);
+      if (!this._keyComp(node.getKey(), key)) {
+        node = node.getNext();
+      }
+      return node;
+    }
+
+    while (node.getPrev() !== endnode && node.getPrev().getKey() === key) {
+      node = node.getPrev();
+    }
+    return node;
+  }
+
+  /**
+   * Find the first upper node.<br>
+   * @param {*} key - the target key to find.
+   */
+  upperBound(key) {
+    if (this._root === null) {
+      return endnode;
+    }
+    let node = this._root;
+    while (node.getLeftChild() !== null && node.getKey() !== key) {
+      if (this._keyComp(node.getKey(), key)) {
+        node = node.getLeftChild();
+      } else {
+        node = node.getRightChild();
+      }
+    }
+
+    if (node.getLeftChild() === null) {
+      node = parent(node);
+      if (!this._keyComp(node.getKey(), key)) {
+        node = node.getNext();
+      }
+      return node;
+    }
+
+    while (node.getNext() !== endnode && node.getNext().getKey() === key) {
+      node = node.getNext();
+    }
+    return node.getNext();
+  }
 
   keyComp() {
     return this._keyComp;
@@ -765,7 +867,6 @@ class RedBlackTree {
 
   /**
    * Find the node which places left most of tree.
-   * @param {TreeNode} root - root of search Tree.
    * @param {key} - target key.
    * @private
    */
@@ -794,7 +895,6 @@ class RedBlackTree {
 
   /**
    * Find the node which places right most of tree.
-   * @param {TreeNode} root - root of search Tree.
    * @param {key} - target key.
    * @private
    */
@@ -818,6 +918,33 @@ class RedBlackTree {
     while (node.getNext() !== endnode && node.getNext().getKey() === key) {
       node = node.getNext();
     }
+    return node;
+  }
+
+  /**
+   * Make sure the key is in tree.
+   * If key exists, return the arbitrary node.
+   * Else return endnode.
+   * @param {*} key - target key to find.
+   * @private
+   */
+  _findKey(key) {
+    if (this._root === null) {
+      return endnode;
+    }
+    let node = this._root;
+    while (node.getLeftChild() !== null && node.getKey() !== key) {
+      if (this._keyComp(node.getKey(), key)) {
+        node = node.getLeftChild();
+      } else {
+        node = node.getRightChild();
+      }
+    }
+
+    if (node.getLeftChild() === null) {
+      return endnode;
+    }
+
     return node;
   }
 }
