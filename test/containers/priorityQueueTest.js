@@ -1,5 +1,5 @@
 const assert = require('assert');
-const PriorityQueue = require('../src/priorityQueue');
+const PriorityQueue = require('../../src/containers/priorityQueue');
 
 /* global describe beforeEach it */
 describe('Priority Queue', () => {

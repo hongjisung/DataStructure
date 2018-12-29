@@ -1,5 +1,5 @@
 const assert = require('assert');
-const SetTree = require('../src/setTree');
+const SetTree = require('../../src/containers/setTree');
 
 /* global describe it beforeEach */
 describe('Set Tree', () => {

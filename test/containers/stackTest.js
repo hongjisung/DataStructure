@@ -1,5 +1,5 @@
 const assert = require('assert');
-const Stack = require('../src/stack.js');
+const Stack = require('../../src/containers/stack.js');
 
 /* global describe beforeEach it */
 describe('Stack', () => {

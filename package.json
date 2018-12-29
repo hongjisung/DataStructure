@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "doc": "jsdoc -c jsdoc.json",
-    "test": "mocha"
+    "test": "mocha --recursive"
   },
   "repository": {
     "type": "git",

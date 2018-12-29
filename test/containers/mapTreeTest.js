@@ -1,5 +1,5 @@
 const assert = require('assert');
-const MapTree = require('../src/mapTree');
+const MapTree = require('../../src/containers/mapTree');
 
 /* global describe it beforeEach */
 describe('Map Tree', () => {

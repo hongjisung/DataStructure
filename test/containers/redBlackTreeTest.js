@@ -1,5 +1,5 @@
 const assert = require('assert');
-const RedBlackTree = require('../src/redBlackTree');
+const RedBlackTree = require('../../src/containers/redBlackTree');
 
 /* global describe it beforeEach */
 describe('Red Black Tree', () => {

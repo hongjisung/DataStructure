@@ -1,5 +1,5 @@
 const assert = require('assert');
-const List = require('../src/list');
+const List = require('../../src/containers/list');
 
 /* eslint prefer-arrow-callback: 2 */
 /* global describe before beforeEach it */

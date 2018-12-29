@@ -1,5 +1,5 @@
 const assert = require('assert');
-const Deque = require('../src/deque');
+const Deque = require('../../src/containers/deque');
 
 /* global describe it beforeEach */
 describe('Deque', () => {
