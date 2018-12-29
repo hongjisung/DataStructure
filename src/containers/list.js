@@ -39,6 +39,7 @@ List:
   // operations
   compare()
   splice()
+  sort()
   merge()
   reverse()
 
@@ -433,6 +434,25 @@ class List {
       return true;
     }
     return false;
+  }
+
+  /**
+   * sort the list by compare function.
+   * Basically quick sort, but can choose merge sort.
+   * @param {function} comp - compare function 
+   * @param {string} sorting - 'quicksort' or 'mergesort'
+   */
+  sort(comp = (n1, n2) => n1 < n2, sorting = 'quicksort') {
+    let sort = null;
+    if(sorting === 'quicksort') {
+      sort = require('../algorithms/quickSort');
+    }
+    if(sorting === 'mergesort') {
+      sort = require('../algorithms/mergeSort');
+    }
+    const arr = sort(this, comp);
+    this.clear();
+    arr.forEach(val => { this.pushBack(val) });
   }
 
   /**

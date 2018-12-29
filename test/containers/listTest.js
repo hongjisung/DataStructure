@@ -219,6 +219,46 @@ describe('List', () => {
     assert.strictEqual(list.compare(cmp), true);
   });
 
+  it('sort() check', () => {
+    list = new List();
+    const limit = 100000;
+
+    let comp = (n1, n2) => n1 < n2;
+    for (let i = 0; i < limit; i += 1) {
+      list.pushBack(Math.floor(Math.random() * limit * 10));
+    }
+
+    // descending quick sort
+    list.sort(comp);
+    let sorted = [...list];
+    for (let i = 0; i < limit - 1; i += 1) {
+      // consider same value.
+      assert.strictEqual(sorted[i] >= sorted[i + 1], true);
+    }
+
+    list.clear();
+    comp = (n1, n2) => n1 > n2;
+    for (let i = 0; i < limit; i += 1) {
+      list.pushBack(Math.floor(Math.random() * limit * 10));
+    }
+
+    // ascending quick sort
+    list.sort(comp);
+    sorted = [...list];
+    for (let i = 0; i < limit - 1; i += 1) {
+      // consider same value.
+      assert.strictEqual(sorted[i] <= sorted[i + 1], true);
+    }
+
+    // descending merge sort
+    list.sort((n1, n2) => n1 < n2, 'mergesort');
+    sorted = [...list];
+    for (let i = 0; i < limit - 1; i += 1) {
+      // consider same value.
+      assert.strictEqual(sorted[i] >= sorted[i + 1], true);
+    }
+  });
+
   it('merge() check', () => {
     list = new List([1, 3, 5]);
     const list2 = new List([2, 4, 6]);
