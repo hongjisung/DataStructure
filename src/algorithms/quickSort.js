@@ -1,3 +1,11 @@
+/**
+ * quick sort move element part
+ * @private
+ * @param {Array} array
+ * @param {number} first
+ * @param {number} last
+ * @param {function} comp
+ */
 const partition = (array, first, last, comp) => {
   const arr = array;
   const pivot = arr[last];
@@ -18,6 +26,14 @@ const partition = (array, first, last, comp) => {
   return i;
 };
 
+/**
+ * quick sort recurrence part
+ * @private
+ * @param {Array} array - the target array
+ * @param {number} first - first element to sort range
+ * @param {number} last - next element of last part of sort range
+ * @param {function} comp - compare function
+ */
 const quicksort = (array, first, last, comp) => {
   if (first < last) {
     const p = partition(array, first, last, comp);
@@ -26,6 +42,12 @@ const quicksort = (array, first, last, comp) => {
   }
 };
 
+/**
+ * quick sort by compare function<br>
+ * Reference https://en.wikipedia.org/wiki/Quicksort.
+ * @param {object} data - iterable object
+ * @param {function} comp - compare function
+ */
 const quickSort = (data, comp = (n1, n2) => n1 < n2) => {
   const array = [...data];
   quicksort(array, 0, array.length - 1, comp);
