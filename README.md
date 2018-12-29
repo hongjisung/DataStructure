@@ -27,22 +27,31 @@
   Red black tree with unique value.  
   key and data mapping structure.  
   Sorted by Compare function basically descending order.  
+## Algorithms
+- ### **MergeSort**
+  Sort iterable object in O(nlogn) times.
+  Sorting time almost similar in most cases.
+
+- ### **QuickSort**
+  Sort iterable object in average O(nlogn) times.
+  Sorting time is not stable.
 
 # Usage
-## List
+## Containers
+### List
 ```javascript
 const List = require('./src/containers/list');
 
 // constructor
 const list = new List();
 const list2 = new List([1, 2]);
+const list3 = new List([1, 5, 3, 4, 2]);
 
-// modifiers and operations
+// modifiers
 list.pushBack(2);
-list.pushFront(1);
-list.compare(list2) // true
-list.popBack(); // [1]
-list.splice(list.end(), list2); // [1, 1, 2]
+list.pushFront(1); // [1,2]
+list.popBack(); // [2]
+list.popBack(1); // [2, 1]
 
 // iterators
 for (let itr = list.begin(); itr !== list.end(); itr = itr.getNext()) {
@@ -50,9 +59,15 @@ for (let itr = list.begin(); itr !== list.end(); itr = itr.getNext()) {
 }
 
 [...list] // [1, 1, 2]
+
+// operations
+list.compare(list2) // false
+list3.sort(); // [5, 4, 3, 2, 1]
+list3.sort((n1, n2) => n1 > n2, 'mergesort') // [1, 2, 3, 4, 5]
+list3.reverse(); // [5, 4, 3, 2, 1]
 ```
 
-## Stack
+### Stack
 ```javascript
 const Stack = require('./src/containers/stack');
 
@@ -72,7 +87,7 @@ stack.pop(); // [1, 5]
 stap.push(10); // [1, 5, 10]
 ```
 
-## Queue
+### Queue
 ```javascript
 const Queue = require('./src/containers/queue');
 
@@ -90,7 +105,7 @@ queue.push(7) // [3, 5, 7]
 queue.clear() // []
 ```
 
-## Priority Queue
+### Priority Queue
 ```javascript
 const PriorityQueue = require('./src/containers/priorityQueue');
 
@@ -107,7 +122,7 @@ pq.top(); // 3
 pq.compareFunction() // (n1, n2) => n1 > n2
 ```
 
-## Deque
+### Deque
 ```javascript
 const Deque = require('./src/containers/deque');
 
@@ -124,7 +139,7 @@ deque.popBack(); // [1, 2]
 deque.pushFront(4); // [4, 1, 2]
 ```
 
-## SetTree
+### SetTree
 ```javascript
 const SetTree = require('./src/containers/setTree');
 
@@ -162,7 +177,7 @@ setTree.equalRange(5); // [ TreeNode which key is 5,  TreeNode which key is 6]
 setTree.keyComp(); // (n1, n2) => n1 > n2
 ```
 
-## MapTree
+### MapTree
 ```javascript
 const MapTree = require('./src/containers/mapTree');
 
@@ -201,6 +216,37 @@ setTree.equalRange(5); // [ TreeNode which key is 5,  TreeNode which key is 6]
 
 // Observers
 setTree.keyComp(); // (n1, n2) => n1 > n2
+```
+
+## Algorithms
+### Merge Sort
+```javascript
+const mergesort = require('./src/algorithms/mergeSort');
+const List = require('./src/containers/list');
+
+const a = [];
+for (let i = 0; i < 10; i += 1) {
+  a.push(Math.floor(Math.random()*100))
+}
+const b = mergesort(a); // sorted Array object
+
+const li = new List();
+for (let i = 0; i < 10; i += 1) {
+  li.pushBack(Math.floor(Math.random()*100))
+}
+const b2 = mergesort(li); // sorted Array object
+```
+
+### Quick Sort
+```javascript
+const quicksort = require('./src/algorithms/quickSort');
+const List = require('./src/containers/list');
+
+const li = new List();
+for (let i = 0; i < 10; i += 1) {
+  li.pushBack(Math.floor(Math.random()*100))
+}
+const b = quicksort(li); // sorted Array object
 ```
 
 # Jsdoc  
