@@ -31,7 +31,7 @@
 # Usage
 ## List
 ```javascript
-const List = require('./src/list');
+const List = require('./src/containers/list');
 
 // constructor
 const list = new List();
@@ -54,7 +54,7 @@ for (let itr = list.begin(); itr !== list.end(); itr = itr.getNext()) {
 
 ## Stack
 ```javascript
-const Stack = require('./src/stack');
+const Stack = require('./src/containers/stack');
 
 // constructor
 let stack = new stack();
@@ -74,7 +74,7 @@ stap.push(10); // [1, 5, 10]
 
 ## Queue
 ```javascript
-const Queue = require('./src/queue');
+const Queue = require('./src/containers/queue');
 
 // constructor
 let queue = new Queue();
@@ -92,7 +92,7 @@ queue.clear() // []
 
 ## Priority Queue
 ```javascript
-const PriorityQueue = require('./src/priorityQueue');
+const PriorityQueue = require('./src/containers/priorityQueue');
 
 // constructor
 let pq = new PriorityQueue();
@@ -109,7 +109,7 @@ pq.compareFunction() // (n1, n2) => n1 > n2
 
 ## Deque
 ```javascript
-const Deque = require('./src/deque');
+const Deque = require('./src/containers/deque');
 
 // constructor
 let deque = new Deque();
@@ -126,7 +126,7 @@ deque.pushFront(4); // [4, 1, 2]
 
 ## SetTree
 ```javascript
-const SetTree = require('./src/setTree');
+const SetTree = require('./src/containers/setTree');
 
 // constructor
 let setTree = new SetTree();
@@ -164,7 +164,7 @@ setTree.keyComp(); // (n1, n2) => n1 > n2
 
 ## MapTree
 ```javascript
-const MapTree = require('./src/mapTree');
+const MapTree = require('./src/containers/mapTree');
 
 // constructor
 let mapTree = new MapTree();
