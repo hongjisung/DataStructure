@@ -1,22 +1,25 @@
 {
   "name": "js_datastructure",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "javascript data structure",
+  "author": {
+    "name": "Jisung Hong",
+    "email": "rhfktj@gmail.com"
+  },
+  "main": "./src/index.js",
   "scripts": {
     "doc": "jsdoc -c jsdoc.json",
     "test": "mocha --recursive"
   },
+  "homepage": "https://github.com/hongjisung/DataStructure",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hongjisung/DataStructure.git"
   },
-  "author": "hongjisung",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/hongjisung/DataStructure/issues"
   },
-  "homepage": "https://github.com/hongjisung/DataStructure#readme",
+  "license": "MIT",
   "devDependencies": {
     "docdash": "^1.0.1",
     "eslint": "^5.10.0",
@@ -26,5 +29,16 @@
     "eslint-plugin-react": "^7.11.1",
     "jsdoc": "^3.5.5",
     "mocha": "^5.2.0"
-  }
+  },
+  "keywords": [
+    "mergeSort",
+    "quickSort",
+    "deque",
+    "list",
+    "mapTree",
+    "priorityQueue",
+    "queue",
+    "setTree",
+    "stack"
+  ]
 }
