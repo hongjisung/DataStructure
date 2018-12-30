@@ -260,11 +260,11 @@ const b = quicksort(li); // sorted Array object
 | **SetTree**        | log(n) | log(n)    | log(n)   |                          |
 | **MapTree**        | log(n) | log(n)    | log(n)   |                          |
 
-## **Algorithm operation time complexity**
-| Operation  | Best    | Average | Worst   |
-| ---------- | ------- | ------- | ------- |
-| Merge Sort | nlog(n) | nlog(n) | nlog(n) |
-| Quick Sort | nlog(n) | nlog(n) | n<sup>2 |
+## **Algorithm operation complexity**
+| Operation  | Best    | Average | Worst   | Space  |
+| ---------- | ------- | ------- | ------- | ------ |
+| Merge Sort | nlog(n) | nlog(n) | nlog(n) | n      |
+| Quick Sort | nlog(n) | nlog(n) | n<sup>2 | log(n) |
 
 # Jsdoc  
 docdash
