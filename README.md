@@ -1,5 +1,5 @@
 # **Javascript Data Structure**
-## Containers
+## **Containers**
 - ### **List**  
   Doubly linked list.  
   
@@ -27,7 +27,7 @@
   Red black tree with unique value.  
   key and data mapping structure.  
   Sorted by Compare function basically descending order.  
-## Algorithms
+## **Algorithms**
 - ### **MergeSort**
   Sort iterable object in O(nlogn) times.
   Sorting time almost similar in most cases.
@@ -36,9 +36,9 @@
   Sort iterable object in average O(nlogn) times.
   Sorting time is not stable.
 
-# Usage
-## Containers
-### List
+# **Usage**
+## **Containers**
+### **List**
 ```javascript
 const List = require('./src/containers/list');
 
@@ -67,7 +67,7 @@ list3.sort((n1, n2) => n1 > n2, 'mergesort') // [1, 2, 3, 4, 5]
 list3.reverse(); // [5, 4, 3, 2, 1]
 ```
 
-### Stack
+### **Stack**
 ```javascript
 const Stack = require('./src/containers/stack');
 
@@ -87,7 +87,7 @@ stack.pop(); // [1, 5]
 stap.push(10); // [1, 5, 10]
 ```
 
-### Queue
+### **Queue**
 ```javascript
 const Queue = require('./src/containers/queue');
 
@@ -105,7 +105,7 @@ queue.push(7) // [3, 5, 7]
 queue.clear() // []
 ```
 
-### Priority Queue
+### **Priority Queue**
 ```javascript
 const PriorityQueue = require('./src/containers/priorityQueue');
 
@@ -122,7 +122,7 @@ pq.top(); // 3
 pq.compareFunction() // (n1, n2) => n1 > n2
 ```
 
-### Deque
+### **Deque**
 ```javascript
 const Deque = require('./src/containers/deque');
 
@@ -139,7 +139,7 @@ deque.popBack(); // [1, 2]
 deque.pushFront(4); // [4, 1, 2]
 ```
 
-### SetTree
+### **SetTree**
 ```javascript
 const SetTree = require('./src/containers/setTree');
 
@@ -177,7 +177,7 @@ setTree.equalRange(5); // [ TreeNode which key is 5,  TreeNode which key is 6]
 setTree.keyComp(); // (n1, n2) => n1 > n2
 ```
 
-### MapTree
+### **MapTree**
 ```javascript
 const MapTree = require('./src/containers/mapTree');
 
@@ -206,20 +206,20 @@ mapTree.assign(4, 't'); // true, [[1, 'd'], [2, 'e'], [4, 't'], [5, 'a'], [6, 'k
 mapTree.insertOrAssign(9, 'z'); // [[1, 'd'], [2, 'e'], [4, 't'], [5, 'a'], [6, 'k'], [9, 'z']]
 
 // lookup
-setTree.find(3); // setTree.end()
-setTree.find(4); // TreeNode which key is 4
-setTree.count(4); // 1
-setTree.contains(3); // false
-setTree.lowerBound(3); // TreeNode which key is 4
-setTree.upperBound(4); // TreeNode which key is 5
-setTree.equalRange(5); // [ TreeNode which key is 5,  TreeNode which key is 6]
+mapTree.find(3); // setTree.end()
+mapTree.find(4); // TreeNode which key is 4
+mapTree.count(4); // 1
+mapTree.contains(3); // false
+mapTree.lowerBound(3); // TreeNode which key is 4
+mapTree.upperBound(4); // TreeNode which key is 5
+mapTree.equalRange(5); // [ TreeNode which key is 5,  TreeNode which key is 6]
 
 // Observers
-setTree.keyComp(); // (n1, n2) => n1 > n2
+mapTree.keyComp(); // (n1, n2) => n1 > n2
 ```
 
-## Algorithms
-### Merge Sort
+## **Algorithms**
+### **Merge Sort**
 ```javascript
 const mergesort = require('./src/algorithms/mergeSort');
 const List = require('./src/containers/list');
@@ -237,7 +237,7 @@ for (let i = 0; i < 10; i += 1) {
 const b2 = mergesort(li); // sorted Array object
 ```
 
-### Quick Sort
+### **Quick Sort**
 ```javascript
 const quicksort = require('./src/algorithms/quickSort');
 const List = require('./src/containers/list');
@@ -248,6 +248,23 @@ for (let i = 0; i < 10; i += 1) {
 }
 const b = quicksort(li); // sorted Array object
 ```
+
+## **Data Structure Operation Time Complexity**
+| **Container**      | Search | Insertion | Deletion | Remarks                  |
+| ------------------ | ------ | --------- | -------- | ------------------------ |
+| **List**           | n      | 1         | 1        |                          |
+| **Stack**          | n      | 1         | 1        |                          |
+| **Queue**          | n      | 1         | 1        |                          |
+| **Priority Queue** | N/A    | log(n)    | log(n)   | Search O(1) for the best |
+| **Deque**          | n      | 1         | 1        |                          |
+| **SetTree**        | log(n) | log(n)    | log(n)   |                          |
+| **MapTree**        | log(n) | log(n)    | log(n)   |                          |
+
+## **Algorithm operation time complexity**
+| Operation  | Best    | Average | Worst   |
+| ---------- | ------- | ------- | ------- |
+| Merge Sort | nlog(n) | nlog(n) | nlog(n) |
+| Quick Sort | nlog(n) | nlog(n) | n<sup>2 |
 
 # Jsdoc  
 docdash
