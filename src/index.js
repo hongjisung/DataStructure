@@ -7,6 +7,8 @@ const SetTree = require('./containers/setTree');
 const Stack = require('./containers/stack');
 const QuickSort = require('./algorithms/quickSort');
 const MergeSort = require('./algorithms/mergeSort');
+const removeCondition = require('./algorithms/removeCondition');
+const unique = require('./algorithms/unique');
 
 module.exports = {
   Deque,
@@ -18,4 +20,6 @@ module.exports = {
   Stack,
   QuickSort,
   MergeSort,
+  removeCondition,
+  unique,
 };

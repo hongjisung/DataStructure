@@ -36,6 +36,12 @@
   Sort iterable object in average O(nlogn) times.
   Sorting time is not stable.
 
+- ### **removeCondition**
+  remove elements which data or key satisfies the condition in iterable container.
+
+- ### **unique**
+  reduce duplicate elements to one in iterable container.
+
 # **Usage**
 ## **Containers**
 ### **List**
@@ -249,6 +255,37 @@ for (let i = 0; i < 10; i += 1) {
 const b = quicksort(li); // sorted Array object
 ```
 
+### **removeCondition**
+```javascript
+const std = require('../../src');
+
+const list = new std.List();
+const limit = 1000;
+for (let i = 0; i < limit; i += 1) {
+  list.pushBack(Math.floor(Math.random() * limit * 10));
+}
+std.removeCondition(list, data => data < limit * 5); // remove elements under 5000;
+
+const setTree = new std.SetTree();
+const limit = 1000;
+for (let i = 0; i < limit; i += 1) {
+  setTree.insert(Math.floor(Math.random() * limit * 10));
+}
+std.removeCondition(setTree, data => data < limit * 5); // remove elements which key is under 5000;
+```
+
+## **unique**
+```javascript
+const std = require('../../src');
+
+const list = new std.List();
+const limit = 1000;
+for (let i = 0; i < limit; i += 1) {
+  list.pushBack(Math.floor(Math.random() * 10));
+}
+std.unique(list); // elements are unique.
+```
+
 ## **Data Structure Operation Time Complexity**
 | **Container**      | Search | Insertion | Deletion | Remarks                  |
 | ------------------ | ------ | --------- | -------- | ------------------------ |
@@ -266,11 +303,13 @@ const b = quicksort(li); // sorted Array object
 | Merge Sort | nlog(n) | nlog(n) | nlog(n) | n      |
 | Quick Sort | nlog(n) | nlog(n) | n<sup>2 | log(n) |
 
-# Jsdoc  
-docdash
+# **Jsdoc**  
+**Template :** docdash  
+**Make document command :** npm run doc
 
-# Eslint
-airbnb
+# **Eslint**
+**Style :** airbnb
 
-# Test
-Mocha
+# **Test**
+**Test FrameWork :** Mocha  
+**Test command :** npm run test
