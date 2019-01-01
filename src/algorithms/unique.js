@@ -1,5 +1,12 @@
 const List = require('../containers/list');
 
+/**
+ * make a given data container have unique elements.<br>
+ * it traverse nodes by iterator and check condition.<br>
+ * it takes time about O(n).<br><br>
+ * Working container : List, multiSetTree, multiMapTree.
+ * @param {object} data - iterable container in this data structure.
+ */
 const unique = (data) => {
   if (data instanceof List) {
     const dict = {};

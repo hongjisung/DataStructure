@@ -30,6 +30,21 @@ describe('removeCondition test', () => {
     assert.strictEqual(setTree.begin(), null);
   });
 
+  it('MultiSetTree removeCondition test', () => {
+    const multiSetTree = new std.MultiSetTree();
+    const limit = 1000;
+    for (let i = 0; i < limit; i += 1) {
+      multiSetTree.insert(Math.floor(Math.random() * limit * 10));
+    }
+    std.removeCondition(multiSetTree, data => data < limit * 5);
+    for (let node = multiSetTree.begin(); node !== multiSetTree.end(); node = node.getNext()) {
+      assert.strictEqual(node.getKey() >= 5000, true);
+    }
+    std.removeCondition(multiSetTree, data => data >= limit * 5);
+    assert.strictEqual(multiSetTree.size(), 0);
+    assert.strictEqual(multiSetTree.begin(), null);
+  });
+
   it('mapTree removeCondition test', () => {
     const mapTree = new std.MapTree();
     const limit = 1000;
@@ -38,6 +53,18 @@ describe('removeCondition test', () => {
     }
     std.removeCondition(mapTree, data => data < limit * 5);
     for (let node = mapTree.begin(); node !== mapTree.end(); node = node.getNext()) {
+      assert.strictEqual(node.getKey() >= 5000, true);
+    }
+  });
+
+  it('mutiMapTree removeCondition test', () => {
+    const multiMapTree = new std.MultiMapTree();
+    const limit = 1000;
+    for (let i = 0; i < limit; i += 1) {
+      multiMapTree.insert(Math.floor(Math.random() * limit * 10), i);
+    }
+    std.removeCondition(multiMapTree, data => data < limit * 5);
+    for (let node = multiMapTree.begin(); node !== multiMapTree.end(); node = node.getNext()) {
       assert.strictEqual(node.getKey() >= 5000, true);
     }
   });
