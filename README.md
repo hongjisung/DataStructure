@@ -38,7 +38,6 @@
   key and data mapping structure.  
   Sorted by Compare function basically descending order.  
 
-
 ## **Algorithms**
 - ### **MergeSort**
   Sort iterable object in O(nlogn) times.
@@ -61,6 +60,40 @@
 - ### **map**  
   This can apply function to data of elements in container.  
   It cannot use for set, because set is key and data are equal and is sorted by key.  
+
+## **Reference**
+- ### [c++ stl](www.cppreference.com)
+- ### [Red Black Tree](https://en.wikipedia.org/wiki/Red%E2%80%93black_tree)
+- ### [Quick Sort](https://en.wikipedia.org/wiki/Quicksort)
+- ### [Merge Sort](https://en.wikipedia.org/wiki/Merge_sort)
+
+
+# **Install**
+**Install dependencies**
+```
+npm install
+```
+
+**Run Test**
+```
+npm run test
+```
+
+**Make jsdoc homepage html**
+```
+mkdir doc
+npm run doc // open the ./doc/index.html
+```
+
+**Use template in this git folder**
+```javascript
+const std = require('./src');
+```
+
+**Use template in other folder**
+```
+npm install <directory path>
+```
 
 # **Usage**
 ## **Containers**
@@ -95,10 +128,10 @@ list3.reverse(); // [5, 4, 3, 2, 1]
 
 ### **Stack**
 ```javascript
-const Stack = require('./src/containers/stack');
+const Stack = require('./src').Stack;
 
 // constructor
-let stack = new stack();
+let stack = new Stack();
 stack = new Stack([1, 5, 3]);
 
 // element access
@@ -110,12 +143,12 @@ stack.size(); // 3
 
 // modifiers
 stack.pop(); // [1, 5]
-stap.push(10); // [1, 5, 10]
+stack.push(10); // [1, 5, 10]
 ```
 
 ### **Queue**
 ```javascript
-const Queue = require('./src/containers/queue');
+const Queue = require('./src').Queue;
 
 // constructor
 let queue = new Queue();
@@ -133,7 +166,7 @@ queue.clear() // []
 
 ### **Priority Queue**
 ```javascript
-const PriorityQueue = require('./src/containers/priorityQueue');
+const PriorityQueue = require('./src').PriorityQueue;
 
 // constructor
 let pq = new PriorityQueue();
@@ -150,7 +183,7 @@ pq.compareFunction() // (n1, n2) => n1 > n2
 
 ### **Deque**
 ```javascript
-const Deque = require('./src/containers/deque');
+const Deque = require('./src').Deque;
 
 // constructor
 let deque = new Deque();
@@ -167,7 +200,7 @@ deque.pushFront(4); // [4, 1, 2]
 
 ### **SetTree**
 ```javascript
-const SetTree = require('./src/containers/setTree');
+const SetTree = require('./src').SetTree;
 
 // constructor
 let setTree = new SetTree();
@@ -221,7 +254,7 @@ for (let itr = range[0]; itr !== range[1]; itr = itr.getNext()) {
 
 ### **MapTree**
 ```javascript
-const MapTree = require('./src/containers/mapTree');
+const MapTree = require('./src').MapTree;
 
 // constructor
 let mapTree = new MapTree();
@@ -282,7 +315,7 @@ console.log([...multiMapTree]) // [[3, 'all change'], [3, 'all change'], [3, 'al
 ## **Algorithms**
 ### **Merge Sort**
 ```javascript
-const mergesort = require('./src/algorithms/mergeSort');
+const mergesort = require('./src').MergeSort;
 const List = require('./src/containers/list');
 
 const a = [];
@@ -300,7 +333,7 @@ const b2 = mergesort(li); // sorted Array object
 
 ### **Quick Sort**
 ```javascript
-const quicksort = require('./src/algorithms/quickSort');
+const quicksort = require('./src').QuickSort;
 const List = require('./src/containers/list');
 
 const li = new List();
@@ -312,7 +345,7 @@ const b = quicksort(li); // sorted Array object
 
 ### **removeCondition**
 ```javascript
-const std = require('../../src');
+const std = require('./src');
 
 const list = new std.List();
 const limit = 1000;
@@ -322,7 +355,6 @@ for (let i = 0; i < limit; i += 1) {
 std.removeCondition(list, data => data < limit * 5); // remove elements under 5000;
 
 const setTree = new std.SetTree();
-const limit = 1000;
 for (let i = 0; i < limit; i += 1) {
   setTree.insert(Math.floor(Math.random() * limit * 10));
 }
@@ -331,7 +363,7 @@ std.removeCondition(setTree, data => data < limit * 5); // remove elements which
 
 ## **unique**
 ```javascript
-const std = require('../../src');
+const std = require('./src');
 
 const list = new std.List();
 const limit = 1000;
