@@ -392,10 +392,10 @@ for (let node = mapTree.begin(); node !== mapTree.end(); node = node.getNext()) 
 | **MultiMapTree**   | log(n) | log(n)    | log(n)   | Deletion is different according the number of same key |
 
 ## **Algorithm operation time complexity**
-| Operation  | Best    | Average | Worst   |
-| ---------- | ------- | ------- | ------- |
-| **Merge Sort** | nlog(n) | nlog(n) | nlog(n) |
-| **Quick Sort** | nlog(n) | nlog(n) | n<sup>2 |
+| Operation  | Best    | Average | Worst   | Space  |
+| ---------- | ------- | ------- | ------- | ------ |
+| **Merge Sort** | nlog(n) | nlog(n) | nlog(n) | n      |
+| **Quick Sort** | nlog(n) | nlog(n) | n<sup>2 | log(n) |
 
 # **Jsdoc**  
 **Template :** docdash  
