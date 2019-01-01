@@ -1,8 +1,11 @@
 const List = require('../containers/list');
 
 /**
- * remove all elements which match the condition in container.
- * @param {List|SetTree|MapTree} data - iterable container in this data structure.
+ * remove all elements which match the condition in container.<br>
+ * it traverse nodes by iterator and check condition.<br>
+ * it takes time about O(n). But in tree, when you erase node, the erase time takes O(log(n))<br><br>
+ * Working container : List, setTree, multiSetTree, mapTree, multiMapTree.
+ * @param {object} data - iterable container in this data structure.
  * @param {function} condition - check data or key match the condition.
  * @returns {boolean}
  */
