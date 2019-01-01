@@ -23,10 +23,22 @@
   Identify key with data.  
   Sorted by Compare function basically descending order.
 
+- ### **MultiSetTree**
+  Red black tree.  
+  Identify key with data.  
+  Sorted by Compare function basically descending order.
+
 - ### **MapTree**  
   Red black tree with unique value.  
   key and data mapping structure.  
   Sorted by Compare function basically descending order.  
+
+- ### **MultiMapTree**  
+  Red black tree.  
+  key and data mapping structure.  
+  Sorted by Compare function basically descending order.  
+
+
 ## **Algorithms**
 - ### **MergeSort**
   Sort iterable object in O(nlogn) times.
@@ -41,6 +53,14 @@
 
 - ### **unique**
   reduce duplicate elements to one in iterable container.
+
+- ### **findNodes**  
+  This can find several keys at one time.  
+  It return an array of the matched nodes.  
+
+- ### **map**  
+  This can apply function to data of elements in container.  
+  It cannot use for set, because set is key and data are equal and is sorted by key.  
 
 # **Usage**
 ## **Containers**
@@ -168,7 +188,7 @@ for (let itr = setTree.rbegin(); itr !== setTree.end(); itr = itr.getPrev()) {
 setTree.insert(3); // false
 setTree.insert(6); // true, [1, 2, 3, 4, 5, 6]
 setTree.erase(3); // return TreeNode which key is 4
-mapTree.erase(3); // false;
+setTree.erase(3); // false;
 
 // lookup
 setTree.find(3); // setTree.end()
@@ -181,6 +201,22 @@ setTree.equalRange(5); // [ TreeNode which key is 5,  TreeNode which key is 6]
 
 // Observers
 setTree.keyComp(); // (n1, n2) => n1 > n2
+```
+
+### **MultiSetTree**
+```javascript
+const std = require('./src');
+
+// same methods with SetTree
+const multiSetTree = new std.MultiSetTree();
+multiSetTree.insert(3);
+multiSetTree.insert(3);
+multiSetTree.insert(3);
+
+const range = multiSetTree.equalRange(3);
+for (let itr = range[0]; itr !== range[1]; itr = itr.getNext()) {
+  console.log(itr.getKey()); // 3, 3, 3
+}
 ```
 
 ### **MapTree**
@@ -222,6 +258,25 @@ mapTree.equalRange(5); // [ TreeNode which key is 5,  TreeNode which key is 6]
 
 // Observers
 mapTree.keyComp(); // (n1, n2) => n1 > n2
+```
+
+### **MultiMapTree**
+```javascript
+const std = require('./src');
+
+// same methods with MapTree
+const multiMapTree = new std.MultiMapTree();
+multiMapTree.insert(3, 7);
+multiMapTree.insert(3, 'abc');
+multiMapTree.insert(3, [1, 3]);
+
+const range = multiMapTree.equalRange(3);
+for (let itr = range[0]; itr !== range[1]; itr = itr.getNext()) {
+  console.log(itr.getKey(), itr.getValue()); // random sequence emergence (3, 7) , (3, 'abc') , (3, [1, 3])
+}
+
+multiMapTree.assign(3, 'all change');
+console.log([...multiMapTree]) // [[3, 'all change'], [3, 'all change'], [3, 'all change']]
 ```
 
 ## **Algorithms**
@@ -286,16 +341,55 @@ for (let i = 0; i < limit; i += 1) {
 std.unique(list); // elements are unique.
 ```
 
+## **findNodes**
+```javascript
+const std = require('./src');
+
+const keys = [1, 5, 10, 50, 100, 500, 0];
+const limit = 1000;
+
+const list = new std.List();
+for (let i = 0; i < limit; i += 1) {
+  list.pushBack(Math.floor(Math.random() * limit));
+}
+
+const found = std.findNodes(list, keys);
+
+found.forEach((val) => {
+  console.log(keys.includes(val.getData())); // true
+});
+```
+
+## **map**  
+```javascript
+const std = require('./src');
+
+const limit = 1000;
+const mapTree = new std.MapTree();
+for (let i = 0; i < limit; i += 1) {
+  const val = Math.floor(Math.random() * limit * 10);
+  mapTree.insert(val, val);
+}
+
+std.map(mapTree, val => val * 1000);
+
+for (let node = mapTree.begin(); node !== mapTree.end(); node = node.getNext()) {
+  console.log(node.getValue() === node.getKey() * 1000); // true
+}
+```
+
 ## **Data Structure Operation Time Complexity**
 | **Container**      | Search | Insertion | Deletion | Remarks                  |
 | ------------------ | ------ | --------- | -------- | ------------------------ |
 | **List**           | n      | 1         | 1        |                          |
 | **Stack**          | n      | 1         | 1        |                          |
 | **Queue**          | n      | 1         | 1        |                          |
-| **Priority Queue** | N/A    | log(n)    | log(n)   | Search O(1) for the best |
+| **Priority Queue** | N/A    | log(n)    | log(n)   | Access O(1) for the Top  |
 | **Deque**          | n      | 1         | 1        |                          |
 | **SetTree**        | log(n) | log(n)    | log(n)   |                          |
+| **MultiSetTree**   | log(n) | log(n)    | log(n)   | Deletion is different according the number of same key |
 | **MapTree**        | log(n) | log(n)    | log(n)   |                          |
+| **MultiMapTree**   | log(n) | log(n)    | log(n)   | Deletion is different according the number of same key |
 
 ## **Algorithm operation time complexity**
 | Operation  | Best    | Average | Worst   |
