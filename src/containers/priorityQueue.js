@@ -37,14 +37,19 @@ class PriorityQueue {
   /**
    * Create a prioirty queue.
    * @param {function} compare - inequality function, compare two element and return true or false.
+   * @param {PriorityQueue} otherPriorityQueue - priority queue for deep copy.
    */
-  constructor(compare = (n1, n2) => n1 < n2) {
+  constructor(compare = (n1, n2) => n1 < n2, otherPriorityQueue = null) {
     /**
      * inequality of elements
      * @member {function}
      * @private
      */
-    this._compare = compare;
+    if (typeof compare !== 'function') {
+      this._compare = (n1, n2) => n1 < n2;
+    } else {
+      this._compare = compare;
+    }
     /**
      * array of elements
      * @type {Array}
@@ -63,6 +68,16 @@ class PriorityQueue {
      * @private
      */
     this._maxSize = 3;
+
+    if (otherPriorityQueue instanceof PriorityQueue) {
+      this._compare = otherPriorityQueue._compare;
+      this._size = otherPriorityQueue._size;
+      this._maxSize = otherPriorityQueue._maxSize;
+      this._elements = new Array(this._maxSize);
+      for (let i = 0; i < otherPriorityQueue._size; i += 1) {
+        this._elements[i] = otherPriorityQueue._elements[i];
+      }
+    }
   }
 
   // private function

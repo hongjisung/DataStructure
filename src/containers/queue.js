@@ -32,8 +32,9 @@ method
 class Queue {
   /**
    * Get none or iterable object and make queue.
+   * Can get Deque type object also.
    * @constructor
-   * @param {Object} data - Iterable object
+   * @param {null|Object} data - Iterable object
    */
   constructor(data = null) {
     /**
@@ -68,6 +69,15 @@ class Queue {
      * @private
      */
     this._end = null;
+
+    // for deep copy, get Queue as data
+    if (data instanceof Queue) {
+      let i = data._begin;
+      for (; i !== data._end; i = (i + 1) % data._maxSize) {
+        this.push(data._elements[i]);
+      }
+      this.push(data._elements[i]);
+    }
 
     if (data !== null && typeof data[Symbol.iterator] === 'function') {
       [...data].forEach(val => this.push(val));

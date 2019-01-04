@@ -140,7 +140,7 @@ class Node {
 class List {
   /**
    * Get null or iterable Object and make List sequentially.
-   * @param {*} data - The data of Node.
+   * @param {null|object} data - The data of iteable object.
    */
   constructor(data = null) {
     /**
