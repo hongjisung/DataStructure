@@ -80,6 +80,46 @@ describe('List', () => {
     assert.strictEqual(list.end().getPrev().getData(), 4);
   });
 
+  it('rbegin() check', () => {
+    list.pushFront(3);
+    assert.strictEqual(list.rbegin().getData(), 3);
+    list.pushBack(4);
+    assert.strictEqual(list.rbegin().getData(), 4);
+    list.pushFront(5);
+    assert.strictEqual(list.rbegin().getData(), 4);
+    list.popBack();
+    assert.strictEqual(list.rbegin().getData(), 3);
+    list.popFront();
+    assert.strictEqual(list.rbegin().getData(), 3);
+    list.popFront();
+    assert.strictEqual(list.rbegin(), null);
+    list.insert(list.end(), 7);
+    assert.strictEqual(list.rbegin().getData(), 7);
+  });
+
+  it('rend() check', () => {
+    list.pushFront(3);
+    assert.strictEqual(list.rend().getNext().getData(), 3);
+    list.pushBack(4);
+    assert.strictEqual(list.rend().getNext().getData(), 3);
+    list.pushFront(5);
+    assert.strictEqual(list.rend().getNext().getData(), 5);
+    list.popBack();
+    assert.strictEqual(list.rend().getNext().getData(), 5);
+    list.popFront();
+    assert.strictEqual(list.rend().getNext().getData(), 3);
+    list.popFront();
+    assert.strictEqual(list.rend().getNext(), list.end());
+    list.insert(list.end(), 7);
+    assert.strictEqual(list.rend().getNext().getData(), 7);
+    list.insert(list.rend().getNext(), 10);
+    assert.strictEqual(list.rend().getNext().getData(), 10);
+    list.erase(list.rend().getNext());
+    assert.strictEqual(list.rend().getNext().getData(), 7);
+    list.erase(list.rend().getNext());
+    assert.strictEqual(list.rend().getNext(), list.end());
+  });
+
   it('clear() check', () => {
     list.pushFront(3);
     list.pushFront(5);
@@ -282,5 +322,30 @@ describe('List', () => {
     list = new List([1, 3, 5, 7, 9]);
     list.reverse();
     assert.strictEqual(list.compare([9, 7, 5, 3, 1]), true);
+  });
+
+  it('iterator check', () => {
+    list = new List([1, 4, 6, 3, 2, 5]);
+
+    let arr = [1, 4, 6, 3, 2, 5];
+    let idx = 0;
+    for (let itr = list.begin(); itr !== list.end(); itr = itr.getNext()) {
+      assert.strictEqual(itr.getData(), arr[idx]);
+      idx += 1;
+    }
+
+    idx = 5;
+    for (let itr = list.rbegin(); itr !== list.rend(); itr = itr.getPrev()) {
+      assert.strictEqual(itr.getData(), arr[idx]);
+      idx -= 1;
+    }
+
+    list.sort();
+    arr = [6, 5, 4, 3, 2, 1];
+    idx = 5;
+    for (let itr = list.rbegin(); itr !== list.rend(); itr = itr.getPrev()) {
+      assert.strictEqual(itr.getData(), arr[idx]);
+      idx -= 1;
+    }
   });
 });

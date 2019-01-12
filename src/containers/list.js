@@ -26,6 +26,8 @@ List:
   // iterators
   begin()
   end()
+  rbegin()
+  rend()
 
   // modifiers
   clear()
@@ -90,8 +92,7 @@ class Node {
 
   /**
    * Set the data of Node.
-   * @protected
-   * @param {*} data - The data of Node. 
+   * @param {*} data - The data of Node.
    */
   setData(data) {
     this._data = data;
@@ -144,12 +145,20 @@ class List {
    */
   constructor(data = null) {
     /**
-     * Express the end of List.<br>
+     * Express the back end of List.<br>
      * It is a virtual node.
      * @private
      * @type {Node}
      */
     this._nil = new Node(null, null, null);
+    /**
+     * Express the front end of List.<br>
+     * It is a virtual node.
+     * @private
+     * @type {Node}
+     */
+    this._rnil = new Node(null, null, this._nil);
+    this._nil.setPrev(this._rnil);
     /**
      * the number of Node
      * @private
@@ -238,12 +247,22 @@ class List {
     return this._nil;
   }
 
+  rbegin() {
+    return this._back;
+  }
+
+  rend() {
+    return this._rnil;
+  }
+
   // Modifiers
   /**
    * Make list empty.
    */
   clear() {
     this._nil = new Node(null, null, null);
+    this._rnil = new Node(null, null, this._nil);
+    this._nil.setPrev(this._rnil);
     this._size = 0;
     this._front = null;
     this._back = null;
@@ -260,12 +279,18 @@ class List {
       return false;
     }
 
+    if (node === this._rnil) {
+      return false;
+    }
+
     const newnode = new Node(data);
     newnode.setPrev(node.getPrev());
     newnode.setNext(node);
 
     if (this._front === node) {
       this._front = newnode;
+      this._rnil.setNext(newnode);
+      newnode.setPrev(this._rnil);
     }
 
     const prevnode = node.getPrev();
@@ -276,6 +301,9 @@ class List {
     // set this._back
     if (node === this._nil) {
       this._back = newnode;
+    }
+    if (this._size === 0) {
+      this._front = newnode;
     }
     this._size += 1;
     return node;
@@ -323,6 +351,8 @@ class List {
 
     if (this._size === 0) {
       this._front = node;
+      this._front.setPrev(this._rnil);
+      this._rnil.setNext(node);
     } else {
       lastnode.setNext(node);
     }
@@ -337,7 +367,7 @@ class List {
    * @param {*} data - the data of list.
    */
   pushFront(data) {
-    const node = new Node(data, null, this._front);
+    const node = new Node(data, this._rnil, this._front);
 
     if (this._size === 0) {
       this._front = node;
@@ -348,6 +378,7 @@ class List {
       this._front = node;
     }
 
+    this._rnil.setNext(node);
     this._size += 1;
   }
 
@@ -361,7 +392,7 @@ class List {
     }
 
     const node = this._back.getPrev();
-    if (node === null) {
+    if (node === this._rnil) {
       this.clear();
       return true;
     }
@@ -386,7 +417,8 @@ class List {
       this.clear();
       return true;
     }
-    node.setPrev(null);
+    node.setPrev(this._rnil);
+    this._rnil.setNext(node);
     this._front = node;
     this._size -= 1;
     return true;
