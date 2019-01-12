@@ -168,7 +168,7 @@ class List {
      * @private
      * @type {Node}
      */
-    this._back = this._nil;
+    this._back = null;
     if (data !== null && typeof data[Symbol.iterator] === 'function') {
       [...data].forEach(val => this.pushBack(val));
     }
@@ -214,7 +214,7 @@ class List {
     if (this._size === 0) {
       return false;
     }
-    return this._back.getPrev().getData();
+    return this._back.getData();
   }
 
   // iterable node
@@ -235,7 +235,7 @@ class List {
    * @return {Node} nil
    */
   end() {
-    return this._back;
+    return this._nil;
   }
 
   // Modifiers
@@ -246,7 +246,7 @@ class List {
     this._nil = new Node(null, null, null);
     this._size = 0;
     this._front = null;
-    this._back = this._nil;
+    this._back = null;
   }
 
   /**
@@ -273,6 +273,10 @@ class List {
       prevnode.setNext(newnode);
     }
     node.setPrev(newnode);
+    // set this._back
+    if (node === this._nil) {
+      this._back = newnode;
+    }
     this._size += 1;
     return node;
   }
@@ -291,7 +295,7 @@ class List {
       this.popFront();
       return nextnode;
     }
-    if (this._back === node) {
+    if (this._nil === node) {
       return false;
     }
 
@@ -299,6 +303,11 @@ class List {
     const nextnode = node.getNext();
     frontnode.setNext(nextnode);
     nextnode.setPrev(frontnode);
+
+    // set this._back
+    if (nextnode === this._nil) {
+      this._back = frontnode;
+    }
 
     this._size -= 1;
     return nextnode;
@@ -309,7 +318,7 @@ class List {
    * @param {*} data - the data of list.
    */
   pushBack(data) {
-    const lastnode = this._back.getPrev();
+    const lastnode = this._back;
     const node = new Node(data, lastnode, this._nil);
 
     if (this._size === 0) {
@@ -319,6 +328,7 @@ class List {
     }
 
     this._nil.setPrev(node);
+    this._back = node;
     this._size += 1;
   }
 
@@ -332,6 +342,7 @@ class List {
     if (this._size === 0) {
       this._front = node;
       this._nil.setPrev(node);
+      this._back = node;
     } else {
       this._front.setPrev(node);
       this._front = node;
@@ -349,13 +360,14 @@ class List {
       return false;
     }
 
-    const node = this._back.getPrev().getPrev();
+    const node = this._back.getPrev();
     if (node === null) {
       this.clear();
       return true;
     }
-    node.setNext(this._back);
-    this._back.setPrev(node);
+    node.setNext(this._nil);
+    this._nil.setPrev(node);
+    this._back = node;
     this._size -= 1;
     return true;
   }
@@ -440,25 +452,23 @@ class List {
    * sort the list by compare function.
    * Basically quick sort, but can choose merge sort.
    * @param {function} comp - compare function 
-   * @param {string} sorting - 'quicksort' or 'mergesort'
    */
   sort(comp = (n1, n2) => n1 < n2, sorting = 'quicksort') {
     let sort = null;
-    if(sorting === 'quicksort') {
+    if (sorting === 'quicksort') {
       sort = require('../algorithms/quickSort');
     }
-    if(sorting === 'mergesort') {
+    if (sorting === 'mergesort') {
       sort = require('../algorithms/mergeSort');
     }
     const arr = sort(this, comp);
     this.clear();
-    arr.forEach(val => { this.pushBack(val) });
+    arr.forEach((val) => { this.pushBack(val); });
   }
 
   /**
    * Merge this list and data(iterable object) by sequential order.<br>
-   * Given two container(list, data) should be sorted already.
-   * @param {Object} data - sorted iterable object.
+   * @param {Object} data - sortable iterable object.
    * @param {function} compare - inequality function.
    * @return {boolean} check well merged.
    */
@@ -468,10 +478,16 @@ class List {
     }
 
     if (typeof data[Symbol.iterator] === 'function') {
+      // sort this list
+      this.sort(compare);
+      // sort the data
+      const mergesort = require('../algorithms/mergeSort');
+      const sorteddata = mergesort(data, compare);
+
       const newlist = new List();
       let itr = this.begin();
-      [...data].forEach((val) => {
-        while (compare(itr.getData(), val)) {
+      sorteddata.forEach((val) => {
+        while (itr.getData() !== null && compare(val, itr.getData())) {
           newlist.pushBack(itr.getData());
           itr = itr.getNext();
           if (itr.getData() === null) {
@@ -480,10 +496,14 @@ class List {
         }
         newlist.pushBack(val);
       });
-      this._back = newlist.end();
+      while (itr.getData() !== null) {
+        newlist.pushBack(itr.getData());
+        itr = itr.getNext();
+      }
+      this._nil = newlist.end();
       this._size = newlist.size();
       this._front = newlist.begin();
-      this._back = newlist.end();
+      this._back = newlist.end().getPrev();
       return true;
     }
     return false;
@@ -503,7 +523,7 @@ class List {
     this._nil = newlist.end();
     this._size = newlist.size();
     this._front = newlist.begin();
-    this._back = newlist.end();
+    this._back = newlist.end().getPrev();
   }
 
   // javascript iterator

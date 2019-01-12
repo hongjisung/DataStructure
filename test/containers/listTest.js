@@ -261,10 +261,20 @@ describe('List', () => {
 
   it('merge() check', () => {
     list = new List([1, 3, 5]);
-    const list2 = new List([2, 4, 6]);
+    let list2 = new List([2, 4, 6]);
     list.merge(list2);
 
-    const cmp = [1, 2, 3, 4, 5, 6];
+    const cmp = [6, 5, 4, 3, 2, 1];
+    assert.strictEqual(list.compare(cmp), true);
+
+    list = new List([1, 4, 2, 6, 5]);
+    list2 = new List([3]);
+    list.merge(list2);
+    assert.strictEqual(list.compare(cmp), true);
+
+    list = new List([3]);
+    list2 = new List([1, 4, 2, 6, 5]);
+    list.merge(list2);
     assert.strictEqual(list.compare(cmp), true);
   });
 
