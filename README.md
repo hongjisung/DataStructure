@@ -106,6 +106,9 @@ const list = new List();
 const list2 = new List([1, 2]);
 const list3 = new List([1, 5, 3, 4, 2]);
 
+// deepcopy
+const list4 = new List(list3);
+
 // modifiers
 list.pushBack(2);
 list.pushFront(1); // [1,2]
@@ -133,6 +136,8 @@ const Stack = require('./src').Stack;
 // constructor
 let stack = new Stack();
 stack = new Stack([1, 5, 3]);
+// deep copy
+const s2 = new Stack(stack);
 
 // element access
 stack.top(); // 3
@@ -153,6 +158,8 @@ const Queue = require('./src').Queue;
 // constructor
 let queue = new Queue();
 queue = new Queue([1, 3, 5]);
+// deep copy
+const q2 = new Queue(queue);
 
 // element access
 queue.front() // 1
@@ -172,6 +179,9 @@ const PriorityQueue = require('./src').PriorityQueue;
 let pq = new PriorityQueue();
 pq = new PriorityQueue((n1, n2) => n1 > n2);
 
+// deep copy
+const pq2 = new PriorityQueue(null, pq);
+
 // modifiers
 [7, 3, 5, 1, 9].forEach(val => pq.push(val)); // [1, 3, 5, 7, 9]
 pq.pop(); // [3, 5, 7, 9]
@@ -188,6 +198,8 @@ const Deque = require('./src').Deque;
 // constructor
 let deque = new Deque();
 deque = new Deque([1, 2, 3]);
+// deep copy
+const d2 = new Deque(deque);
 
 // element access
 deque.front(); // 1
@@ -206,6 +218,7 @@ const SetTree = require('./src').SetTree;
 let setTree = new SetTree();
 const st = new SetTree((n1, n2) => n1 > n2); // ascending
 [5, 3, 4, 1, 2].forEach(val => st.insert(val)); // [1, 2, 3, 4, 5]
+// deep copy
 setTree = new SetTree(st);
 
 // iterator
@@ -260,6 +273,7 @@ const MapTree = require('./src').MapTree;
 let mapTree = new MapTree();
 const mt = new MapTree((n1, n2) => n1 > n2); // ascending
 [[5, 'a'], [3, 'b'], [4, 'c'], [1, 'd'], [2, 'e']].forEach(val => mt.insert(val[0], val[1])); // [[1, 'd'], [2, 'e'], [3, 'b'], [4, 'c'], [5, 'a']]
+// deepcopy
 mapTree = new MapTree(mt);
 
 // iterator

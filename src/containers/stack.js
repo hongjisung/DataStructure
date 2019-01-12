@@ -26,7 +26,7 @@ method:
 class Stack {
   /**
    * Create a stack.
-   * @param {Object} data - The data is iterable object.
+   * @param {null|Object} data - The data is iterable object.
    */
   constructor(data = null) {
     /**
@@ -41,6 +41,10 @@ class Stack {
      * @private
      */
     this._size = 0;
+
+    if (data instanceof Stack) {
+      data._elements.forEach(val => this.push(val));
+    }
 
     if (data !== null && typeof data[Symbol.iterator] === 'function') {
       [...data].forEach(val => this.push(val));

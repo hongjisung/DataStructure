@@ -35,7 +35,8 @@ const Queue = require('./queue');
  * @classdesc Class representing deque.<br>
  * deque is implemented extends queue.<br>
  * add additional method.<br>
- * pop and push method of queue is assumed as private.
+ * pop and push method of queue is assumed as private.<br>
+ * this constructor can get Queue type object.
  * @version v1.0
  */
 class Deque extends Queue {
