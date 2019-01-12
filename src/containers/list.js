@@ -92,6 +92,7 @@ class Node {
 
   /**
    * Set the data of Node.
+   * public method for change data of node in list.
    * @param {*} data - The data of Node.
    */
   setData(data) {
@@ -231,14 +232,14 @@ class List {
    * Get the first Node of list.<br>
    * Can use getNext method for next node.<br>
    * if list is empty, return null.
-   * @return {Node} The first Node of list.
+   * @return {null|Node} The first Node of list.
    */
   begin() {
     return this._front;
   }
 
   /**
-   * Get the end of list, nil.<br>
+   * Get the back end of list, nil.<br>
    * For check of end.<br>
    * Or use getPrev method for before node:last node of list.
    * @return {Node} nil
@@ -247,10 +248,22 @@ class List {
     return this._nil;
   }
 
+  /**
+   * Get the last node of list.<br>
+   * Use the getPrev method for next node.<br>
+   * If list is empty, return null.
+   * @returns {null|Node} last node of list.
+   */
   rbegin() {
     return this._back;
   }
 
+  /**
+   * Get the front end of list, rnil<br>
+   * For check of the end of reverse iterator.<br>
+   * Use getNext method for get first node of list.
+   * @returns {Node} rnil.
+   */
   rend() {
     return this._rnil;
   }
