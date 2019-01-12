@@ -5,6 +5,7 @@ class MultiSetTree:
     begin
     end
     rbegin
+    rend
     [Symbol.iterator]
 
     // Capacity
@@ -82,6 +83,17 @@ class MultiSetTree {
    */
   rbegin() {
     return this._tree.rbegin();
+  }
+
+  /**
+   * this express the front end of iterating.<br>
+   * we can start from front with begin(), end with rbegin() and eventually meet end()<br>
+   * At the end, if we use getNext() method, we get false.<br>
+   * But, if we use getPrev() method, we get maximum node.
+   * @return {TreeNode} - endnode of tree iterator.
+   */
+  rend() {
+    return this._tree.rend();
   }
 
   /**

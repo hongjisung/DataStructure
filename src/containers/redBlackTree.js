@@ -38,6 +38,7 @@ class Tree:
     begin
     end
     rbegin
+    rend
     [Symbol.iterator]
 
     // Capacity
@@ -83,7 +84,7 @@ class TreeNode {
    * @param {EndNode} endnode - endnode of tree iterator.
    */
   constructor(key = null, value = null, color = null,
-    parent = null, leftChild = null, rightChild = null, endnode = null) {
+    parent = null, leftChild = null, rightChild = null, endnode = null, rendnode = null) {
     /**
      * all type except TreeNode.
      * @private
@@ -125,6 +126,7 @@ class TreeNode {
      * @private
      */
     this._endnode = endnode;
+    this._rendnode = rendnode;
   }
 
   /**
@@ -203,13 +205,17 @@ class TreeNode {
   2. if it has no left child, go parent.
   3. if it is right child of parent, return parent.
   4. if it is left child of parent, go next parent and go 3.
-  5. but if it has no parent anymore, it is biggest node and return endnode.
+  5. but if it has no parent anymore, it is biggest node and return rendnode.
   */
   /**
-   * Get prev node by the compare function.
+   * Get prev node by the compare function.<br>
+   * At rendnode, it returns false.
    * @returns {TreeNode} - the prev node.
    */
   getPrev() {
+    if (this.getColor() === null) {
+      return false;
+    }
     const leftmax = findLeftMaximum(this);
     if (leftmax === this) {
       let nownode = this;
@@ -221,7 +227,7 @@ class TreeNode {
       if (p !== null) {
         return p;
       }
-      return this._endnode;
+      return this._rendnode;
     }
     return leftmax;
   }
@@ -273,13 +279,24 @@ class EndNode extends TreeNode {
     /**
      * denode the last node in tree by iterator.
      */
+    this._next = null;
     this._prev = null;
+  }
+
+  getNext() {
+    return this._next;
+  }
+
+  /** @protected */
+  setNext(node) {
+    this._next = node;
   }
 
   getPrev() {
     return this._prev;
   }
 
+  /** @protected */
   setPrev(node) {
     this._prev = node;
   }
@@ -750,11 +767,19 @@ class RedBlackTree {
     */
     this._root = null;
     /**
-     * the end of tree iterator.
+     * the back end of tree iterator.
      * @type {EndNode}
      * @private
     */
     this._endnode = new EndNode();
+    /**
+     * the front end of tree iterator.
+     * @type {EndNode}
+     * @private
+    */
+    this._rendnode = new EndNode();
+    this._endnode.setPrev(this._rendnode);
+    this._rendnode.setNext(this._endnode);
     /**
      * the size of tree.
      * @type {number}
@@ -788,7 +813,7 @@ class RedBlackTree {
   }
 
   /**
-   * this express the end of iterating.<br>
+   * this express the back end of iterating.<br>
    * we can start from front with begin(), end with rbegin() and eventually meet end()<br>
    * At the end, if we use getNext() method, we get false.<br>
    * But, if we use getPrev() method, we get maximum node.
@@ -798,7 +823,7 @@ class RedBlackTree {
     if (this._root !== null) {
       this._endnode.setPrev(this.rbegin());
     } else {
-      this._endnode.setPrev(null);
+      this._endnode.setPrev(this._rendnode);
     }
     return this._endnode;
   }
@@ -808,7 +833,26 @@ class RedBlackTree {
    * @returns {null|TreeNode}
    */
   rbegin() {
+    if (this._root === null) {
+      return null;
+    }
     return findMaxNode(this._root);
+  }
+
+  /**
+   * this express the front end of iterating.<br>
+   * we can start from front with begin(), end with rbegin() and eventually meet end()<br>
+   * At the end, if we use getNext() method, we get false.<br>
+   * But, if we use getPrev() method, we get maximum node.
+   * @return {TreeNode} - endnode of tree iterator.
+   */
+  rend() {
+    if (this._root !== null) {
+      this._rendnode.setNext(this.begin());
+    } else {
+      this._rendnode.setNext(this._endnode);
+    }
+    return this._rendnode;
   }
 
   /**
@@ -864,6 +908,9 @@ class RedBlackTree {
   clear() {
     this._root = null;
     this._endnode = new EndNode();
+    this._rendnode = new EndNode();
+    this._endnode.setPrev(this._rendnode);
+    this._rendnode.setNext(this._endnode);
     this._size = 0;
   }
 
@@ -877,7 +924,7 @@ class RedBlackTree {
       return;
     }
     const node = new TreeNode(key, value, 'red', null, new TreeNode(null, null, 'black', null, null, null),
-      new TreeNode(null, null, 'black', null, null, null), this._endnode);
+      new TreeNode(null, null, 'black', null, null, null), this._endnode, this._rendnode);
     node.getLeftChild().setParent(node);
     node.getRightChild().setParent(node);
     this._insertRecurse(this._root, node);
@@ -1011,7 +1058,7 @@ class RedBlackTree {
       return node;
     }
 
-    while (node.getPrev() !== this._endnode && node.getPrev().getKey() === key) {
+    while (node.getPrev() !== this._rendnode && node.getPrev().getKey() === key) {
       node = node.getPrev();
     }
     return node;
@@ -1107,7 +1154,7 @@ class RedBlackTree {
       return this._endnode;
     }
 
-    while (node.getPrev() !== this._endnode && node.getPrev().getKey() === key) {
+    while (node.getPrev() !== this._rendnode && node.getPrev().getKey() === key) {
       node = node.getPrev();
     }
     return node;

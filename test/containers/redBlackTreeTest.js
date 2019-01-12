@@ -66,8 +66,8 @@ describe('Red Black Tree', () => {
     let end = redBlackTree.end();
     assert.strictEqual(end.getKey(), null);
     assert.strictEqual(end.getValue(), null);
-    assert.strictEqual(end.getPrev(), redBlackTree.begin());
-    assert.strictEqual(end.getNext(), false);
+    assert.strictEqual(end.getPrev(), redBlackTree.rend());
+    assert.strictEqual(end.getNext(), null);
 
     redBlackTree.insert(3, 1);
     redBlackTree.insert(2, 5);
@@ -77,7 +77,56 @@ describe('Red Black Tree', () => {
     assert.strictEqual(end.getKey(), null);
     assert.strictEqual(end.getValue(), null);
     assert.strictEqual(end.getPrev().getKey(), 2);
-    assert.strictEqual(end.getNext(), false);
+    assert.strictEqual(end.getNext(), null);
+  });
+
+  it('rbegin() check', () => {
+    assert.strictEqual(redBlackTree.rbegin(), null);
+    redBlackTree.insert(3, 5);
+    assert.strictEqual(redBlackTree.rbegin().getKey(), 3);
+    assert.strictEqual(redBlackTree.rbegin().getValue(), 5);
+    redBlackTree.insert(2, 10);
+    assert.strictEqual(redBlackTree.rbegin().getKey(), 2);
+    assert.strictEqual(redBlackTree.rbegin().getValue(), 10);
+    redBlackTree.insert(7, 3);
+    assert.strictEqual(redBlackTree.rbegin().getKey(), 2);
+    assert.strictEqual(redBlackTree.rbegin().getValue(), 10);
+    redBlackTree.erase(2);
+    assert.strictEqual(redBlackTree.rbegin().getKey(), 3);
+    assert.strictEqual(redBlackTree.rbegin().getValue(), 5);
+    redBlackTree.erase(3);
+    assert.strictEqual(redBlackTree.rbegin().getKey(), 7);
+    assert.strictEqual(redBlackTree.rbegin().getValue(), 3);
+    redBlackTree.erase(7);
+    assert.strictEqual(redBlackTree.rbegin(), null);
+  });
+
+  it('rend() check', () => {
+    let rend = redBlackTree.rend();
+    assert.strictEqual(rend.getKey(), null);
+    assert.strictEqual(rend.getValue(), null);
+    assert.strictEqual(rend.getPrev(), null);
+    assert.strictEqual(rend.getNext(), redBlackTree.end());
+
+    redBlackTree.insert(3, 1);
+    redBlackTree.insert(2, 5);
+    redBlackTree.insert(5, -10);
+
+    rend = redBlackTree.rend();
+    assert.strictEqual(rend.getKey(), null);
+    assert.strictEqual(rend.getValue(), null);
+    assert.strictEqual(rend.getPrev(), null);
+    assert.strictEqual(rend.getNext().getKey(), 5);
+
+    redBlackTree.erase(3);
+    redBlackTree.erase(2);
+    redBlackTree.erase(5);
+    
+    rend = redBlackTree.rend();
+    assert.strictEqual(rend.getKey(), null);
+    assert.strictEqual(rend.getValue(), null);
+    assert.strictEqual(rend.getPrev(), null);
+    assert.strictEqual(rend.getNext(), redBlackTree.end());
   });
 
   it('[Symbol.iterator] check', () => {
@@ -152,7 +201,7 @@ describe('Red Black Tree', () => {
     node = node.getNext();
     node = redBlackTree.erase(node);
     assert.strictEqual(redBlackTree.size(), 2);
-    assert.strictEqual(node.getNext(), false);
+    assert.strictEqual(node.getNext(), null);
     assert.strictEqual(node, redBlackTree.end());
 
     redBlackTree.erase(3);
@@ -355,8 +404,8 @@ describe('Red Black Tree', () => {
   });
 
   // check efficiency
-  it('500000 data test', () => {
-    const limit = 500000;
+  it('400000 data test', () => {
+    const limit = 400000;
     for (let i = 0; i < limit; i += 1) {
       redBlackTree.insert(i, i);
     }
@@ -415,6 +464,32 @@ describe('Red Black Tree', () => {
     for (let i = 0; i < limit; i += 1) {
       const data = Math.floor(Math.random() * limit);
       redBlackTree.insert(data, data);
+    }
+  });
+
+  it('reverse iterate test', () => {
+    const limit = 2000;
+    for (let i = 0; i < limit; i += 1) {
+      const data = Math.floor(Math.random() * limit);
+      redBlackTree.insert(data, data);
+    }
+
+    let itr = redBlackTree.rbegin();
+    let key = itr.getKey();
+    itr = itr.getPrev();
+    for (; itr !== redBlackTree.rend(); itr = itr.getPrev()) {
+      assert.strictEqual(key <= itr.getKey(), true);
+      key = itr.getKey();
+    }
+
+    const removecondition = require('../../src/algorithms/removeCondition');
+    removecondition(redBlackTree, data => data < limit / 2);
+    itr = redBlackTree.rbegin();
+    key = itr.getKey();
+    itr = itr.getPrev();
+    for (; itr !== redBlackTree.rend(); itr = itr.getPrev()) {
+      assert.strictEqual(key <= itr.getKey(), true);
+      key = itr.getKey();
     }
   });
 });
