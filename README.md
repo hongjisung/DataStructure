@@ -1,4 +1,6 @@
 # **Javascript Data Structure**
+javascript in-memory data structure for server side development.
+
 ## **Containers**
 - ### **List**  
   Doubly linked list.  
@@ -95,6 +97,68 @@ const std = require('./src');
 npm install <directory path>
 ```
 
+# **Function Tables**
+## **Container Member Function Table**
+| Method | List | Stack | Queue | Deque | PriorityQueue | SetTree | MultiSetTree | MapTree | MultiMapTree |
+| ------ | ---- | ----- | ----- | ----- | ------------- | ------- | ------------ | ------- | ------------ |
+| **(constructor)** | List() | Stack() | Queue() | Deque() | PriorityQueue() | SetTree() | MultiSetTree() | MapTree() | MultiMapTree() |
+| **compare** | compare() | compare() | compare() | compare() | | | | | |
+| **Iterators** | | | | | | | | | |
+| **begin** | begin() | | | | | begin() | begin() | begin() | begin() |
+| **rbegin** | rbegin() | | | | | rbegin() | rbegin() | rbegin() | rbegin() |
+| **end** | end() | | | | | end() | end() | end() | end() |
+| **rend** | rend() | | | | | rend() | rend() | rend() | rend() |
+| **Element Access** | | | | | | | | | |
+| **front** | front() | | front() | front() | top() | | | | |
+| **back** | back() | top() | back() | back() | | | | | |
+| **Capacity** | | | | | | | | | |
+| **empty** | empty() | empty() | empty() | empty() | empty() | empty() | empty() | empty() | empty() |
+| **size** | size() | size() | size() | size() | size() | size() | size() | size() | size() |
+| **Modifier** | | | | | | | | | |
+| **clear** | clear() | | clear() | clear() | | clear() | clear() | clear() | clear() |
+| **insert** | insert() | | | | | insert() | insert() | insert() | insert() |
+| **assign** | | | | | | | | assign() | assign() |
+| **insertOrAssign** | | | | | | | | insertOrAssign() | insertOrAssign() |
+| **erase** | erase() | | | | | erase() | erase() | erase() | erase() |
+| **pushFront** | pushFront() | | | pushFront() | | | | | |
+| **pushBack** | pushBack() | push() | push()| pushBack() | push() | | | | |
+| **popFront** | popFront() | | pop()| popFront()| pop() | | | | |
+| **popBack** | popBack() | pop() | | popBack() | | | | | |
+| **merge** | merge() | | | | | | | | |
+| **List operations** | | | | | | | | | |
+| **splice** | splice() | | | | | | | | |
+| **reverse** | reverse() | | | | | | | | |
+| **sort** | sort() | | | | | | | | |
+| **Lookup** | | | | | | | | | |
+| **count** | | | | | | count() | count() | count() | count() |
+| **find** | | | | | | find() | find() | find() | find() |
+| **contains** | | | | | | contains() | contains() | contains() | contains() |
+| **lowerBound** | | | | | | lowerBound() | lowerBound() | lowerBound() | lowerBound() |
+| **upperBound** | | | | | | upperBound() | upperBound() | upperBound() | upperBound() |
+| **equalRange** | | | | | | equalRange() | equalRange() | equalRange() | equalRange() |
+| **keyComp** | | | | | compareFunction() | keyComp() | keyComp() | keyComp() | keyComp() |
+
+## **Node Member Function Table**
+| Method  | Node(list) | TreeNode |
+| ------- | ---------- | -------- |
+| getData | getData()    |          |
+| setData | setData(data)    |          |
+| getKey  |            | getKey()   |
+| getValue |            | getValue()   |
+| getPrev | getPrev()    | getPrev()  |
+| getNext | getNext()    | getNext()  |
+
+## **Algorithm Container Table**
+| Function | List | SetTree | MultiSetTree | MapTree | MultiMapTree |
+| -------- | ---- | ------- | ------------ | ------- | ------------ |
+| **mergeSort** | mergeSort(List)  |         |              |         |              |
+| **quickSort** | quickSort(List)  |         |              |         |              |
+| **removeCondition** | removeCondition(function) | removeCondition(function) | removeCondition(function) | removeCondition(function) | removeCondition(function) |
+| **unique** | unique(List) | | unique(MultiSetTree) |         | unique(MultiMapTree) |
+| **findNodes** | findNodes(List, key array) | findNodes(SetTree, key array) | findNodes(MultiSetTree, key array) | findNodes(MapTree, key array) | findNodes(MultiMapTree, key array) |
+| **map** | map(List, function)  | | | map(MapTree, function) | map(MultiMapTree, function) |
+
+
 # **Usage**
 ## **Containers**
 ### **List**
@@ -112,15 +176,14 @@ const list4 = new List(list3);
 // modifiers
 list.pushBack(2);
 list.pushFront(1); // [1,2]
-list.popBack(); // [2]
-list.popBack(1); // [2, 1]
+list.popFront(); // [2]
+list.pushBack(1); // [2, 1]
 
 // iterators
 for (let itr = list.begin(); itr !== list.end(); itr = itr.getNext()) {
-  console.log(itr.getData()); // 1, 1, 2
+  console.log(itr.getData()); // 2, 1
 }
-
-[...list] // [1, 1, 2]
+[...list] // [2, 1]
 
 // operations
 list.compare(list2) // false
@@ -226,7 +289,7 @@ console.log([...setTree]); // [1, 2, 3, 4, 5]
 for (let itr = setTree.begin(); itr !== setTree.end(); itr = itr.getNext()) {
   console.log(itr.getKey()); // 1, 2, 3, 4, 5
 }
-for (let itr = setTree.rbegin(); itr !== setTree.end(); itr = itr.getPrev()) {
+for (let itr = setTree.rbegin(); itr !== setTree.rend(); itr = itr.getPrev()) {
   console.log(itr.getKey()); // 5, 4, 3, 2, 1
 }
 
@@ -281,7 +344,7 @@ console.log([...mapTree]); // [[1, 'd'], [2, 'e'], [3, 'b'], [4, 'c'], [5, 'a']]
 for (let itr = mapTree.begin(); itr !== mapTree.end(); itr = itr.getNext()) {
   console.log(itr.getKey()); // 1, 2, 3, 4, 5
 }
-for (let itr = mapTree.rbegin(); itr !== mapTree.end(); itr = itr.getPrev()) {
+for (let itr = mapTree.rbegin(); itr !== mapTree.rend(); itr = itr.getPrev()) {
   console.log(itr.getValue()); // a, c, b, e, d
 }
 
