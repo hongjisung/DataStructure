@@ -118,7 +118,7 @@ class MultiSetTree {
    * make sure tree is empty.
    * @returns {boolean}
    */
-  emtpy() {
+  empty() {
     return this._tree.empty();
   }
 
