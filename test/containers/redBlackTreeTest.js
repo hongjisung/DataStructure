@@ -410,7 +410,7 @@ describe('Red Black Tree', () => {
       redBlackTree.insert(i, i);
     }
     for (let i = 0; i < limit; i += 1) {
-      assert.strictEqual(redBlackTree.contains(i, i), true);
+      assert.strictEqual(redBlackTree.contains(i), true);
     }
     for (let i = 0; i < limit; i += 1) {
       assert.notStrictEqual(redBlackTree.erase(i), false);
@@ -420,7 +420,7 @@ describe('Red Black Tree', () => {
       redBlackTree.insert(i, i);
     }
     for (let i = limit; i >= 0; i -= 1) {
-      assert.strictEqual(redBlackTree.contains(i, i), true);
+      assert.strictEqual(redBlackTree.contains(i), true);
     }
     for (let i = limit; i >= 0; i -= 1) {
       assert.notStrictEqual(redBlackTree.erase(i), false);

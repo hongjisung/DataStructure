@@ -49,7 +49,6 @@ List:
 
 /**
  * @classdesc Express list element.<br>
- * Point front and back Node object.
  * @protected
  */
 class Node {
@@ -174,7 +173,6 @@ class List {
     this._front = null;
     /**
      * The end of list.
-     * Always nil.
      * @private
      * @type {Node}
      */
