@@ -106,7 +106,7 @@ class Queue {
   // element access
   /**
    * Get the first element of queue.
-   * @return {*} - the first element of queue.
+   * @return {false|*} - the first element of queue. if queue is empty, return false.
    */
   front() {
     if (this._size === 0) {
