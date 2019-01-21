@@ -249,7 +249,6 @@ class DirectedGraph {
             visited[node] = true;
             Object.keys(graph[node]).forEach((val) => {
               if (!visited[val]) {
-                visited[val] = true;
                 stack.push(val);
               }
             });
@@ -258,13 +257,17 @@ class DirectedGraph {
 
           node = stack.top();
           stack.pop();
+          while (visited[node]) {
+            node = stack.top();
+            stack.pop();
+          }
+          visited[node] = true;
           if (node === false) {
             return { value: undefined, done: true };
           }
 
           Object.keys(graph[node]).forEach((val) => {
             if (!visited[val]) {
-              visited[val] = true;
               stack.push(val);
             }
           });
@@ -288,7 +291,6 @@ class DirectedGraph {
             visited[node] = true;
             Object.keys(graph[node]).forEach((val) => {
               if (!visited[val]) {
-                visited[val] = true;
                 queue.push(val);
               }
             });
@@ -297,13 +299,17 @@ class DirectedGraph {
 
           node = queue.front();
           queue.pop();
+          while (visited[node]) {
+            node = queue.front();
+            queue.pop();
+          }
+          visited[node] = true;
           if (node === false) {
             return { value: undefined, done: true };
           }
 
           Object.keys(graph[node]).forEach((val) => {
             if (!visited[val]) {
-              visited[val] = true;
               queue.push(val);
             }
           });

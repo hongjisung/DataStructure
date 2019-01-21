@@ -31,10 +31,14 @@ describe('DirectedGraph Test', () => {
       [['1', '2'], ['2', '3'], ['4', '2'], ['2', '6'], ['4', '5'],
         ['6', '5'], ['5', '3'], ['3', '6']]);
     // basic breadth first search
+    directedGraph.setIterStart('1');
+    console.log([...directedGraph]);
     directedGraph.setIterStart('4');
     console.log([...directedGraph]);
     // depth first search
     directedGraph.setIterType('dfs');
+    console.log([...directedGraph]);
+    directedGraph.setIterStart('1');
     console.log([...directedGraph]);
 
 
@@ -87,7 +91,7 @@ describe('DirectedGraph Test', () => {
     assert.deepEqual(dgnodes, nodes);
     directedGraph.insertNode('5');
     directedGraph.insertNode('7');
-    nodes = mergesort(['1', '2', '4', '5', '7']);
+    nodes = mergesort(['1', '2', '7', '5', '4']);
     dgnodes = mergesort(directedGraph.getNodes());
     assert.deepEqual(dgnodes, nodes);
   });
@@ -164,10 +168,10 @@ describe('DirectedGraph Test', () => {
 
   it('mapWeight() test', () => {
     directedGraph = new DirectedGraph(['1', '2', '3', '4'], [['1', '2'], ['2', '3'], ['4', '2']]);
-    directedGraph.mapWeight((start, end, weight) => Number(start) * Number(end));
-    assert.strictEqual(directedGraph.getWeight('1', '2'), 2);
-    assert.strictEqual(directedGraph.getWeight('2', '3'), 6);
-    assert.strictEqual(directedGraph.getWeight('4', '2'), 8);
+    directedGraph.mapWeight((start, end, weight, mul = 2) => mul * Number(start) * Number(end));
+    assert.strictEqual(directedGraph.getWeight('1', '2'), 4);
+    assert.strictEqual(directedGraph.getWeight('2', '3'), 12);
+    assert.strictEqual(directedGraph.getWeight('4', '2'), 16);
   });
 
   it('eraseNode() test', () => {
