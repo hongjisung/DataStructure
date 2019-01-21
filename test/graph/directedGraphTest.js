@@ -26,6 +26,26 @@ describe('DirectedGraph Test', () => {
     assert.strictEqual(dg2.getWeight('5', '1'), false);
   });
 
+  it('[Symbol.iterator] test', () => {
+    directedGraph = new DirectedGraph(['1', '2', '3', '4', '5', '6'],
+      [['1', '2'], ['2', '3'], ['4', '2'], ['2', '6'], ['4', '5'],
+        ['6', '5'], ['5', '3'], ['3', '6']]);
+    // basic breadth first search
+    directedGraph.setIterStart('4');
+    console.log([...directedGraph]);
+    // depth first search
+    directedGraph.setIterType('dfs');
+    console.log([...directedGraph]);
+
+
+    directedGraph = new DirectedGraph(['1', '2', '3', '4', '5', '6'],
+      [['1', '2', 1], ['2', '3', 2], ['4', '2', 1], ['2', '6', 5], ['4', '5', 2],
+        ['6', '5', 4], ['5', '3', 2], ['3', '6', 2]]);
+    directedGraph.setIterType('dijkstra');
+    directedGraph.setIterStart('4');
+    assert.deepEqual([...directedGraph], ['4', '2', '5', '3', '6']);
+  });
+
   it('nodeSize() test', () => {
     assert.strictEqual(directedGraph.nodeSize(), 0);
     directedGraph = new DirectedGraph(['1', '2', '3', '4'], [['1', '2'], ['2', '3'], ['4', '2']]);

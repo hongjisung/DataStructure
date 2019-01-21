@@ -8,10 +8,11 @@ Class DirectedGraph
 method:
   constructor // node set과 edge set을 받는다.
 
-  // iterator?
-  breadth first visitor
-  depth first visitor
-  dijkstra visitor
+  // iterators
+  breadthFirstVisitor
+  depthFirstVisitor
+  dijkstraVisitor
+  [Symbol.iterator]
 
   // Capacity
   nodeSize
@@ -23,6 +24,10 @@ method:
   getWeight
 
   // modifiers
+  setIterType
+  setIterStart
+  setWeightAddFunc
+  setWeightCompFunc
   setWeight
   mapWeight // change weight
   eraseNode
@@ -39,13 +44,79 @@ method:
   // Operations
   reverse // change the edge's directions
 */
+const Queue = require('../../src/containers/queue');
+const Stack = require('../../src/containers/stack');
+const PriorityQueue = require('../../src/containers/priorityQueue');
 
 /* eslint no-param-reassign: ["error", { "props": false }] */
+/**
+ * @classdesc directed graph based on adjacent list concept.<br>
+ * the graph structure edge is made by basic Object, whick is key - value mapping class.<br>
+ * one example is like {n1: {n2: w12, n3: w13}, n2: {n3: w23}, n3: {n1: w31}};
+ * @version v1.0
+ */
 class DirectedGraph {
+  /**
+   * Create directed graph.<br>
+   * If it is not given any parameter, empty graph.<br>
+   * when otherGraph parameter are given, this deepcopy otherGraph.<br>
+   * If node, edge are given, it made graph by given params.
+   * @param {null|Array} node - array of string because Object key is string value.
+   * @param {null|Array} edge - array of [startnode : string, endnode : string, weight], w can be omitted.
+   * @param {null|DirectedGraph} otherGraph - other DirectedGraph object.
+   */
   constructor(node = null, edge = null, otherGraph = null) {
+    /**
+     * node and edge are represented by this variable.
+     * @type {object}
+     * @private
+     */
     this._graph = {};
+    /**
+     * the number of node.
+     * @type {number}
+     * @private
+     */
     this._nodeSize = 0;
+    /**
+     * the number of edge.
+     * @type {number}
+     * @private
+     */
     this._edgeSize = 0;
+    /**
+     * the type of iterator.<br>
+     * it is used to [Symbol.iterator]()
+     * @type {string} - 'bfs' or 'dfs' or 'dijkstra'
+     * @private
+     */
+    this._iterType = 'bfs';
+    /**
+     * the start node of iterator.<br>
+     * it is used to [Symbol.iterator]()
+     * @type {string} - node name
+     * @private
+     */
+    this._iterStart = '';
+    /**
+     * add two weight
+     * @type {function}
+     * @private
+     * @param {*} n1 - weight
+     * @param {*} n2 - weight
+     * @returns {*} - weight of add n1, n2
+     */
+    this._weightAddFunc = (n1, n2) => n1 + n2;
+    /**
+     * compare two weight<br>
+     * If this is used for dijkstra, the result is true when n2 is semantically smaller than n1.
+     * @type {function}
+     * @private
+     * @param {*} n1 - weight
+     * @param {*} n2 - weight
+     * @returns {boolean}
+     */
+    this._weightCompFunc = (n1, n2) => n1 > n2;
 
     // get other DirectedGraph
     if (otherGraph instanceof DirectedGraph) {
@@ -96,28 +167,183 @@ class DirectedGraph {
   }
 
   // iterator
-  // breadthFirstVisitor
-  // depthFirstVisitor
-  // dijkstraVisitor
+  /**
+   * the iterator of graph.<br>
+   * this has three type of iterating which is decided by this._iterType.<br>
+   * 1. this._iterType is 'dfs'<br>
+   *   depth first search by starting from this._iterStart.
+   * 2. this._iterType is 'dijkstra'<br>
+   *   dijkstra search by starting from this._iterStart.<br>
+   *   the weight is added by this._weightAddFunc.<br>
+   *   the weight of route is compared by this._weightCompFunc.<br>
+   * 3. else<br>
+   *   breadth first search by starting from thie._iterStart.
+   */
+  [Symbol.iterator]() {
+    let iterator = {};
+    // dijkstraVisitor
+    if (this._iterType === 'dijkstra') {
+      const nodes = Object.keys(this._graph);
+      const graph = this._graph;
+      const start = this._iterStart;
+      const add = this._weightAddFunc;
+      const comp = (n1, n2) => this._weightCompFunc(n1[1], n2[1]);
+      const visited = {};
+      nodes.forEach((val) => { visited[val] = false; });
+
+      let node = null;
+      const pq = new PriorityQueue(comp);
+      iterator = {
+        next() {
+          // initiate iterating
+          if (node === null) {
+            node = [start, 0];
+            visited[node[0]] = true;
+            Object.keys(graph[node[0]]).forEach((val) => {
+              if (!visited[val]) {
+                pq.push([val, graph[node[0]][val]]);
+              }
+            });
+            return { value: node[0], done: false };
+          }
+          // check priority queue empty
+          if (pq.size() === 0) {
+            return { value: undefined, done: true };
+          }
+
+          // get next node
+          node = pq.top();
+          pq.pop();
+          // if node is found one, get next node until not finding one came out.
+          while (visited[node[0]]) {
+            if (pq.size() === 0) {
+              return { value: undefined, done: true };
+            }
+            node = pq.top();
+            pq.pop();
+          }
+
+          visited[node[0]] = true;
+          Object.keys(graph[node[0]]).forEach((val) => {
+            if (!visited[val]) {
+              pq.push([val, add(node[1], graph[node[0]][val])]);
+            }
+          });
+          return { value: node[0], done: false };
+        },
+      };
+    } else if (this._iterType === 'dfs') {
+    // depthFirstVisitor
+      const nodes = Object.keys(this._graph);
+      const graph = this._graph;
+      const start = this._iterStart;
+      const visited = {};
+      nodes.forEach((val) => { visited[val] = false; });
+
+      let node = null;
+      const stack = new Stack();
+      iterator = {
+        next() {
+          if (node === null) {
+            node = start;
+            visited[node] = true;
+            Object.keys(graph[node]).forEach((val) => {
+              if (!visited[val]) {
+                visited[val] = true;
+                stack.push(val);
+              }
+            });
+            return { value: node, done: false };
+          }
+
+          node = stack.top();
+          stack.pop();
+          if (node === false) {
+            return { value: undefined, done: true };
+          }
+
+          Object.keys(graph[node]).forEach((val) => {
+            if (!visited[val]) {
+              visited[val] = true;
+              stack.push(val);
+            }
+          });
+          return { value: node, done: false };
+        },
+      };
+    } else {
+      // breadthFirstVisitor
+      const nodes = Object.keys(this._graph);
+      const graph = this._graph;
+      const start = this._iterStart;
+      const visited = {};
+      nodes.forEach((val) => { visited[val] = false; });
+
+      let node = null;
+      const queue = new Queue();
+      iterator = {
+        next() {
+          if (node === null) {
+            node = start;
+            visited[node] = true;
+            Object.keys(graph[node]).forEach((val) => {
+              if (!visited[val]) {
+                visited[val] = true;
+                queue.push(val);
+              }
+            });
+            return { value: node, done: false };
+          }
+
+          node = queue.front();
+          queue.pop();
+          if (node === false) {
+            return { value: undefined, done: true };
+          }
+
+          Object.keys(graph[node]).forEach((val) => {
+            if (!visited[val]) {
+              visited[val] = true;
+              queue.push(val);
+            }
+          });
+          return { value: node, done: false };
+        },
+      };
+    }
+    return iterator;
+  }
 
   // Capacity
-  // nodeSize
+  /**
+   * return the number of node.
+   * @returns {number} - the number of node.
+   */
   nodeSize() {
     return this._nodeSize;
   }
 
-  // edgeSize
+  /**
+   * return the number of edge.
+   * @returns {number} - the number of edge.
+   */
   edgeSize() {
     return this._edgeSize;
   }
 
   // Element Access
-  // getNodes : get every node of graph
+  /**
+   * Get every node of graph by array.
+   * @returns {array} - nodes of graph.
+   */
   getNodes() {
     return Object.keys(this._graph);
   }
 
-  // getEdges : get every edge of graph
+  /**
+   * Get every edge of graph by array.
+   * @returns {array} - edges of graph. [[startnode,endnode,weight],...] structure.
+   */
   getEdges() {
     const edges = [];
     Object.keys(this._graph).forEach((val) => {
@@ -128,7 +354,12 @@ class DirectedGraph {
     return edges;
   }
 
-  // getWeight : get the weight of a edge
+  /**
+   * Get weight of a edge.
+   * @param {string} startNode - edge start node.
+   * @param {string} endNode - edge end node.
+   * @returns {*} - weight of the edge.
+   */
   getWeight(startNode = null, endNode = null) {
     if (this._graph[startNode] === undefined) {
       return false;
@@ -140,7 +371,46 @@ class DirectedGraph {
   }
 
   // modifiers
-  // setWeight : change the weight of a edge
+  /**
+   * Set iterator type.<br>
+   * 'dfs', 'bfs' or 'dijkstra'
+   * @param {string} type - iterator type.
+   */
+  setIterType(type) {
+    this._iterType = type;
+  }
+
+  /**
+   * Set where to start iterating.
+   * @param {string} node - start node.
+   */
+  setIterStart(node) {
+    this._iterStart = node;
+  }
+
+  /**
+   * Set weight add function.
+   * @param {function} func - add two weight.
+   */
+  setWeightAddFunc(func) {
+    this._weightAddFunc = func;
+  }
+
+  /**
+   * Set weight compare function.
+   * @param {function} func - compare two weight.
+   */
+  setWeightCompFunc(func) {
+    this._weightCompFunc = func;
+  }
+
+  /**
+   * Change the weight of a edge.
+   * @param {string} startNode - edge start node.
+   * @param {string} endNode - edge end node.
+   * @param {string} newWeight - new weight of edge.
+   * @returns {boolean} - if edge doesn't exist, return false.
+   */
   setWeight(startNode = null, endNode = null, newWeight = null) {
     if (this._graph[startNode] === undefined) {
       return false;
@@ -152,7 +422,12 @@ class DirectedGraph {
     return true;
   }
 
-  // mapWeight : change all weight by given function
+  /**
+   * Change all the edge by given function.<br>
+   * the function parameter are three, startnode name, endnode name, weight of edge.
+   * @param {function} func - change edge.
+   * @returns {boolean} false if given param is not a function.
+   */
   mapWeight(func = null) {
     if (typeof func !== 'function') {
       return false;
@@ -166,7 +441,12 @@ class DirectedGraph {
     return true;
   }
 
-  // eraseNode
+  /**
+   * erase a node.<br>
+   * all edges relative to node are also erased.
+   * @param {string} node - node name
+   * @returns {boolean} - false if node is not exist.
+   */
   eraseNode(node = null) {
     if (this._graph[node] === undefined) {
       return false;
@@ -183,7 +463,12 @@ class DirectedGraph {
     return true;
   }
 
-  // eraseEdge
+  /**
+   * erase a edge
+   * @param {string} startNode
+   * @param {string} endNode
+   * @returns {boolean} false if edge is not exist.
+   */
   eraseEdge(startNode = null, endNode = null) {
     if (this._graph[startNode] === undefined) {
       return false;
@@ -196,7 +481,11 @@ class DirectedGraph {
     return true;
   }
 
-  // insertNode
+  /**
+   * insert a node.
+   * @param {string} node
+   * @returns {boolean} false if node is already exist.
+   */
   insertNode(node = null) {
     if (this._graph[node] !== undefined) {
       return false;
@@ -206,7 +495,13 @@ class DirectedGraph {
     return true;
   }
 
-  // insertEdge
+  /**
+   * insert a edge.
+   * @param {string} startNode
+   * @param {string} endNode
+   * @param {*} weight
+   * @returns {boolean} false if nodes are not exist or edge is already exist.
+   */
   insertEdge(startNode = null, endNode = null, weight = null) {
     if (this._graph[startNode] === undefined) {
       return false;
@@ -223,8 +518,11 @@ class DirectedGraph {
   }
 
   // lookup
-  // isCycle // 사이클이 있는가 없는가 없으면 tree or forest
-  // https://www.geeksforgeeks.org/detect-cycle-in-a-graph/
+  /**
+   * check there is a cycle in the graph.
+   * https://www.geeksforgeeks.org/detect-cycle-in-a-graph/
+   * @returns {boolean} - whether a cycle is in or not.
+   */
   isCycle() {
     const nodes = Object.keys(this._graph);
     let iscycle = false;
@@ -241,13 +539,16 @@ class DirectedGraph {
     return iscycle;
   }
 
-  // isTree // 사이클이 없으면서 전체가 연결되어 있는가 (spanning tree)
+  /**
+   * check whether the graph is tree or not.
+   * @returns {boolean} - whether the graph is tree or not.
+   */
   isTree() {
     if (this._edgeSize !== this._nodeSize - 1) {
       return false;
     }
 
-    const root = this._findroot();
+    const root = this._findroots()[0];
     if (root === undefined) {
       return false;
     }
@@ -261,7 +562,12 @@ class DirectedGraph {
     return false;
   }
 
-  // isNegativeWeight
+  /**
+   * check whether negative edge exists.<br>
+   * this can get function parameter to decide the result of arbitrary weight.
+   * @param {function} func - return true if weight is semantically negative.
+   * @returns {boolean} - true if negative weight exists.
+   */
   isNegativeWeight(func = n => typeof n === 'number' && n < 0) {
     let isNegative = false;
     Object.values(this._graph).forEach((val) => {
@@ -274,7 +580,10 @@ class DirectedGraph {
     return isNegative;
   }
 
-  // isAllWeightEqual
+  /**
+   * check the weight of every edge in graph is equal.<br>
+   * @returns {boolean} - whether edges are same or not.
+   */
   isAllWeightEqual() {
     let weight = null;
     let result = true;
@@ -291,7 +600,9 @@ class DirectedGraph {
   }
 
   // Operations
-  // reverse
+  /**
+   * reverse the edge directions.
+   */
   reverse() {
     const newgraph = {};
     Object.keys(this._graph).forEach((val) => { newgraph[val] = {}; });
@@ -303,6 +614,14 @@ class DirectedGraph {
     this._graph = newgraph;
   }
 
+  /**
+   * used for isCycle method.
+   * @private
+   * @param {string} node
+   * @param {array} visited
+   * @param {array} dfsStack
+   * @returns {boolean}
+   */
   _dfsCycle(node, visited, dfsStack) {
     visited[node] = true;
     dfsStack[node] = true;
@@ -324,7 +643,12 @@ class DirectedGraph {
     return iscycle;
   }
 
-  _findroot() {
+  /**
+   * find roots which have no edge pointing it.
+   * @private
+   * @returns {array}
+   */
+  _findroots() {
     const nodes = Object.keys(this._graph);
     const lookat = {};
     nodes.forEach((val) => { lookat[val] = true; });
@@ -333,9 +657,15 @@ class DirectedGraph {
         delete lookat[val2];
       });
     });
-    return Object.keys(lookat)[0];
+    return Object.keys(lookat);
   }
 
+  /**
+   * check whether the graph is tree.
+   * @private
+   * @param {string} node
+   * @param {array} visited
+   */
   _dfsIsTree(node, visited) {
     visited[node] = true;
     let iscycle = false;
