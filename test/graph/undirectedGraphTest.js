@@ -3,7 +3,7 @@ const UndirectedGraph = require('../../src/graph/undirectedGraph');
 const mergesort = require('../../src/algorithms/mergeSort');
 
 /* global describe it beforeEach */
-describe('DirectedGraph Test', () => {
+describe('UndirectedGraph Test', () => {
   let undirectedGraph = new UndirectedGraph();
 
   beforeEach('Initiate directed graph', () => { undirectedGraph = new UndirectedGraph(); });
@@ -97,49 +97,68 @@ describe('DirectedGraph Test', () => {
   });
 
   it('getEdges() test', () => {
-    const cmpEdge = (e1, e2) => {
-      if (e1[0] < e2[0]) {
-        return true;
-      }
-      if (e1[0] === e2[0] && e1[1] < e2[1]) {
-        return true;
-      }
-      return false;
-    };
-
     assert.deepEqual(undirectedGraph.getEdges(), []);
-    let edges = mergesort([['1', '2'], ['2', '3'], ['4', '2']], cmpEdge);
+
+    let edges = [['1', '2'], ['2', '3'], ['4', '2']];
     undirectedGraph = new UndirectedGraph(['1', '2', '3', '4'], edges);
-    let dgedges = mergesort(undirectedGraph.getEdges(), cmpEdge);
+    let dgedges = undirectedGraph.getEdges();
     for (let i = 0; i < edges.length; i += 1) {
-      assert.deepEqual(edges[i][0], dgedges[i][0]);
-      assert.deepEqual(edges[i][1], dgedges[i][1]);
+      let check = false;
+      for (let j = 0; j < dgedges.length; j += 1) {
+        if (edges[i][0] === dgedges[j][0] && edges[i][1] === dgedges[j][1]) {
+          check = true;
+        } else if (edges[i][0] === dgedges[j][1] && edges[i][1] === dgedges[j][0]) {
+          check = true;
+        }
+      }
+      assert.strictEqual(check, true);
     }
 
     undirectedGraph.insertEdge('3', '4');
     undirectedGraph.insertEdge('4', '1');
     undirectedGraph.insertEdge('3', '1');
-    edges = mergesort([['1', '2'], ['2', '3'], ['2', '4'], ['3', '4'], ['1', '4'], ['1', '3']], cmpEdge);
-    dgedges = mergesort(undirectedGraph.getEdges(), cmpEdge);
+    edges = [['1', '2'], ['2', '3'], ['2', '4'], ['3', '4'], ['1', '4'], ['1', '3']];
+    dgedges = undirectedGraph.getEdges();
     for (let i = 0; i < edges.length; i += 1) {
-      assert.deepEqual(edges[i][0], dgedges[i][0]);
-      assert.deepEqual(edges[i][1], dgedges[i][1]);
+      let check = false;
+      for (let j = 0; j < dgedges.length; j += 1) {
+        if (edges[i][0] === dgedges[j][0] && edges[i][1] === dgedges[j][1]) {
+          check = true;
+        } else if (edges[i][0] === dgedges[j][1] && edges[i][1] === dgedges[j][0]) {
+          check = true;
+        }
+      }
+      assert.strictEqual(check, true);
     }
 
     undirectedGraph.eraseEdge('3', '4');
-    edges = mergesort([['1', '2'], ['2', '3'], ['2', '4'], ['1', '4'], ['1', '3']], cmpEdge);
-    dgedges = mergesort(undirectedGraph.getEdges(), cmpEdge);
+    edges = [['1', '2'], ['2', '3'], ['2', '4'], ['1', '4'], ['1', '3']];
+    dgedges = undirectedGraph.getEdges();
     for (let i = 0; i < edges.length; i += 1) {
-      assert.deepEqual(edges[i][0], dgedges[i][0]);
-      assert.deepEqual(edges[i][1], dgedges[i][1]);
+      let check = false;
+      for (let j = 0; j < dgedges.length; j += 1) {
+        if (edges[i][0] === dgedges[j][0] && edges[i][1] === dgedges[j][1]) {
+          check = true;
+        } else if (edges[i][0] === dgedges[j][1] && edges[i][1] === dgedges[j][0]) {
+          check = true;
+        }
+      }
+      assert.strictEqual(check, true);
     }
 
     undirectedGraph.eraseNode('2');
-    edges = mergesort([['1', '4'], ['1', '3']], cmpEdge);
-    dgedges = mergesort(undirectedGraph.getEdges(), cmpEdge);
+    edges = [['1', '4'], ['1', '3']];
+    dgedges = undirectedGraph.getEdges();
     for (let i = 0; i < edges.length; i += 1) {
-      assert.deepEqual(edges[i][0], dgedges[i][0]);
-      assert.deepEqual(edges[i][1], dgedges[i][1]);
+      let check = false;
+      for (let j = 0; j < dgedges.length; j += 1) {
+        if (edges[i][0] === dgedges[j][0] && edges[i][1] === dgedges[j][1]) {
+          check = true;
+        } else if (edges[i][0] === dgedges[j][1] && edges[i][1] === dgedges[j][0]) {
+          check = true;
+        }
+      }
+      assert.strictEqual(check, true);
     }
   });
 
@@ -270,5 +289,34 @@ describe('DirectedGraph Test', () => {
     assert.strictEqual(undirectedGraph.isAllWeightEqual(), false);
     undirectedGraph = new UndirectedGraph(['1', '2', '3', '4'], [['1', '2', 7], ['2', '3', -4], ['4', '2', 10]]);
     assert.strictEqual(undirectedGraph.isAllWeightEqual(), false);
+  });
+
+  it('disjointset() test', () => {
+    undirectedGraph = new UndirectedGraph(['1', '2', '3', '4'], [['1', '2'], ['2', '3'], ['4', '2']]);
+    let dset = undirectedGraph.disjointSet();
+    assert.strictEqual(dset.length, 1);
+    assert.strictEqual(dset[0].length, 4);
+    assert.strictEqual(dset[0].includes('1'), true);
+    assert.strictEqual(dset[0].includes('2'), true);
+    assert.strictEqual(dset[0].includes('3'), true);
+    assert.strictEqual(dset[0].includes('4'), true);
+
+    undirectedGraph.eraseEdge('2', '4');
+    dset = undirectedGraph.disjointSet();
+    assert.strictEqual(dset.length, 2);
+    if (dset[0].length === 3) {
+      assert.strictEqual(dset[1].length, 1);
+      assert.strictEqual(dset[0].includes('1'), true);
+      assert.strictEqual(dset[0].includes('2'), true);
+      assert.strictEqual(dset[0].includes('3'), true);
+      assert.strictEqual(dset[1].includes('4'), true);
+    } else {
+      assert.strictEqual(dset[0].length, 1);
+      assert.strictEqual(dset[1].length, 3);
+      assert.strictEqual(dset[1].includes('1'), true);
+      assert.strictEqual(dset[1].includes('2'), true);
+      assert.strictEqual(dset[1].includes('3'), true);
+      assert.strictEqual(dset[0].includes('4'), true);
+    }
   });
 });
