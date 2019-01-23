@@ -250,13 +250,21 @@ describe('Red Black Tree', () => {
     redBlackTree.insert(7, 13);
     redBlackTree.insert(3, 12);
     redBlackTree.insert(3, 10);
+    redBlackTree.insert(3, 10);
+    redBlackTree.insert(3, 10);
+    redBlackTree.insert(3, 10);
+    redBlackTree.insert(3, 10);
+    redBlackTree.insert(3, 10);
+    redBlackTree.insert(3, 10);
+    redBlackTree.insert(3, 10);
+    redBlackTree.insert(3, 10);
     const threeRange = redBlackTree.equalRange(3);
     let cnt = 0;
     for (let itr = threeRange[0]; itr !== threeRange[1]; itr = itr.getNext()) {
       assert.strictEqual(itr.getKey(), 3);
       cnt += 1;
     }
-    assert.strictEqual(cnt, 3);
+    assert.strictEqual(cnt, 11);
 
     const sevenRange = redBlackTree.equalRange(7);
     cnt = 0;
@@ -272,6 +280,10 @@ describe('Red Black Tree', () => {
     redBlackTree.insert(2, 16);
     redBlackTree.insert(7, 13);
     redBlackTree.insert(3, 12);
+    redBlackTree.insert(3, 7);
+    redBlackTree.insert(3, 7);
+    redBlackTree.insert(3, 7);
+    redBlackTree.insert(3, 7);
     redBlackTree.insert(1, 10);
     assert.strictEqual(redBlackTree.lowerBound(1).getKey(), 1);
     assert.strictEqual(redBlackTree.lowerBound(2).getKey(), 2);
@@ -280,12 +292,32 @@ describe('Red Black Tree', () => {
     assert.strictEqual(redBlackTree.lowerBound(7).getKey(), 7);
     assert.strictEqual(redBlackTree.lowerBound(8).getKey(), 7);
     assert.strictEqual(redBlackTree.lowerBound(0), redBlackTree.end());
+    let node = redBlackTree.lowerBound(3);
+    assert.strictEqual(node.getKey(), 3);
+    node = node.getNext();
+    assert.strictEqual(node.getKey(), 3);
+    node = node.getNext();
+    assert.strictEqual(node.getKey(), 3);
+    node = node.getNext();
+    assert.strictEqual(node.getKey(), 3);
+    node = node.getNext();
+    assert.strictEqual(node.getKey(), 3);
+    node = node.getNext();
+    assert.strictEqual(node.getKey(), 3);
+    node = node.getNext();
+    assert.strictEqual(node.getKey(), 2);
   });
 
   it('upperBound() check', () => {
     redBlackTree.insert(3, 10);
     redBlackTree.insert(2, 16);
     redBlackTree.insert(7, 13);
+    redBlackTree.insert(3, 12);
+    redBlackTree.insert(3, 12);
+    redBlackTree.insert(3, 12);
+    redBlackTree.insert(3, 12);
+    redBlackTree.insert(3, 12);
+    redBlackTree.insert(3, 12);
     redBlackTree.insert(3, 12);
     redBlackTree.insert(1, 10);
     assert.strictEqual(redBlackTree.upperBound(1), redBlackTree.end());
@@ -294,6 +326,25 @@ describe('Red Black Tree', () => {
     assert.strictEqual(redBlackTree.upperBound(4).getKey(), 3);
     assert.strictEqual(redBlackTree.upperBound(7).getKey(), 3);
     assert.strictEqual(redBlackTree.upperBound(8).getKey(), 7);
+    let node = redBlackTree.upperBound(3);
+    node = node.getPrev();
+    assert.strictEqual(node.getKey(), 3);
+    node = node.getPrev();
+    assert.strictEqual(node.getKey(), 3);
+    node = node.getPrev();
+    assert.strictEqual(node.getKey(), 3);
+    node = node.getPrev();
+    assert.strictEqual(node.getKey(), 3);
+    node = node.getPrev();
+    assert.strictEqual(node.getKey(), 3);
+    node = node.getPrev();
+    assert.strictEqual(node.getKey(), 3);
+    node = node.getPrev();
+    assert.strictEqual(node.getKey(), 3);
+    node = node.getPrev();
+    assert.strictEqual(node.getKey(), 3);
+    node = node.getPrev();
+    assert.strictEqual(node.getKey(), 7);
   });
 
   it('keyComp() check', () => {

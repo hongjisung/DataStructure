@@ -742,6 +742,47 @@ const findMaxNode = (node) => {
 };
 
 /**
+ * find node with same key in left child.
+ * that node should have no same key in its left child.
+ * @private
+ * @param {TreeNode} node 
+ * @returns {TreeNode}
+ */
+const isSameKeyInLeft = (node) => {
+  let leftnode = node.getLeftChild();
+  while (leftnode.getRightChild() !== null && leftnode.getKey() !== node.getKey()) {
+    leftnode = leftnode.getRightChild();
+  }
+
+  if (leftnode.getRightChild() === null) {
+    return leftnode;
+  }
+
+  const leftleftnode = isSameKeyInLeft(leftnode);
+  if (leftleftnode.getRightChild() === null) {
+    return leftnode;
+  }
+  return leftleftnode;
+}
+
+const isSameKeyInRight = (node) => {
+  let rightnode = node.getRightChild();
+  while (rightnode.getLeftChild() !== null && rightnode.getKey() !== node.getKey()) {
+    rightnode = rightnode.getLeftChild();
+  }
+
+  if (rightnode.getLeftChild() === null) {
+    return rightnode;
+  }
+
+  const rightrightnode = isSameKeyInRight(rightnode);
+  if (rightrightnode.getLeftChild() === null) {
+    return rightnode;
+  }
+  return rightrightnode;
+}
+
+/**
  * @classdesc Express red black tree.<br>
  * 1. Each node is either red or black.<br>
  * 2. The root is black. This rule is sometimes ommitted.
@@ -1058,9 +1099,16 @@ class RedBlackTree {
       return node;
     }
 
-    while (node.getPrev() !== this._rendnode && node.getPrev().getKey() === key) {
-      node = node.getPrev();
+    if (node.getKey() === key) {
+      const searchLeftChild = isSameKeyInLeft(node);
+      if (searchLeftChild.getLeftChild() !== null) {
+        node = searchLeftChild;
+      }
     }
+
+    // while (node.getPrev() !== this._rendnode && node.getPrev().getKey() === key) {
+    //   node = node.getPrev();
+    // }
     return node;
   }
 
@@ -1090,9 +1138,15 @@ class RedBlackTree {
       return node;
     }
 
-    while (node.getNext() !== this._endnode && node.getNext().getKey() === key) {
-      node = node.getNext();
+    if (node.getKey() === key) {
+      const searchRightchild = isSameKeyInRight(node);
+      if (searchRightchild.getLeftChild() !== null) {
+        node = searchRightchild;
+      }
     }
+    // while (node.getNext() !== this._endnode && node.getNext().getKey() === key) {
+    //   node = node.getNext();
+    // }
     return node.getNext();
   }
 
@@ -1154,9 +1208,16 @@ class RedBlackTree {
       return this._endnode;
     }
 
-    while (node.getPrev() !== this._rendnode && node.getPrev().getKey() === key) {
-      node = node.getPrev();
+    if (node.getKey() === key) {
+      const searchLeftChild = isSameKeyInLeft(node);
+      if (searchLeftChild.getLeftChild() !== null) {
+        node = searchLeftChild;
+      }
     }
+
+    // while (node.getPrev() !== this._rendnode && node.getPrev().getKey() === key) {
+    //   node = node.getPrev();
+    // }
     return node;
   }
 
@@ -1183,9 +1244,17 @@ class RedBlackTree {
       return this._endnode;
     }
 
-    while (node.getNext() !== this._endnode && node.getNext().getKey() === key) {
-      node = node.getNext();
+    if (node.getKey() === key) {
+      const searchRightchild = isSameKeyInRight(node);
+      if (searchRightchild.getLeftChild() !== null) {
+        node = searchRightchild;
+      }
     }
+    
+    // while (node.getNext() !== this._endnode && node.getNext().getKey() === key) {
+    //   node = node.getNext();
+    // }
+
     return node;
   }
 
