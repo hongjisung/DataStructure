@@ -5,7 +5,7 @@ javascript in-memory data structure for server side development.
 Visualization is developed in other repository  
 [JS_DataStructure_Visualization](https://github.com/hongjisung/JS_DataStructure_Visualization)
 
-![vidio](./public/ver0.0.1.mp4)
+![vidio](./public/ver0.0.1.gif)
 
 ## **Containers**
 - ### **List**  
