@@ -1,13 +1,13 @@
 # **Javascript Data Structure**
 javascript in-memory data structure for server side development.
 
+### **Document Homeage** [Go Document](https://hongjisung.github.io/DataStructure/)
 
 ## **Visualization**
 Visualization is developed in other repository  
-[JS_DataStructure_Visualization](https://github.com/hongjisung/JS_DataStructure_Visualization)
+[Visualization Repository](https://github.com/hongjisung/JS_DataStructure_Visualization)
 
-### **Homepage Address**
-[Visualization Homepage](https://hongjisung.github.io/JS_DataStructure_Visualization/)  
+### **Homepage Address** [Go HomePage](https://hongjisung.github.io/JS_DataStructure_Visualization/)  
 
 ![vidio](./public/ver0.0.1.gif)
 
