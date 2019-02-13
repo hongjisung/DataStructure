@@ -494,7 +494,8 @@ class List {
   /**
    * sort the list by compare function.
    * Basically quick sort, but can choose merge sort.
-   * @param {function} comp - compare function 
+   * @param {function} comp - compare function
+   * @param {string} sorting - sort mode
    */
   sort(comp = (n1, n2) => n1 < n2, sorting = 'quicksort') {
     let sort = null;
