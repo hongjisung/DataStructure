@@ -1,6 +1,6 @@
 {
   "name": "js_dsal",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "javascript data structure",
   "author": {
     "name": "Jisung Hong",
@@ -9,7 +9,8 @@
   "main": "./src/index.js",
   "scripts": {
     "doc": "jsdoc -c jsdoc.json",
-    "test": "mocha --recursive"
+    "test": "mocha --recursive",
+    "deploy": "gh-pages -d doc"
   },
   "homepage": "https://github.com/hongjisung/DataStructure",
   "repository": {
@@ -19,10 +20,12 @@
   "bugs": {
     "url": "https://github.com/hongjisung/DataStructure/issues"
   },
-  "licenses": [ {
-    "type": "MIT",
-    "url": "http://www.opensource.org/licenses/MIT"
-  } ],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://www.opensource.org/licenses/MIT"
+    }
+  ],
   "devDependencies": {
     "docdash": "^1.0.1",
     "eslint": "^5.10.0",
@@ -30,6 +33,7 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.11.1",
+    "gh-pages": "^2.0.1",
     "jsdoc": "^3.5.5",
     "mocha": "^5.2.0"
   },
