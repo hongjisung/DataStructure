@@ -86,12 +86,12 @@ class PriorityQueue {
    * @private
    */
   _sizeup() {
-    const newContainer = new Array(this._maxSize * 2);
+    const newContainer = new Array(this._maxSize * 2 + 1);
     for (let i = 0; i < this._size; i += 1) {
       newContainer[i] = this._elements[i];
     }
     this._elements = newContainer;
-    this._maxSize = this._maxSize * 2;
+    this._maxSize = this._maxSize * 2 + 1;
   }
 
   // element access
