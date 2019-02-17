@@ -1,5 +1,5 @@
 # **Javascript Data Structure**
-javascript in-memory data structure for server side development.
+Javascript Data Structure Library
 
 ### **Document Homeage** [Go Document](https://hongjisung.github.io/DataStructure/)
 
@@ -87,6 +87,11 @@ Visualization is developed in other repository
 
 
 # **Install**
+**Install Library**
+```
+npm install --save js_dsal
+```
+
 **Install dependencies**
 ```
 npm install
@@ -105,12 +110,7 @@ npm run doc // open the ./doc/index.html
 
 **Use template in this git folder**
 ```javascript
-const std = require('./src');
-```
-
-**Use template in other folder**
-```
-npm install <directory path>
+const std = require('js_dsal');
 ```
 
 # **Function Tables**
@@ -120,6 +120,7 @@ npm install <directory path>
 | **(constructor)** | List() | Stack() | Queue() | Deque() | PriorityQueue() | SetTree() | MultiSetTree() | MapTree() | MultiMapTree() |
 | **compare** | compare() | compare() | compare() | compare() | | | | | |
 | **Iterators** | | | | | | | | | |
+| **[Symbol.iterator]** | [...List] | | | | | [...SetTree] | [...MultiSetTree] | [...MapTree] | [...MultiMapTree] |
 | **begin** | begin() | | | | | begin() | begin() | begin() | begin() |
 | **rbegin** | rbegin() | | | | | rbegin() | rbegin() | rbegin() | rbegin() |
 | **end** | end() | | | | | end() | end() | end() | end() |
@@ -131,7 +132,7 @@ npm install <directory path>
 | **empty** | empty() | empty() | empty() | empty() | empty() | empty() | empty() | empty() | empty() |
 | **size** | size() | size() | size() | size() | size() | size() | size() | size() | size() |
 | **Modifier** | | | | | | | | | |
-| **clear** | clear() | | clear() | clear() | | clear() | clear() | clear() | clear() |
+| **clear** | clear() | clear() | clear() | clear() | clear() | clear() | clear() | clear() | clear() |
 | **insert** | insert() | | | | | insert() | insert() | insert() | insert() |
 | **assign** | | | | | | | | assign() | assign() |
 | **insertOrAssign** | | | | | | | | insertOrAssign() | insertOrAssign() |
@@ -153,6 +154,7 @@ npm install <directory path>
 | **upperBound** | | | | | | upperBound() | upperBound() | upperBound() | upperBound() |
 | **equalRange** | | | | | | equalRange() | equalRange() | equalRange() | equalRange() |
 | **keyComp** | | | | | compareFunction() | keyComp() | keyComp() | keyComp() | keyComp() |
+| **toString** | toString() | toString() | toString() | toString() | toString() | toString() | toString() | toString() | toString() |
 
 ## **Node Member Function Table**
 | Method  | Node(list) | TreeNode |
@@ -174,6 +176,30 @@ npm install <directory path>
 | **findNodes** | findNodes(List, key array) | findNodes(SetTree, key array) | findNodes(MultiSetTree, key array) | findNodes(MapTree, key array) | findNodes(MultiMapTree, key array) |
 | **map** | map(List, function)  | | | map(MapTree, function) | map(MultiMapTree, function) |
 
+## **Graph Table**
+| Method | DirectedGraph | UndirectedGraph |
+| ------ | ------------- | --------------- |
+| **nodeSize** | nodeSize() | nodeSize() |
+| **edgeSize** | edgeSize() | edgeSize() |
+| **getNodes** | getNodes() | getNodes() |
+| **getEdges** | getEdges() | getEdges() |
+| **getWeight** | getWeight() | getWeight() |
+| **setIterType** | setIterType() | setIterType() |
+| **setIterStart** | setIterStart() | setIterStart() |
+| **setWeightAddFunc** | setWeightAddFunc() | setWeightAddFunc() |
+| **setWeightCompFunc** | setWeightCompFunc() | setWeightCompFunc() |
+| **setWeight** | setWeight() | setWeight() |
+| **mapWeight** | mapWeight() | mapWeight() |
+| **eraseNode** | eraseNode() | eraseNode() |
+| **eraseEdge** | eraseEdge() | eraseEdge() |
+| **insertNode** | insertNode() | insertNode() |
+| **insertEdge** | insertEdge() |  insertEdge() |
+| **isCycle** | isCycle() | isCycle() |
+| **isTree** | isTree() | isTree() |
+| **isNegativeWeight** | isNegativeWeight() | isNegativeWeight() |
+| **isAllWeightEqual** | isAllWeightEqual() | isAllWeightEqual() |
+| **reverse** | reverse() | |
+| **disjointSet** | | disjointSet()**
 
 # **Usage**
 ## **Containers**
