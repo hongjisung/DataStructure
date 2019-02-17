@@ -1,6 +1,6 @@
 {
   "name": "js_dsal",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "javascript data structure",
   "author": {
     "name": "Jisung Hong",
@@ -52,6 +52,9 @@
     "priorityQueue",
     "queue",
     "setTree",
-    "stack"
+    "stack",
+    "directed graph",
+    "undirected graph",
+    "visualization"
   ]
 }
