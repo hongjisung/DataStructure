@@ -30,6 +30,8 @@ class MultiMapTree:
     // Observers
     keyComp
 
+    //
+    toString
 */
 const RedBlackTree = require('./redBlackTree');
 
@@ -256,6 +258,29 @@ class MultiMapTree {
    */
   keyComp() {
     return this._tree.keyComp();
+  }
+
+  /**
+   * show information of object
+   * @returns {string}
+   */
+  toString() {
+    let str = `Object Name: MultiMapTree
+Size: `.concat(this.size().toString()).concat(`
+Elements: `);
+    [...this].map((d, i) => {
+      str = str.concat(`
+  Sequence[`)
+        .concat(i)
+        .concat(`]:
+    key: `)
+        .concat(d[0].toString())
+        .concat(`
+    value: `)
+        .concat(d[1].toString());
+      return true;
+    });
+    return str;
   }
 }
 

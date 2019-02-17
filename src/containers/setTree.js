@@ -28,6 +28,8 @@ class SetTree:
     // Observers
     keyComp
 
+    //
+    toString
 */
 const RedBlackTree = require('./redBlackTree');
 
@@ -224,6 +226,25 @@ class SetTree {
    */
   keyComp() {
     return this._tree.keyComp();
+  }
+
+  /**
+   * show information of object
+   * @returns {string}
+   */
+  toString() {
+    let str = `Object Name: SetTree
+Size: `.concat(this.size().toString()).concat(`
+Elements: `);
+    [...this].map((d, i) => {
+      str = str.concat(`
+  Sequence[`)
+        .concat(i)
+        .concat(']: ')
+        .concat(d.toString());
+      return true;
+    });
+    return str;
   }
 }
 
