@@ -24,8 +24,12 @@ method:
   size
 
   // modifiers
+  clear
   push
   pop
+
+  //
+  toString
 */
 
 /**
@@ -136,6 +140,15 @@ class PriorityQueue {
 
   // modifiers
   /**
+   * Initialize priority queue
+   */
+  clear() {
+    this._elements = new Array(3);
+    this._size = 0;
+    this._maxSize = 3;
+  }
+
+  /**
    * Push new data into priority queue.
    * @param {*} data - the element of priority queue.
    */
@@ -209,6 +222,21 @@ class PriorityQueue {
       }
     }
     return true;
+  }
+
+  /**
+   * show information of object
+   * @returns {string}
+   */
+  toString() {
+    let str = `Object Name: Priority Queue
+Size: `.concat(this.size().toString()).concat(`
+Elements: `);
+    for (let i = 0; i < this._size; i += 1) {
+      str = str.concat(`
+  Sequence[`).concat(i).concat(']: ').concat(this._elements[i].toString());
+    }
+    return str;
   }
 }
 

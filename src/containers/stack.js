@@ -12,11 +12,15 @@ method:
 
 
   // modifiers
+  clear
   push
   pop
 
   // operation
   compare
+
+  //
+  toString
 */
 
 /**
@@ -85,6 +89,14 @@ class Stack {
 
   // modifiers
   /**
+   * Initialize Stack
+   */
+  clear() {
+    this._elements = [];
+    this._size = 0;
+  }
+
+  /**
    * Push a data in stack.
    * @param {*} data - The data pushed to stack.
    */
@@ -126,6 +138,21 @@ class Stack {
       otherStack.pop();
     }
     return true;
+  }
+
+  /**
+   * show information of object
+   * @returns {string}
+   */
+  toString() {
+    let str = `Object Name: Stack
+Size: `.concat(this.size().toString()).concat(`
+Elements: `);
+    for (let i = 0; i < this._size; i += 1) {
+      str = str.concat(`
+  Sequence[`).concat(i).concat(']: ').concat(this._elements[this._size - 1 - i].toString());
+    }
+    return str;
   }
 }
 
