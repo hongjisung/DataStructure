@@ -199,7 +199,7 @@ const std = require('js_dsal');
 | **isNegativeWeight** | isNegativeWeight() | isNegativeWeight() |
 | **isAllWeightEqual** | isAllWeightEqual() | isAllWeightEqual() |
 | **reverse** | reverse() | |
-| **disjointSet** | | disjointSet()**
+| **disjointSet** | | disjointSet()*
 
 # **Usage**
 ## **Containers**
@@ -208,7 +208,8 @@ const std = require('js_dsal');
 ## **Algorithms**
 ### [**Algorithm Usage Examples**](https://github.com/hongjisung/DataStructure/tree/master/src/algorithms)
 
-  
+## **Graph**
+### [**Graph Usage Examples**](https://github.com/hongjisung/DataStructure/tree/master/src/graph)  
   
 
 ## **Data Structure Operation Time Complexity**
