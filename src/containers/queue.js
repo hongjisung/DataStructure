@@ -238,8 +238,10 @@ Elements: `);
       str = str.concat(`
   Sequence[`).concat(i).concat(']: ').concat(this._elements[i].toString());
     }
-    str = str.concat(`
+    if (this.size() > 0) {
+      str = str.concat(`
   Sequence[`).concat(i).concat(']: ').concat(this._elements[i].toString());
+    }
     return str;
   }
 }
