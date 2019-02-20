@@ -1,6 +1,6 @@
 {
   "name": "js_dsal",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "javascript data structure",
   "author": {
     "name": "Jisung Hong",
@@ -20,12 +20,7 @@
   "bugs": {
     "url": "https://github.com/hongjisung/DataStructure/issues"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://www.opensource.org/licenses/MIT"
-    }
-  ],
+  "license": "MIT",
   "devDependencies": {
     "docdash": "^1.0.1",
     "eslint": "^5.10.0",
