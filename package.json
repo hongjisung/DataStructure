@@ -1,0 +1,119 @@
+{
+  "name": "js_dsal",
+  "version": "1.0.3",
+  "description": "javascript data structure",
+  "author": {
+    "name": "Jisung Hong",
+    "email": "rhfktj@gmail.com"
+  },
+  "main": "./src/index.js",
+  "scripts": {
+    "doc": "jsdoc -c jsdoc.json",
+    "test": "mocha --recursive",
+    "deploy": "gh-pages -d doc"
+  },
+  "homepage": "https://github.com/hongjisung/DataStructure",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hongjisung/DataStructure.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hongjisung/DataStructure/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://www.opensource.org/licenses/MIT"
+    }
+  ],
+  "devDependencies": {
+    "docdash": "^1.0.1",
+    "eslint": "^5.10.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-react": "^7.11.1",
+    "gh-pages": "^2.0.1",
+    "jsdoc": "^3.5.5",
+    "mocha": "^5.2.0"
+  },
+  "keywords": [
+    "findNodes",
+    "map",
+    "mergeSort",
+    "quickSort",
+    "removeCondition",
+    "unique",
+    "deque",
+    "list",
+    "mapTree",
+    "multiMapTree",
+    "multiSetTree",
+    "priorityQueue",
+    "queue",
+    "setTree",
+    "stack",
+    "directed graph",
+    "undirected graph",
+    "visualization"
+  ]
+}{
+  "name": "js_dsal",
+  "version": "1.0.3",
+  "description": "javascript data structure",
+  "author": {
+    "name": "Jisung Hong",
+    "email": "rhfktj@gmail.com"
+  },
+  "main": "./src/index.js",
+  "scripts": {
+    "doc": "jsdoc -c jsdoc.json",
+    "test": "mocha --recursive",
+    "deploy": "gh-pages -d doc"
+  },
+  "homepage": "https://github.com/hongjisung/DataStructure",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hongjisung/DataStructure.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hongjisung/DataStructure/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://www.opensource.org/licenses/MIT"
+    }
+  ],
+  "devDependencies": {
+    "docdash": "^1.0.1",
+    "eslint": "^5.10.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-react": "^7.11.1",
+    "gh-pages": "^2.0.1",
+    "jsdoc": "^3.5.5",
+    "mocha": "^5.2.0"
+  },
+  "keywords": [
+    "findNodes",
+    "map",
+    "mergeSort",
+    "quickSort",
+    "removeCondition",
+    "unique",
+    "deque",
+    "list",
+    "mapTree",
+    "multiMapTree",
+    "multiSetTree",
+    "priorityQueue",
+    "queue",
+    "setTree",
+    "stack",
+    "directed graph",
+    "undirected graph",
+    "visualization"
+  ]
+}
