@@ -1,5 +1,9 @@
 # **Javascript Data Structure**
-Javascript Data Structure Library
+Javascript Data Structure Library  
+The interface of this library has been influenced by the c++ STL.  
+This is distributed to npm as 'js_dsal'  
+This Library is used for https://hongjisung.github.io/JS_DataStructure_Visualization/
+
 
 ### **Document Homeage** [Go Document](https://hongjisung.github.io/DataStructure/)
 
