@@ -21,6 +21,9 @@ method
   pop
   // operation
   compare
+
+  //
+  toString
 */
 
 /**
@@ -220,6 +223,26 @@ class Queue {
       return false;
     }
     return true;
+  }
+
+  /**
+   * show information of object
+   * @returns {string}
+   */
+  toString() {
+    let str = `Object Name: Queue
+Size: `.concat(this.size().toString()).concat(`
+Elements: `);
+    let i = this._begin;
+    for (; i !== this._end; i = (i + 1) % this._maxSize) {
+      str = str.concat(`
+  Sequence[`).concat(i).concat(']: ').concat(this._elements[i].toString());
+    }
+    if (this.size() > 0) {
+      str = str.concat(`
+  Sequence[`).concat(i).concat(']: ').concat(this._elements[i].toString());
+    }
+    return str;
   }
 }
 

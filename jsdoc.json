@@ -5,7 +5,7 @@
   "source": {
     "include": ["./src", "./README.md"],
     "includePattern": ".js",
-    "exclude": ["./test"],
+    "exclude": ["./test", "./src/algorithms/README.md", "./src/containers/README.md", "./src/graph/Readme.md"],
     "excludePattern": "(node_modules/|docs)"
   },
   "plugins": [

@@ -28,6 +28,8 @@ class MultiSetTree:
     // Observers
     keyComp
 
+    //
+    toString
 */
 const RedBlackTree = require('./redBlackTree');
 
@@ -219,6 +221,25 @@ class MultiSetTree {
    */
   keyComp() {
     return this._tree.keyComp();
+  }
+
+  /**
+   * show information of object
+   * @returns {string}
+   */
+  toString() {
+    let str = `Object Name: MultiSetTree
+Size: `.concat(this.size().toString()).concat(`
+Elements: `);
+    [...this].map((d, i) => {
+      str = str.concat(`
+  Sequence[`)
+        .concat(i)
+        .concat(']: ')
+        .concat(d.toString());
+      return true;
+    });
+    return str;
   }
 }
 
