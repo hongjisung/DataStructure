@@ -11,9 +11,7 @@ This Library is used for https://hongjisung.github.io/JS_DataStructure_Visualiza
 Visualization is developed in other repository  
 [Visualization Repository](https://github.com/hongjisung/JS_DataStructure_Visualization)
 
-### **Homepage Address** [Go HomePage](https://hongjisung.github.io/JS_DataStructure_Visualization/)  
-
-![vidio](./public/settree.gif)
+### **Homepage Address** [Go HomePage](https://hongjisung.github.io/JS_DataStructure_Visualization/)
 
 ## **Containers**
 - ### **List**  
