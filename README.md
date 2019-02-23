@@ -6,6 +6,7 @@ This Library is used for https://hongjisung.github.io/JS_DataStructure_Visualiza
 
 
 ### **Document Homeage** [Go Document](https://hongjisung.github.io/DataStructure/)
+### **Homepage Address** [Go HomePage](https://hongjisung.github.io/JS_DataStructure_Visualization/)
 
 ## **Visualization**
 Visualization is developed in other repository  
@@ -43,7 +44,6 @@ npm run doc // open the ./doc/index.html
 ## **Graph**
 ### [**Graph Usage Examples**](https://github.com/hongjisung/DataStructure/tree/master/src/graph)  
 
-### **Homepage Address** [Go HomePage](https://hongjisung.github.io/JS_DataStructure_Visualization/)
 
 
 # **Containers**
