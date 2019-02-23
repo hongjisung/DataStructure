@@ -11,9 +11,42 @@ This Library is used for https://hongjisung.github.io/JS_DataStructure_Visualiza
 Visualization is developed in other repository  
 [Visualization Repository](https://github.com/hongjisung/JS_DataStructure_Visualization)
 
+# **Install**
+**Install Library**
+```
+npm install --save js_dsal
+```
+
+**Install dependencies**
+```
+npm install
+```
+
+**Run Test**
+```
+npm run test
+```
+
+**Make jsdoc homepage html**
+```
+mkdir doc
+npm run doc // open the ./doc/index.html
+```
+
+# **Usage**
+## **Containers**
+### [**Container Usage Examples**](https://github.com/hongjisung/DataStructure/tree/master/src/containers)
+
+## **Algorithms**
+### [**Algorithm Usage Examples**](https://github.com/hongjisung/DataStructure/tree/master/src/algorithms)
+
+## **Graph**
+### [**Graph Usage Examples**](https://github.com/hongjisung/DataStructure/tree/master/src/graph)  
+
 ### **Homepage Address** [Go HomePage](https://hongjisung.github.io/JS_DataStructure_Visualization/)
 
-## **Containers**
+
+# **Containers**
 - ### **List**  
   Doubly linked list.  
   
@@ -86,34 +119,6 @@ Visualization is developed in other repository
 - ### [Red Black Tree](https://en.wikipedia.org/wiki/Red%E2%80%93black_tree)
 - ### [Quick Sort](https://en.wikipedia.org/wiki/Quicksort)
 - ### [Merge Sort](https://en.wikipedia.org/wiki/Merge_sort)
-
-
-# **Install**
-**Install Library**
-```
-npm install --save js_dsal
-```
-
-**Install dependencies**
-```
-npm install
-```
-
-**Run Test**
-```
-npm run test
-```
-
-**Make jsdoc homepage html**
-```
-mkdir doc
-npm run doc // open the ./doc/index.html
-```
-
-**Use template in this git folder**
-```javascript
-const std = require('js_dsal');
-```
 
 # **Function Tables**
 ## **Container Member Function Table**
@@ -202,16 +207,6 @@ const std = require('js_dsal');
 | **isAllWeightEqual** | isAllWeightEqual() | isAllWeightEqual() |
 | **reverse** | reverse() | |
 | **disjointSet** | | disjointSet()*
-
-# **Usage**
-## **Containers**
-### [**Container Usage Examples**](https://github.com/hongjisung/DataStructure/tree/master/src/containers)
-
-## **Algorithms**
-### [**Algorithm Usage Examples**](https://github.com/hongjisung/DataStructure/tree/master/src/algorithms)
-
-## **Graph**
-### [**Graph Usage Examples**](https://github.com/hongjisung/DataStructure/tree/master/src/graph)  
   
 
 ## **Data Structure Operation Time Complexity**
