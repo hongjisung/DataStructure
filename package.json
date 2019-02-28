@@ -1,7 +1,7 @@
 {
-  "name": "js_dsal",
-  "version": "1.0.4",
-  "description": "javascript data structure",
+  "name": "data-structure-user-add-functional",
+  "version": "1.0.0",
+  "description": "javascript data structure that User make fuctional method",
   "author": {
     "name": "Jisung Hong",
     "email": "rhfktj@gmail.com"
@@ -41,15 +41,13 @@
     "unique",
     "deque",
     "list",
-    "mapTree",
-    "multiMapTree",
-    "multiSetTree",
     "priorityQueue",
     "queue",
-    "setTree",
     "stack",
     "directed graph",
     "undirected graph",
-    "visualization"
+    "visualization",
+    "red black tree",
+    "functional"
   ]
 }

@@ -1,7 +1,7 @@
 # **Javascript Data Structure**
 Javascript Data Structure Library  
 The interface of this library has been influenced by the c++ STL.  
-This is distributed to npm as 'js_dsal'  
+This is distributed to npm as 'data-structure-user-add-functional'  
 This Library is used for https://hongjisung.github.io/JS_DataStructure_Visualization/
 
 ### **Make Functional Method**
@@ -35,7 +35,7 @@ Visualization is developed in other repository
 # **Install**
 **Install Library**
 ```
-npm install --save js_dsal
+npm install --save data-structure-user-add-functional
 ```
 
 **Install dependencies**
