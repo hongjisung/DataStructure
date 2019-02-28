@@ -30,9 +30,9 @@ class MapTree:
     // Observers
     keyComp
 
-    // 
+    //
     toString
-
+    copy
 */
 const RedBlackTree = require('./redBlackTree');
 
@@ -282,6 +282,17 @@ Elements: `);
       return true;
     });
     return str;
+  }
+
+  /* eslint no-underscore-dangle: [2, {"allow": ["_tree"]}] */
+  /**
+   * return copy of this object
+   * @returns {MapTree}
+   */
+  copy() {
+    const newmaptree = new MapTree();
+    newmaptree._tree = this._tree.copy();
+    return newmaptree;
   }
 }
 

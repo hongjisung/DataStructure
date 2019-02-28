@@ -32,6 +32,7 @@ class MultiMapTree:
 
     //
     toString
+    copy
 */
 const RedBlackTree = require('./redBlackTree');
 
@@ -281,6 +282,17 @@ Elements: `);
       return true;
     });
     return str;
+  }
+
+  /* eslint no-underscore-dangle: [2, {"allow": ["_tree"]}] */
+  /**
+   * return copy of this object
+   * @returns {MultiMapTree}
+   */
+  copy() {
+    const newmultimaptree = new MultiMapTree();
+    newmultimaptree._tree = this._tree.copy();
+    return newmultimaptree;
   }
 }
 

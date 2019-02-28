@@ -144,4 +144,19 @@ describe('Deque', () => {
     assert.strictEqual(deque.compare(d4), false);
     assert.strictEqual(deque.compare(d5), false);
   });
+
+  it('copy() test', () => {
+    deque = new Deque([1, 2, 3, 4, 5]);
+    const d2 = deque.copy();
+    d2.pushBack(6);
+    d2.pushFront(7);
+    d2.pushBack(8);
+    assert.strictEqual(d2.size(), 8);
+    assert.strictEqual(deque.size(), 5);
+    d2.popBack();
+    assert.strictEqual(d2.front(), 7);
+    assert.strictEqual(d2.back(), 6);
+    assert.strictEqual(deque.front(), 1);
+    assert.strictEqual(deque.back(), 5);
+  });
 });

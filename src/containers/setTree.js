@@ -30,6 +30,7 @@ class SetTree:
 
     //
     toString
+    copy
 */
 const RedBlackTree = require('./redBlackTree');
 
@@ -245,6 +246,17 @@ Elements: `);
       return true;
     });
     return str;
+  }
+
+  /* eslint no-underscore-dangle: [2, {"allow": ["_tree"]}] */
+  /**
+   * return copy of this object
+   * @returns {MapTree}
+   */
+  copy() {
+    const newSettree = new SetTree();
+    newSettree._tree = this._tree.copy();
+    return newSettree;
   }
 }
 

@@ -30,6 +30,7 @@ class MultiSetTree:
 
     //
     toString
+    copy
 */
 const RedBlackTree = require('./redBlackTree');
 
@@ -240,6 +241,17 @@ Elements: `);
       return true;
     });
     return str;
+  }
+
+  /* eslint no-underscore-dangle: [2, {"allow": ["_tree"]}] */
+  /**
+   * return copy of this object
+   * @returns {MultiSetTree}
+   */
+  copy() {
+    const newmultisettree = new MultiSetTree();
+    newmultisettree._tree = this._tree.copy();
+    return newmultisettree;
   }
 }
 

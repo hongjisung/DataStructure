@@ -533,6 +533,14 @@ Elements: `);
     });
     return str;
   }
+
+  /**
+   * return the copy of this List
+   * @returns {List}
+   */
+  copy() {
+    return new List(this);
+  }
 }
 
 

@@ -137,5 +137,18 @@ describe('Queue', () => {
     }
   });
 
-
+  it('copy() test', () => {
+    queue = new Queue([1, 2, 3, 4, 5]);
+    const q2 = queue.copy();
+    q2.push(6);
+    q2.push(7);
+    q2.push(8);
+    assert.strictEqual(q2.size(), 8);
+    assert.strictEqual(queue.size(), 5);
+    q2.pop();
+    assert.strictEqual(q2.front(), 2);
+    assert.strictEqual(q2.back(), 8);
+    assert.strictEqual(queue.front(), 1);
+    assert.strictEqual(queue.back(), 5);
+  });
 });

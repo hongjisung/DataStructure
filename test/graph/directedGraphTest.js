@@ -290,4 +290,16 @@ describe('DirectedGraph Test', () => {
     assert.strictEqual(directedGraph.getWeight('3', '2'), null);
     assert.strictEqual(directedGraph.getWeight('2', '4'), null);
   });
+
+  it('copy() test', () => {
+    directedGraph = new DirectedGraph(['1', '2', '3', '4'], [['1', '2'], ['2', '3'], ['4', '2']]);
+    const dg2 = directedGraph.copy();
+    dg2.insertNode('5');
+    dg2.insertEdge('5', '3');
+    dg2.insertEdge('5', '2');
+    assert.strictEqual(dg2.nodeSize(), 5);
+    assert.strictEqual(dg2.edgeSize(), 5);
+    assert.strictEqual(directedGraph.nodeSize(), 4);
+    assert.strictEqual(directedGraph.edgeSize(), 3);
+  });
 });

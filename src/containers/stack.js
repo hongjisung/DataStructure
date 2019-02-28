@@ -21,6 +21,7 @@ method:
 
   //
   toString
+  copy
 */
 
 /**
@@ -153,6 +154,14 @@ Elements: `);
   Sequence[`).concat(i).concat(']: ').concat(this._elements[this._size - 1 - i].toString());
     }
     return str;
+  }
+
+  /**
+   * return a copy of this object.
+   * @returns {Stack}
+   */
+  copy() {
+    return new Stack(this);
   }
 }
 

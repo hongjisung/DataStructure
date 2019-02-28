@@ -167,4 +167,22 @@ describe('Map Tree', () => {
     node = mapTree.upperBound(1);
     assert.strictEqual(node.getKey(), -3);
   });
+
+  it('copy() check', () => {
+    mapTree.insert(1, 'a');
+    mapTree.insert(2, 'b');
+    mapTree.insert(3, 'c');
+    mapTree.insert(4, 'd');
+
+    const tree2 = mapTree.copy();
+    tree2.find(3).setValue('ccc');
+    assert.strictEqual(tree2.find(3).getValue(), 'ccc');
+    assert.strictEqual(mapTree.find(3).getValue(), 'c');
+
+    tree2.erase(2);
+    tree2.insert(5, 'e');
+    assert.strictEqual(tree2.contains(2), false);
+    assert.strictEqual(mapTree.contains(2), true);
+    assert.strictEqual(mapTree.contains(5), false);
+  });
 });

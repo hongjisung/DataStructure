@@ -30,6 +30,7 @@ method:
 
   //
   toString
+  copy
 */
 
 /**
@@ -237,6 +238,14 @@ Elements: `);
   Sequence[`).concat(i).concat(']: ').concat(this._elements[i].toString());
     }
     return str;
+  }
+
+  /**
+   * return a copy of this object.
+   * @returns {PriorityQueue}
+   */
+  copy() {
+    return new PriorityQueue(null, this);
   }
 }
 

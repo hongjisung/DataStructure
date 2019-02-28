@@ -175,4 +175,14 @@ describe('Priority Queue', () => {
       idx += 1;
     }
   });
+
+  it('copy() test', () => {
+    [1, 3, 5, 7, 9].map(n => priorityQueue.push(n));
+    const pq2 = priorityQueue.copy();
+    [11, 13, 15].map(n => pq2.push(n));
+    assert.strictEqual(pq2.size(), 8);
+    assert.strictEqual(priorityQueue.size(), 5);
+    assert.strictEqual(pq2.top(), 15);
+    assert.strictEqual(priorityQueue.top(), 9);
+  });
 });

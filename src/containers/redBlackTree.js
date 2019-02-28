@@ -63,12 +63,14 @@ class Tree:
 
     //
     toString
+    copy
 */
 
 
 /* eslint no-use-before-define: ["error", { "variables": false }] */
 
 const TreeNode = require('./node/TreeNode');
+const Queue = require('./queue');
 
 /**
  * @classdesc Denote end of tree iterator.<br>
@@ -983,6 +985,62 @@ Elements: `);
       return true;
     });
     return str;
+  }
+
+  /* eslint no-underscore-dangle: off */
+  /**
+   * return copy of this RedBlackTree.
+   * @returns {RedBlackTree}
+   */
+  copy() {
+    // exactly copy the structure
+    const rbtree = new RedBlackTree();
+    if (this.size() === 0) {
+      return rbtree;
+    }
+
+    rbtree._size = this._size;
+    rbtree._keyComp = this._keyComp;
+    rbtree._root = new TreeNode();
+
+    const q1 = new Queue();
+    const q2 = new Queue();
+    q1.push(this._root);
+    q2.push(rbtree._root);
+
+    while (!q1.empty()) {
+      const n1 = q1.front();
+      const n2 = q2.front();
+      q1.pop(); q2.pop();
+
+      n2.setKey(n1._key);
+      n2.setValue(n1._value);
+      n2.setColor(n1._color);
+
+      if (n1.getLeftChild() !== null) {
+        q1.push(n1._leftChild);
+
+        n2.setLeftChild(new TreeNode());
+        n2.getLeftChild().setParent(n2);
+        q2.push(n2._leftChild);
+      }
+
+      if (n1.getRightChild() !== null) {
+        q1.push(n1._rightChild);
+
+        n2.setRightChild(new TreeNode());
+        n2.getRightChild().setParent(n2);
+        q2.push(n2._rightChild);
+      }
+
+      n2._endnode = rbtree.end();
+      n2._rendnode = rbtree.rend();
+    }
+
+    rbtree.end();
+    rbtree.rend();
+
+    return rbtree;
   }
 
   // private methods

@@ -30,6 +30,7 @@ method:
 
   //
   toString
+  copy
 */
 
 const Queue = require('./queue');
@@ -196,6 +197,22 @@ Elements: `);
   Sequence[`).concat(i).concat(']: ').concat(this._elements[i].toString());
     }
     return str;
+  }
+
+  /* eslint no-underscore-dangle: off */
+  /**
+   * return a copy of this object.
+   * @returns {Deque}
+   */
+  copy() {
+    const output = new Deque();
+    output._elements = [];
+    this._elements.map(n => output._elements.push(n));
+    output._size = this._size;
+    output._maxSize = this._maxSize;
+    output._begin = this._begin;
+    output._end = this._end;
+    return output;
   }
 }
 

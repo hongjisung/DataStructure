@@ -41,6 +41,7 @@ method:
 
   // Operations
   disjointSet // find disjoint set
+  copy
 */
 
 const Queue = require('../../src/containers/queue');
@@ -635,6 +636,14 @@ class UndirectedGraph {
       }
     }
     return result;
+  }
+
+  /**
+   * return a copy of this object.
+   * @returns {UndirectedGraph}
+   */
+  copy() {
+    return new UndirectedGraph(null, null, this);
   }
 
   // private method

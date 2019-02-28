@@ -43,6 +43,7 @@ method:
 
   // Operations
   reverse // change the edge's directions
+  copy
 */
 const Queue = require('../../src/containers/queue');
 const Stack = require('../../src/containers/stack');
@@ -618,6 +619,14 @@ class DirectedGraph {
       });
     });
     this._graph = newgraph;
+  }
+
+  /**
+   * return a copy of this object
+   * @returns {DirectedGraph}
+   */
+  copy() {
+    return new DirectedGraph(null, null, this);
   }
 
   /**

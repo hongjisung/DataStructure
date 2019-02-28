@@ -162,6 +162,7 @@ npm run doc // open the ./doc/index.html
 | **equalRange** | | | | | | equalRange() | equalRange() | equalRange() | equalRange() |
 | **keyComp** | | | | | compareFunction() | keyComp() | keyComp() | keyComp() | keyComp() |
 | **toString** | toString() | toString() | toString() | toString() | toString() | toString() | toString() | toString() | toString() |
+| **copy** | copy() | copy() | copy() | copy() | copy() | copy() | copy() | copy() | copy() |
 
 ## **Node Member Function Table**
 | Method  | Node(list) | TreeNode |
@@ -206,7 +207,8 @@ npm run doc // open the ./doc/index.html
 | **isNegativeWeight** | isNegativeWeight() | isNegativeWeight() |
 | **isAllWeightEqual** | isAllWeightEqual() | isAllWeightEqual() |
 | **reverse** | reverse() | |
-| **disjointSet** | | disjointSet()*
+| **disjointSet** | | disjointSet()|
+| **copy** | copy() | copy() |
   
 
 ## **Data Structure Operation Time Complexity**

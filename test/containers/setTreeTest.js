@@ -146,4 +146,19 @@ describe('Set Tree', () => {
     node = setTree.upperBound(1);
     assert.strictEqual(node.getKey(), -3);
   });
+
+  it('copy() check', () => {
+    setTree.insert(1);
+    setTree.insert(2);
+    setTree.insert(3);
+    setTree.insert(4);
+
+    const tree2 = setTree.copy();
+
+    tree2.erase(2);
+    tree2.insert(5);
+    assert.strictEqual(tree2.contains(2), false);
+    assert.strictEqual(setTree.contains(2), true);
+    assert.strictEqual(setTree.contains(5), false);
+  });
 });

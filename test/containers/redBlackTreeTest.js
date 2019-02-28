@@ -362,6 +362,23 @@ describe('Red Black Tree', () => {
     assert.equal(cmpf1(0, 0), cmpf2(0, 0));
   });
 
+  it('copy() check', () => {
+    redBlackTree.insert(1, 'a');
+    redBlackTree.insert(2, 'b');
+    redBlackTree.insert(3, 'c');
+    redBlackTree.insert(4, 'd');
+
+    const tree2 = redBlackTree.copy();
+    tree2.find(3).setValue('ccc');
+    assert.strictEqual(tree2.find(3).getValue(), 'ccc');
+    assert.strictEqual(redBlackTree.find(3).getValue(), 'c');
+
+    tree2.erase(2);
+    tree2.insert(5, 'e');
+    assert.strictEqual(tree2.contains(2), false);
+    assert.strictEqual(redBlackTree.contains(2), true);
+    assert.strictEqual(redBlackTree.contains(5), false);
+  });
 
   // red black tree condition test
   it('Condition 1 check', () => {
@@ -510,8 +527,8 @@ describe('Red Black Tree', () => {
     }
   });
 
-  it('Insert time check 1000000', () => {
-    const limit = 1000000;
+  it('Insert time check 800000', () => {
+    const limit = 800000;
     for (let i = 0; i < limit; i += 1) {
       const data = Math.floor(Math.random() * limit);
       redBlackTree.insert(data, data);
