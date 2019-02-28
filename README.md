@@ -4,6 +4,9 @@ The interface of this library has been influenced by the c++ STL.
 This is distributed to npm as 'js_dsal'  
 This Library is used for https://hongjisung.github.io/JS_DataStructure_Visualization/
 
+User can make functional method to use it as functional by using copy method.  
+Just add 3 line function to prototype for make functional method.
+
 
 ### **Document Homeage** [Go Document](https://hongjisung.github.io/DataStructure/)
 ### **Homepage Address** [Go HomePage](https://hongjisung.github.io/JS_DataStructure_Visualization/)
@@ -11,6 +14,22 @@ This Library is used for https://hongjisung.github.io/JS_DataStructure_Visualiza
 ## **Visualization**
 Visualization is developed in other repository  
 [Visualization Repository](https://github.com/hongjisung/JS_DataStructure_Visualization)
+
+# **Usage**
+## **Containers**
+### [**Container Usage Examples**](https://github.com/hongjisung/DataStructure/tree/master/src/containers)
+
+## **Algorithms**
+### [**Algorithm Usage Examples**](https://github.com/hongjisung/DataStructure/tree/master/src/algorithms)
+
+## **Graph**
+### [**Graph Usage Examples**](https://github.com/hongjisung/DataStructure/tree/master/src/graph)  
+
+# **Functional Usage**
+## **Containers**
+### [**Add Functional Method to Containers**](https://github.com/hongjisung/DataStructure/tree/master/src/containers/FunctionalUsage.md)
+
+
 
 # **Install**
 **Install Library**
@@ -33,18 +52,6 @@ npm run test
 mkdir doc
 npm run doc // open the ./doc/index.html
 ```
-
-# **Usage**
-## **Containers**
-### [**Container Usage Examples**](https://github.com/hongjisung/DataStructure/tree/master/src/containers)
-
-## **Algorithms**
-### [**Algorithm Usage Examples**](https://github.com/hongjisung/DataStructure/tree/master/src/algorithms)
-
-## **Graph**
-### [**Graph Usage Examples**](https://github.com/hongjisung/DataStructure/tree/master/src/graph)  
-
-
 
 # **Containers**
 - ### **List**  
