@@ -1,6 +1,6 @@
 {
-  "name": "data-structure-user-add-functional",
-  "version": "1.0.0",
+  "name": "js_dsal",
+  "version": "1.0.6",
   "description": "javascript data structure that User make fuctional method",
   "author": {
     "name": "Jisung Hong",
@@ -33,7 +33,6 @@
     "mocha": "^5.2.0"
   },
   "keywords": [
-    "findNodes",
     "map",
     "mergeSort",
     "quickSort",
@@ -47,7 +46,8 @@
     "directed graph",
     "undirected graph",
     "visualization",
-    "red black tree",
+    "tree",
+    "red-black-tree",
     "functional"
   ]
 }
