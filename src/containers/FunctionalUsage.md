@@ -1,8 +1,11 @@
 # **Functional Usage By Using copy method**
 
 ## **List Example**
+Can not apply to List.insert, List.erase methods
+
 ``` javascript
 const List = require('./src/containers/list');
+
 
 // add functional method about List.pushBack method
 // 1. make function with same parameter
