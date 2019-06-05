@@ -4,11 +4,6 @@ The interface of this library has been influenced by the c++ STL.
 This is distributed to npm as 'js_dsal'  
 This Library is used for https://hongjisung.github.io/JS_DataStructure_Visualization/
 
-### **Make Functional Method**
-User can make functional method to use it as functional by using copy method.  
-Just add 3 line function to prototype for make functional method.  
-[**Add Functional Method to Containers**](https://github.com/hongjisung/DataStructure/tree/master/src/containers/FunctionalUsage.md)
-
 ### **Document Homeage** [Go Document](https://hongjisung.github.io/DataStructure/)
 ### **Homepage Address** [Go HomePage](https://hongjisung.github.io/JS_DataStructure_Visualization/)
 
@@ -24,12 +19,7 @@ Visualization is developed in other repository
 ### [**Algorithm Usage Examples**](https://github.com/hongjisung/DataStructure/tree/master/src/algorithms)
 
 ## **Graph**
-### [**Graph Usage Examples**](https://github.com/hongjisung/DataStructure/tree/master/src/graph)  
-
-# **Functional Usage**
-## **Containers**
-### [**Add Functional Method to Containers**](https://github.com/hongjisung/DataStructure/tree/master/src/containers/FunctionalUsage.md)
-
+### [**Graph Usage Examples**](https://github.com/hongjisung/DataStructure/tree/master/src/graph)
 
 
 # **Install**
